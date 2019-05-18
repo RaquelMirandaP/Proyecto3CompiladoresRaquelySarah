@@ -1,0 +1,39 @@
+#editor {
+    position: relative;
+    top: 0;
+    right: 0;
+    width: 800px;
+    height: 400px;
+    border: 2px solid black;
+    margin-left: auto;
+    margin-right: auto;
+
+}
+#ace_status{
+    position: relative;
+    top: 0;
+    right: 0;
+    width: 800px;
+    border: 2px solid black;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: azure;
+}
+#choosen_file{
+    display: inline-block;
+    width: 500px;
+}
+#parse_btn{
+    display: inline-block;
+    float: right;
+    background-color: #4CAF50;
+    width: 60px;
+    height: 30px;
+    border: none;
+    color: white;
+    margin-right: 5px;
+}
+#messages{
+    width:-webkit-fill-available;
+}
+

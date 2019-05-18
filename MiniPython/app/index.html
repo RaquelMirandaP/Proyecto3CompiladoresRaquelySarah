@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <LINK href="style.css" rel="stylesheet" type="text/css">
+  <title>Editor</title>
+    <!--<style type="text/css" media="screen">
+        #editor {
+            position: relative;
+            top: 0;
+            right: 0;
+            width: 800px;
+            height: 250px;
+            border: 2px solid black;
+        }
+    </style>-->
+
+</head>
+<body background="media/fondo.jpeg">
+
+<!-- Div content -->
+    <div id="editor">
+    lista = [3,4,6]
+    def foo(a):
+        num = 3
+        if (k < 1):
+            num = 1
+        else:
+            num = num * 2
+            num = 2
+            num = 3
+        while i < 2:
+            print("a")
+        while l > "a":
+            k = 2
+        for i in lista:
+            l = a +3
+
+    </div>
+    <div id="ace_status">
+        <div id="line_indicator"><!--style="display: inline-block;" -->
+            <label id="textPos"> 1:0 </label>
+        </div>
+        <div id="buttons">
+            <form id="choosen_file" name="myForm" method="post" action= enctype="multipart/form-data" action=onLoad()>
+                <input type="file" name="myInput" accept=".txt" id = "file" class="inputfile">
+                <label for="file">Choose a file</label>
+            </form>
+            <button id="parse_btn">Parse</button>
+        </div>
+        <br>
+        <hr>
+        <div >
+            <textarea id="messages"; rows="5" cols="100">...Parser Messages...</textarea>
+        </div>
+    </div>
+
+
+
+
+
+<script src="src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
+<script>
+    var editor = ace.edit("editor");
+    editor.setTheme("ace/theme/iplastic");
+    editor.session.setMode("ace/mode/c_cpp");
+
+    editor.getSession().selection.on('changeCursor', function(e) {
+        document.getElementById("textPos").innerText = editor.selection.getCursor().row+1 + ':' + editor.selection.getCursor().column;
+    });
+</script>
+
+<script src="lib/require.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.7.0/underscore-min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/typeahead.js/0.10.4/typeahead.bundle.min.js"></script>
+
+<script charset="utf-8">
+
+    var antlr4 = require('antlr4/index');
+    var Lgenerated = require('generated/miniPythonLexer');
+    var Pgenerated = require('generated/miniPythonParser');
+    var parserVisitor = require('generated/miniPythonParserVisitor');
+    var tree = null;
+
+    var Visitor = require('generated/MiVisitor');
+
+    var ErrorListener = function(errors) {
+        antlr4.error.ErrorListener.call(this);
+        this.errors = errors;
+        return this;
+    };
+
+    ErrorListener.prototype = Object.create(antlr4.error.ErrorListener.prototype);
+    ErrorListener.prototype.constructor = ErrorListener;
+    ErrorListener.prototype.syntaxError = function(rec, sym, line, col, msg, e) {
+        this.errors.push("Error: "+ msg + " en "+line+":"+col);
+    };
+
+    var errors = [];
+    var listaTokens = [];
+
+    //click del botón para hacer parser
+    document.getElementById("parse_btn").addEventListener("click", function() {
+        errors = [];
+        var input = editor.getValue();
+        var chars = new antlr4.InputStream(input);
+        var lexer = new Lgenerated.miniPythonLexer(chars);
+
+
+        var tokens = new antlr4.CommonTokenStream(lexer);
+        var parser = new Pgenerated.miniPythonParser(tokens);
+
+        var visitor = new Visitor();
+        var msg = document.getElementById("messages");
+
+
+
+        var listener = new ErrorListener(errors);
+
+        lexer.removeErrorListeners();
+        lexer.addErrorListener(listener);
+
+        parser.removeErrorListeners();
+        parser.addErrorListener(listener);
+
+        parser.buildParseTrees = true;
+        tree = parser.program();
+        var ListaErroresID = require('./classes/ListaErrores');
+        erroresList = new ListaErroresID();
+        document.getElementById("messages").value='';
+        if (errors.length != 0)
+        {
+            errors.forEach(function(element) {
+                document.getElementById("messages").value += (element + '\n');
+            });
+        }
+        else {
+            document.getElementById("messages").value = 'Sin errores de sintaxis\n\n';
+            visitor.visit(tree);
+            //listaErrores2 = visitor.listaErroresID;
+            console.log("Errores list",visitor.listaVisitor);
+            //console.log("Errores impresion",erroresList.imprimirErrores());
+            if(visitor.listaVisitor.length == 0){
+                document.getElementById("messages").value += 'Sin errores semánticos\n\n';
+            }
+            else{
+                visitor.listaVisitor.forEach(function (error) {
+                    document.getElementById("messages").value += (error + '\n');
+                });
+            }
+            //impresión del árbol
+        }
+    });
+
+
+
+</script>
+
+<script>
+    //Aqui va el codigo para copiar todo el txt en el editor de texto
+
+    var input = myForm.myInput;
+    console.log(input);
+    var reader = new FileReader;
+    console.log("Funciona por favor");
+    input.addEventListener('change', onChange);
+
+    function onChange(event) {
+        var file = event.target.files[0];
+
+        reader.readAsText(file);
+        console.log(file);
+        reader.onload = onLoad;
+
+    }
+    function onLoad(){
+        document.getElementById("messages").value='';
+        var result = reader.result; // Obtienes el texto
+
+        editor.setValue(result);
+        /*var lineas = result.split('\n');
+        for(var linea of lineas) {
+            editor.insert(linea);
+
+        }*/
+    }
+
+
+
+
+</script>
+
+</body>
+</html>
