@@ -6,7 +6,7 @@ options
     tokenVocab = miniPythonLexer;
 }
 
-program : NEWLINE* statement(statement)* EOF                                             #Program_AST;
+program : NEWLINE* statement(statement)* EOF                                            #Program_AST;
 statement : defStatement                                                                #statement_DefStatement_AST
             | ifStatement                                                               #statement_IfStatement_AST
             | returnStatement                                                           #statement_returnStatement_AST
@@ -33,13 +33,13 @@ expressionStatement : expressionList NEWLINE                                    
 sequence : NEWLINE INDENT moreStatements DEDENT                                                   #sequence_AST;
 moreStatements : statement(statement)*                                                  #moreStatements_AST;
 expression : additionExpression comparison                                              #expression_AST;
-comparison : ((MENOR|MAYOR|MENORIGUAL|MAYORIGUAL|COMP)additionExpression)*              #comparision_AST
+comparison : ((logicOperator)additionExpression)*                                       #comparision_AST
               |                                                                         #comparison_Epsylon_AST;
 additionExpression : multiplicationExpression additionFactor                            #additionExpression_AST;
-additionFactor : ((SUMA|RESTA) multiplicationExpression)*                               #additionFactor_multExpression_AST
+additionFactor : ((additionOperator) multiplicationExpression)*                               #additionFactor_multExpression_AST
                   |                                                                     #additionFactor_Epsylon_AST;
 multiplicationExpression : elementExpression multiplicationFactor                       #multiplicationExpression_AST;
-multiplicationFactor : (MUL|DIV) elementExpression*                                     #multiplicationFactor_ElementExpression_AST
+multiplicationFactor : (multOperator elementExpression)*                                     #multiplicationFactor_ElementExpression_AST
                        |                                                                #multiplicationFactor_Epsylon_AST;
 elementExpression : primitiveExpression elementAccess                                   #elementExpression_AST;
 elementAccess : (PCABRIR expression PCCERRAR)*                                          #elementAccess_Expression_AST
@@ -57,3 +57,7 @@ primitiveExpression :  INTEGER                                                  
                       | LEN PIZQ expression PDER                                        #primitiveExpression_len_Expression_AST
                       | functionCallExpression                                          #primitiveExpression_functionCallExpression_AST;
 listExpression : PCABRIR expressionList PCCERRAR                                        #listExpression_AST;
+multOperator:  MUL|DIV                                                                  #multOperator_AST;
+additionOperator: SUMA|RESTA                                                            #additionOperator_AST;
+logicOperator: MENOR|MAYOR|MENORIGUAL|MAYORIGUAL|COMP                                   #logicOperator_AST;
+
