@@ -152,7 +152,7 @@ VisitorInterprete.prototype.visitAssignStatement_AST = function(ctx) {
 
 
 // Visit a parse tree produced by miniPythonParser#functionCallStatement_AST.
-VisitorInterprete.prototype.visitFunctionCallStatement_AST = function(ctx) {                                                        //HERE
+VisitorInterprete.prototype.visitFunctionCallStatement_AST = function(ctx) {                                                        
     VisitorInterprete.prototype.visit(ctx.primitiveExpression());
     VisitorInterprete.prototype.visit(ctx.expressionList());
     
