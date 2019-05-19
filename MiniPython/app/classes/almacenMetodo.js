@@ -12,13 +12,44 @@ function almacenMetodo() {
 
 }
 
-//metodo insertar valiables a la lista
+//metodo insertar variables a la lista
 
 almacenMetodo.prototype.insertar = function(token, tipo, valor){
-    var i = new variable(token, tipo, this.nivelActual, valor);  
-    this.variables.push(i)
-
+    c
+    if ( temp == null) {
+        var i = new variable(token, tipo, this.nivelActual, valor);  
+        this.variables.push(i);
+        
+    }else{   
+        temp.valor = valor;
+        temp.type = tipo;
+    }
+    
 };
+
+almacenMetodo.prototype.buscarVar = function(nombre){
+    temp = null;
+    for(i = this.variables.length-1; i >=0;i--){
+        if(this.variables[i].token.text === nombre){
+            temp = this.variables[i]
+        }
+    }
+    return temp
+};
+
+almacenMetodo.prototype.buscarPorNivel = function(nombre){
+    temp = null;
+    for(i = this.variables.length-1; i >=0;i--){
+        if(this.variables[i].nivel === this.nivelActual){
+            if(this.variables[i].token.text === nombre){
+                temp = this.variables[i]
+            }
+        }
+    }
+    return temp
+};
+
+//alcance para las variables locales
 
 almacenMetodo.prototype.openScope =  function(){
     this.nivelActual ++;

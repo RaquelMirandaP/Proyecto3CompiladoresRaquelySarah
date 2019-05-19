@@ -16,11 +16,18 @@ Stack.prototype.insertar = function(){
 
 };
 
-//buscar
+//buscar metodos en la pila
 
-//sacar del almacen
+/*Stack.prototype.buscar() = function(){
 
-//consultar al almacen
+    
+}*/
+
+//sacar del almacen, Retorna el último valor ingresado a la pila, sacándolo de ésta.
+Stack.prototype.eliminar() = function(){
+    return this.stack.pop();              
+}
+
 
 
 module.exports = Stack;
