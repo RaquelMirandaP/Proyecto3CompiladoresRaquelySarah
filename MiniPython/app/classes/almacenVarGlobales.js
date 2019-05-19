@@ -1,0 +1,1 @@
+//aqui se almacenan las variables globales y de nivel uno para los if, while, for
