@@ -4,26 +4,7 @@
     <bookmark url="file://$PROJECT_DIR$/MiniPython/miniPythonLexer.g4" line="106" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ed18400d-2e41-4124-b5be-cc3d1bd1854e" name="Default Changelist" comment="Default Changelist">
-      <change beforePath="" afterPath="$PROJECT_DIR$/MiniPython/app/classes/MiTabla.js" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/MiniPython/app/style.css" />
-      <change beforePath="$PROJECT_DIR$/MiniPython/app/PrettyPrint.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/MiniPython/app/antlr4/CharStreams.js" afterPath="$PROJECT_DIR$/MiniPython/app/antlr4/CharStreams.js" />
-      <change beforePath="$PROJECT_DIR$/MiniPython/app/antlr4/InputStream.js" afterPath="$PROJECT_DIR$/MiniPython/app/antlr4/InputStream.js" />
-      <change beforePath="$PROJECT_DIR$/MiniPython/app/antlr4/Recognizer.js" afterPath="$PROJECT_DIR$/MiniPython/app/antlr4/Recognizer.js" />
-      <change beforePath="$PROJECT_DIR$/MiniPython/app/antlr4/Utils.js" afterPath="$PROJECT_DIR$/MiniPython/app/antlr4/Utils.js" />
-      <change beforePath="$PROJECT_DIR$/MiniPython/app/antlr4/atn/ATNDeserializer.js" afterPath="$PROJECT_DIR$/MiniPython/app/antlr4/atn/ATNDeserializer.js" />
-      <change beforePath="$PROJECT_DIR$/MiniPython/app/antlr4/atn/ParserATNSimulator.js" afterPath="$PROJECT_DIR$/MiniPython/app/antlr4/atn/ParserATNSimulator.js" />
-      <change beforePath="$PROJECT_DIR$/MiniPython/app/antlr4/error/ErrorStrategy.js" afterPath="$PROJECT_DIR$/MiniPython/app/antlr4/error/ErrorStrategy.js" />
-      <change beforePath="$PROJECT_DIR$/MiniPython/app/antlr4/package.json" afterPath="$PROJECT_DIR$/MiniPython/app/antlr4/package.json" />
-      <change beforePath="$PROJECT_DIR$/MiniPython/app/antlr4/tree/Tree.js" afterPath="$PROJECT_DIR$/MiniPython/app/antlr4/tree/Tree.js" />
-      <change beforePath="$PROJECT_DIR$/MiniPython/app/generated/GPLexer.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/MiniPython/app/generated/GPLexer.tokens" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/MiniPython/app/generated/GPParser.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/MiniPython/app/generated/GPParser.tokens" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/MiniPython/app/generated/GPParserVisitor.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/MiniPython/app/index.html" afterPath="$PROJECT_DIR$/MiniPython/app/index.html" />
-    </list>
+    <list default="true" id="ed18400d-2e41-4124-b5be-cc3d1bd1854e" name="Default Changelist" comment="Default Changelist" />
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
     <ignored path="$PROJECT_DIR$/tmp/" />
@@ -39,68 +20,50 @@
       <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/MiniPython/app/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="294">
-              <caret line="137" column="9" lean-forward="true" selection-start-line="137" selection-start-column="9" selection-end-line="137" selection-end-column="9" />
+            <state relative-caret-position="384">
+              <caret line="118" column="0" lean-forward="true" selection-start-line="118" selection-start-column="0" selection-end-line="119" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MiVisitor.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="MiVisitor.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/MiniPython/app/generated/MiVisitor.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="353">
-              <caret line="114" column="16" lean-forward="true" selection-start-line="114" selection-start-column="16" selection-end-line="114" selection-end-column="16" />
+            <state relative-caret-position="290">
+              <caret line="22" column="41" lean-forward="true" selection-start-line="22" selection-start-column="41" selection-end-line="22" selection-end-column="41" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ListaErrores.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/MiniPython/app/classes/ListaErrores.js">
+      <file leaf-file-name="VisitorInterprete.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/MiniPython/app/generated/VisitorInterprete.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="462">
-              <caret line="22" column="21" lean-forward="false" selection-start-line="22" selection-start-column="21" selection-end-line="22" selection-end-column="21" />
+            <state relative-caret-position="720">
+              <caret line="296" column="21" lean-forward="true" selection-start-line="296" selection-start-column="21" selection-end-line="296" selection-end-column="21" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MiTabla.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/MiniPython/app/classes/MiTabla.js">
+      <file leaf-file-name="miniPythonParserVisitor.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/MiniPython/app/generated/miniPythonParserVisitor.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="651">
-              <caret line="31" column="40" lean-forward="false" selection-start-line="31" selection-start-column="40" selection-end-line="31" selection-end-column="40" />
-              <folding />
+            <state relative-caret-position="-4641">
+              <caret line="7" column="44" lean-forward="false" selection-start-line="7" selection-start-column="44" selection-end-line="7" selection-end-column="44" />
+              <folding>
+                <element signature="n#!!doc" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MiTablaMetodos.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/MiniPython/app/classes/MiTablaMetodos.js">
+      <file leaf-file-name="miniPythonParser.g4" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/MiniPython/miniPythonParser.g4">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="693">
-              <caret line="33" column="2" lean-forward="false" selection-start-line="33" selection-start-column="2" selection-end-line="33" selection-end-column="2" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Metodo.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/MiniPython/app/classes/Metodo.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="147">
-              <caret line="7" column="24" lean-forward="false" selection-start-line="7" selection-start-column="24" selection-end-line="7" selection-end-column="24" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Identificador.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/MiniPython/app/classes/Identificador.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="168">
-              <caret line="8" column="6" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="6" />
+            <state relative-caret-position="294">
+              <caret line="14" column="53" lean-forward="false" selection-start-line="14" selection-start-column="53" selection-end-line="14" selection-end-column="53" />
               <folding />
             </state>
           </provider>
@@ -117,9 +80,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>imprimir</find>
-      <find>for</find>
-      <find>consol</find>
       <find>insertar</find>
       <find>error</find>
       <find>ID</find>
@@ -147,10 +107,13 @@
       <find>callSt</find>
       <find>comeFromA</find>
       <find>argLi</find>
+      <find>Mi</find>
+      <find>MiV</find>
+      <find>console</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/MiniPython/app" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
@@ -163,10 +126,11 @@
         <option value="$PROJECT_DIR$/MiniPython/app/classes/MiTabla.js" />
         <option value="$PROJECT_DIR$/MiniPython/app/classes/listaErrores.js" />
         <option value="$PROJECT_DIR$/MiniPython/app/classes/ListaErrores.js" />
-        <option value="$PROJECT_DIR$/MiniPython/app/index.html" />
         <option value="$PROJECT_DIR$/MiniPython/app/classes/MiTablaMetodos.js" />
         <option value="$PROJECT_DIR$/MiniPython/app/classes/Metodo.js" />
         <option value="$PROJECT_DIR$/MiniPython/miniPythonLexer.g4" />
+        <option value="$PROJECT_DIR$/MiniPython/app/index.html" />
+        <option value="$PROJECT_DIR$/MiniPython/app/generated/VisitorInterprete.js" />
         <option value="$PROJECT_DIR$/MiniPython/app/generated/MiVisitor.js" />
       </list>
     </option>
@@ -178,8 +142,7 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-9" />
-    <option name="y" value="-9" />
+    <option name="x" value="-8" />
     <option name="width" value="976" />
     <option name="height" value="1038" />
   </component>
@@ -199,34 +162,36 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scratches" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
             <path>
-              <item name="Proyecto1CompiladoresRaquelySarah" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Proyecto1CompiladoresRaquelySarah" type="462c0819:PsiDirectoryNode" />
+              <item name="Proyecto3CompiladoresRaquelySarah" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Proyecto3CompiladoresRaquelySarah" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="Proyecto1CompiladoresRaquelySarah" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Proyecto1CompiladoresRaquelySarah" type="462c0819:PsiDirectoryNode" />
+              <item name="Proyecto3CompiladoresRaquelySarah" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Proyecto3CompiladoresRaquelySarah" type="462c0819:PsiDirectoryNode" />
               <item name="MiniPython" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="Proyecto1CompiladoresRaquelySarah" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Proyecto1CompiladoresRaquelySarah" type="462c0819:PsiDirectoryNode" />
+              <item name="Proyecto3CompiladoresRaquelySarah" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Proyecto3CompiladoresRaquelySarah" type="462c0819:PsiDirectoryNode" />
               <item name="MiniPython" type="462c0819:PsiDirectoryNode" />
               <item name="app" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="Proyecto1CompiladoresRaquelySarah" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Proyecto1CompiladoresRaquelySarah" type="462c0819:PsiDirectoryNode" />
+              <item name="Proyecto3CompiladoresRaquelySarah" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Proyecto3CompiladoresRaquelySarah" type="462c0819:PsiDirectoryNode" />
               <item name="MiniPython" type="462c0819:PsiDirectoryNode" />
               <item name="app" type="462c0819:PsiDirectoryNode" />
               <item name="classes" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="Proyecto1CompiladoresRaquelySarah" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Proyecto1CompiladoresRaquelySarah" type="462c0819:PsiDirectoryNode" />
+              <item name="Proyecto3CompiladoresRaquelySarah" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Proyecto3CompiladoresRaquelySarah" type="462c0819:PsiDirectoryNode" />
               <item name="MiniPython" type="462c0819:PsiDirectoryNode" />
               <item name="app" type="462c0819:PsiDirectoryNode" />
               <item name="generated" type="462c0819:PsiDirectoryNode" />
@@ -235,13 +200,11 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scratches" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/MiniPython/app" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
@@ -253,7 +216,7 @@
     <property name="$PROJECT_DIR$/MiniPython/miniPythonLexer.g4::/gen-listener" value="true" />
     <property name="$PROJECT_DIR$/MiniPython/miniPythonLexer.g4::/gen-visitor" value="true" />
     <property name="$PROJECT_DIR$/MiniPython/miniPythonParser.g4::/auto-gen" value="false" />
-    <property name="$PROJECT_DIR$/MiniPython/miniPythonParser.g4::/output-dir" value="C:\Users\Sarah\Documents\Proyecto-Mini-Python\Proyecto1CompiladoresRaquelySarah\MiniPython\app" />
+    <property name="$PROJECT_DIR$/MiniPython/miniPythonParser.g4::/output-dir" value="C:\Users\Sarah\Documents\Proyecto3CompiladoresRaquelySarah\MiniPython\app" />
     <property name="$PROJECT_DIR$/MiniPython/miniPythonParser.g4::/package" value="generated" />
     <property name="$PROJECT_DIR$/MiniPython/miniPythonParser.g4::/language" value="JavaScript" />
     <property name="$PROJECT_DIR$/MiniPython/miniPythonParser.g4::/gen-listener" value="true" />
@@ -305,14 +268,17 @@
       <workItem from="1556116889868" duration="7772000" />
       <workItem from="1556134278842" duration="9508000" />
       <workItem from="1556330734896" duration="1008000" />
+      <workItem from="1558273778120" duration="4374000" />
+      <workItem from="1558296747663" duration="3091000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="101763000" />
+    <option name="totallyTimeSpent" value="109228000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-9" y="-9" width="1938" height="1048" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Tool Output" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -321,7 +287,7 @@
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22369117" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15282919" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="SOQL Query" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="ANTLR Preview" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -377,19 +343,10 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/MiniPython/app/classes/MiTabla.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="651">
-          <caret line="31" column="40" lean-forward="true" selection-start-line="31" selection-start-column="40" selection-end-line="31" selection-end-column="40" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/MiniPython/app/classes/MiTablaMetodos.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="693">
           <caret line="33" column="2" lean-forward="true" selection-start-line="33" selection-start-column="2" selection-end-line="33" selection-end-column="2" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -397,7 +354,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="147">
           <caret line="7" column="24" lean-forward="true" selection-start-line="7" selection-start-column="24" selection-end-line="7" selection-end-column="24" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -405,7 +361,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="168">
           <caret line="8" column="6" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="6" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -444,7 +399,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="462">
           <caret line="22" column="21" lean-forward="false" selection-start-line="22" selection-start-column="21" selection-end-line="22" selection-end-column="21" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -452,7 +406,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1344">
           <caret line="64" column="31" lean-forward="false" selection-start-line="64" selection-start-column="31" selection-end-line="64" selection-end-column="31" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -460,7 +413,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="168">
           <caret line="8" column="33" lean-forward="false" selection-start-line="8" selection-start-column="33" selection-end-line="8" selection-end-column="33" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -468,7 +420,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="168">
           <caret line="8" column="6" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="6" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -484,7 +435,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="336">
           <caret line="16" column="2" lean-forward="false" selection-start-line="16" selection-start-column="2" selection-end-line="16" selection-end-column="2" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -492,7 +442,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="231">
           <caret line="11" column="20" lean-forward="true" selection-start-line="11" selection-start-column="20" selection-end-line="11" selection-end-column="20" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -500,7 +449,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="168">
           <caret line="8" column="33" lean-forward="false" selection-start-line="8" selection-start-column="33" selection-end-line="8" selection-end-column="33" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -508,7 +456,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="8" selection-end-column="31" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -532,7 +479,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="357">
           <caret line="17" column="35" lean-forward="false" selection-start-line="17" selection-start-column="35" selection-end-line="17" selection-end-column="35" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -556,7 +502,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="5796">
           <caret line="276" column="0" lean-forward="false" selection-start-line="276" selection-start-column="0" selection-end-line="276" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -564,7 +509,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="399">
           <caret line="19" column="19" lean-forward="true" selection-start-line="19" selection-start-column="19" selection-end-line="19" selection-end-column="19" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -580,7 +524,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="168">
           <caret line="8" column="33" lean-forward="false" selection-start-line="8" selection-start-column="33" selection-end-line="8" selection-end-column="33" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -588,7 +531,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="63">
           <caret line="3" column="23" lean-forward="false" selection-start-line="3" selection-start-column="23" selection-end-line="3" selection-end-column="23" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -611,7 +553,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="4305">
           <caret line="205" column="0" lean-forward="false" selection-start-line="205" selection-start-column="0" selection-end-line="205" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -619,7 +560,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="59" selection-end-column="1" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -650,7 +590,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="4305">
           <caret line="205" column="0" lean-forward="false" selection-start-line="205" selection-start-column="0" selection-end-line="205" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -665,7 +604,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="59" selection-end-column="1" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -695,15 +633,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="18669">
           <caret line="890" column="36" lean-forward="false" selection-start-line="890" selection-start-column="34" selection-end-line="890" selection-end-column="36" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/MiniPython/app/generated/miniPythonParserVisitor.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="7" column="44" lean-forward="true" selection-start-line="7" selection-start-column="44" selection-end-line="7" selection-end-column="44" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -711,7 +640,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="168">
           <caret line="8" column="6" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="6" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -719,7 +647,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="651">
           <caret line="31" column="40" lean-forward="false" selection-start-line="31" selection-start-column="40" selection-end-line="31" selection-end-column="40" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -727,7 +654,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="693">
           <caret line="33" column="2" lean-forward="false" selection-start-line="33" selection-start-column="2" selection-end-line="33" selection-end-column="2" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -735,14 +661,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="147">
           <caret line="7" column="24" lean-forward="false" selection-start-line="7" selection-start-column="24" selection-end-line="7" selection-end-column="24" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/MiniPython/miniPythonParser.g4">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="328">
-          <caret line="53" column="26" lean-forward="false" selection-start-line="53" selection-start-column="24" selection-end-line="53" selection-end-column="26" />
         </state>
       </provider>
     </entry>
@@ -760,22 +678,47 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="462">
           <caret line="22" column="21" lean-forward="false" selection-start-line="22" selection-start-column="21" selection-end-line="22" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/MiniPython/miniPythonParser.g4">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="294">
+          <caret line="14" column="53" lean-forward="false" selection-start-line="14" selection-start-column="53" selection-end-line="14" selection-end-column="53" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/MiniPython/app/generated/miniPythonParserVisitor.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-4641">
+          <caret line="7" column="44" lean-forward="false" selection-start-line="7" selection-start-column="44" selection-end-line="7" selection-end-column="44" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/MiniPython/app/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="294">
-          <caret line="137" column="9" lean-forward="true" selection-start-line="137" selection-start-column="9" selection-end-line="137" selection-end-column="9" />
+        <state relative-caret-position="384">
+          <caret line="118" column="0" lean-forward="true" selection-start-line="118" selection-start-column="0" selection-end-line="119" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/MiniPython/app/generated/MiVisitor.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="353">
-          <caret line="114" column="16" lean-forward="true" selection-start-line="114" selection-start-column="16" selection-end-line="114" selection-end-column="16" />
+        <state relative-caret-position="290">
+          <caret line="22" column="41" lean-forward="true" selection-start-line="22" selection-start-column="41" selection-end-line="22" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/MiniPython/app/generated/VisitorInterprete.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="720">
+          <caret line="296" column="21" lean-forward="true" selection-start-line="296" selection-start-column="21" selection-end-line="296" selection-end-column="21" />
           <folding />
         </state>
       </provider>

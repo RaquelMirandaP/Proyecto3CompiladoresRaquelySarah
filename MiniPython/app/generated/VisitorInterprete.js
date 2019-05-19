@@ -60,7 +60,8 @@ VisitorInterprete.prototype.visitStatement_forStatement_AST = function(ctx) {
 
 // Visit a parse tree produced by miniPythonParser#statement_asignStatemen_AST.
 VisitorInterprete.prototype.visitStatement_asignStatemen_AST = function(ctx) {
-    return this.visitChildren(ctx);
+    VisitorInterprete.prototype.visit(ctx.assignStatement());
+    return null;
 };
 
 
@@ -88,9 +89,6 @@ VisitorInterprete.prototype.visitDefStatement_AST = function(ctx) {
 
 // Visit a parse tree produced by miniPythonParser#argList_AST.
 VisitorInterprete.prototype.visitArgList_AST = function(ctx) {
-   
-   
-    
     return null;
 };
 
@@ -184,25 +182,32 @@ VisitorInterprete.prototype.visitMoreStatements_AST = function(ctx) {
 };
 
 // Visit a parse tree produced by miniPythonParser#expression_AST.
-VisitorInterprete.prototype.visitExpression_AST = function(ctx) {                                                  
-    VisitorInterprete.prototype.visit(ctx.additionExpression());
-    VisitorInterprete.prototype.visit(ctx.comparison());
-    
-    return null;
+VisitorInterprete.prototype.visitExpression_AST = function(ctx) {
+    let exp = VisitorInterprete.prototype.visit(ctx.additionExpression());
+    console.log("Expresión cuarta devolución ", exp);
+    secondExp = VisitorInterprete.prototype.visit(ctx.comparison());
+    console.log("Second expression en expression  ", secondExp);
+    if(secondExp.length !== 0) {
+        secondExp.unshift(exp);
+        console.log("Expresión cuarta devolución dentro del if ", secondExp);
+        return secondExp;
+    }
+    return exp;
    
 };
 
 
 // Visit a parse tree produced by miniPythonParser#comparision_AST.
 VisitorInterprete.prototype.visitComparision_AST = function(ctx) {
-
+    let lista = [];
     for(var i = 0; i < ctx.additionExpression().length; i++){
-        VisitorInterprete.prototype.visit(ctx.logicOperator(i));
-        VisitorInterprete.prototype.visit(ctx.additionExpression(i)); 
-      
+        let operador = VisitorInterprete.prototype.visit(ctx.logicOperator(i));
+        lista.push(operador);
+        var exp2 = VisitorInterprete.prototype.visit(ctx.additionExpression(i)); //En esta parte también hay dudas
+        lista.push(exp2);
     }
- 
-    return null;
+    console.log("Adentro del operator ", lista);
+    return lista;
 };
 
 
@@ -214,24 +219,34 @@ VisitorInterprete.prototype.visitComparison_Epsylon_AST = function(ctx) {
 
 // Visit a parse tree produced by miniPythonParser#additionExpression_AST.
 VisitorInterprete.prototype.visitAdditionExpression_AST = function(ctx) {
-    
-    VisitorInterprete.prototype.visit(ctx.multiplicationExpression());
-    VisitorInterprete.prototype.visit(ctx.additionFactor());
-   
-    return null;
+    let exp = VisitorInterprete.prototype.visit(ctx.multiplicationExpression());
+    if(exp != null){
+        //console.log("visitAdditionExpression_AST el número en la tercera llamada"+ exp.text);
+    }
+    let expressionList = VisitorInterprete.prototype.visit(ctx.additionFactor());
+    while (expressionList.length !== 0){
+        let i = 0;
+        exp = VisitorInterprete.prototype.operarNumeros(exp,expressionList[i],expressionList[i+1]);
+        expressionList.splice(0,1);
+        expressionList.splice(0,1);
+    }
+    console.log("Expression tercera devolución ", exp);
+    return exp;
 };
 
 
 // Visit a parse tree produced by miniPythonParser#additionFactor_multExpression_AST.
 VisitorInterprete.prototype.visitAdditionFactor_multExpression_AST = function(ctx) {
-    
+    let expression;
+    let operator;
+    let listaAddition = [];
     for(var i = 0; i < ctx.multiplicationExpression().length; i++){
-        VisitorInterprete.prototype.visit(ctx.additionOperator(i));
-        VisitorInterprete.prototype.visit(ctx.multiplicationExpression(i));
-      
+        operator = VisitorInterprete.prototype.visit(ctx.additionOperator(i));
+        expression = VisitorInterprete.prototype.visit(ctx.multiplicationExpression(i));
+        listaAddition.push(operator);
+        listaAddition.push(expression);
     }
-    
-    return null;
+    return listaAddition;
 };
 
 
@@ -243,26 +258,83 @@ VisitorInterprete.prototype.visitAdditionFactor_Epsylon_AST = function(ctx) {
 
 // Visit a parse tree produced by miniPythonParser#multiplicationExpression_AST.
 VisitorInterprete.prototype.visitMultiplicationExpression_AST = function(ctx) {
-    
-    VisitorInterprete.prototype.visit(ctx.elementExpression());
-    VisitorInterprete.prototype.visit(ctx.multiplicationFactor());
-    
-
-    return  null ;
-
+    let exp =VisitorInterprete.prototype.visit(ctx.elementExpression());
+    if(exp != null){
+        //console.log("visitMultiplicationExpression_AST el número en la segunda llamada"+ exp.text);
+    }
+    let expressionList = VisitorInterprete.prototype.visit(ctx.multiplicationFactor());
+    console.log("Exp list ",expressionList);
+    while (expressionList.length !== 0){
+        let i = 0;
+        exp = VisitorInterprete.prototype.operarNumeros(exp,expressionList[i],expressionList[i+1]);
+        console.log("Se supone que operó ", exp);
+        expressionList.splice(0,1);
+        expressionList.splice(0,1);
+    }
+    console.log("Expression segunda devolución ", exp);
+    //expressionList.unshift(exp);
+    return  exp;
 };
 
 
 // Visit a parse tree produced by miniPythonParser#multiplicationFactor_ElementExpression_AST.
 VisitorInterprete.prototype.visitMultiplicationFactor_ElementExpression_AST = function(ctx) {
-   
+    let expression;
+    let operator;
+    let listaMult = [];
+    //console.log("Context mult factor", ctx);
     for(var i = 0; i < ctx.elementExpression().length; i++){
-        VisitorInterprete.prototype.visit(ctx.elementExpression(i));
-        VisitorInterprete.prototype.visit(ctx.multOperator(i));
+        expression = VisitorInterprete.prototype.visit(ctx.elementExpression(i));
+        operator = VisitorInterprete.prototype.visit(ctx.multOperator(i));
+        listaMult.push(operator);
+        listaMult.push(expression);
     }
-    return null;
+    return listaMult;
 };
-
+VisitorInterprete.prototype.operarNumeros = function (par1, oper, par2){
+    if(typeof par1 === 'number' && par2 === 'number'){
+        switch (oper){
+            case "+":
+                return par1 + par2;
+            case "-":
+                return par1 - par2;
+            case "*":
+                return par1 * par2;
+            case "/":
+                let result = par1 / par2;
+                return result;
+        }
+    }
+    if(typeof par1 === 'string' && par2 === 'string') {
+        switch (oper) {
+            case "+":
+                let res1 = par1.substring(0, par1.length - 1);
+                let res2 = par2.substring(1);
+                return res1.concat(res2);
+            case "-":
+                return null;
+            case "*":
+                return null;
+            case "/":
+                return null;
+        }
+    }
+    if(typeof par1 === 'object') {
+        if(typeof par2 === 'object'){
+            switch (oper) {
+                case "+":
+                    console.log("LISTAS PEGADAS", par1.concat(par2));
+                    return par1.concat(par2);
+                case "-":
+                    return null;
+                case "*":
+                    return null;
+                case "/":
+                    return null;
+            }
+        }
+    }
+};
 
 
 // Visit a parse tree produced by miniPythonParser#multiplicationFactor_Epsylon_AST.
@@ -274,10 +346,13 @@ VisitorInterprete.prototype.visitMultiplicationFactor_Epsylon_AST = function(ctx
 
 // Visit a parse tree produced by miniPythonParser#elementExpression_AST.
 VisitorInterprete.prototype.visitElementExpression_AST = function(ctx) {
-    VisitorInterprete.prototype.visit(ctx.primitiveExpression());
-   
+    let exp = VisitorInterprete.prototype.visit(ctx.primitiveExpression());
+    if(exp != null){
+        //console.log("visitElementExpression_AST el número"+ exp.text);
+    }
+    console.log("Expression primera devolución ", exp);
     VisitorInterprete.prototype.visit(ctx.elementAccess());
-    return null;
+    return exp;
 };
 
 
@@ -305,13 +380,14 @@ VisitorInterprete.prototype.visitFunctionCallExpression_AST = function(ctx) {
 
 // Visit a parse tree produced by miniPythonParser#expressionList_AST.
 VisitorInterprete.prototype.visitExpressionList_AST = function(ctx) {
-
-    VisitorInterprete.prototype.visit(ctx.expression());
-
-    VisitorInterprete.prototype.visit(ctx.moreExpressions());
-   
-   
-    return null;
+    let exp = VisitorInterprete.prototype.visit(ctx.expression());
+    //var params = VisitorInterprete.prototype.visit(ctx.moreExpressions());
+    let moreExpressions = VisitorInterprete.prototype.visit(ctx.moreExpressions());
+    console.log("more params ", moreExpressions);
+    moreExpressions.unshift(exp);
+    console.log("EXPRESION LIST ", moreExpressions);
+    //return params;
+    return moreExpressions;
 };
 
 
@@ -323,13 +399,14 @@ VisitorInterprete.prototype.visitExpressionList_Epsylon_AST = function(ctx) {
 
 // Visit a parse tree produced by miniPythonParser#moreExpressions_Expression_AST.
 VisitorInterprete.prototype.visitMoreExpressions_Expression_AST = function(ctx) {
-
+    let moreExp = [];
+    let expression;
     for(i = 0; i < ctx.expression().length; i++){
-        VisitorInterprete.prototype.visit(ctx.expression(i));
-       
+        expression = VisitorInterprete.prototype.visit(ctx.expression(i));
+        moreExp.push(expression);
     }
-   
-    return null;
+    console.log("More expressions ", moreExp);
+    return moreExp;
 };
 
 
@@ -341,44 +418,47 @@ VisitorInterprete.prototype.visitMoreExpressions_Epsylon_AST = function(ctx) {
 
 // Visit a parse tree produced by miniPythonParser#primitiveExpression_Integer_AST.
 VisitorInterprete.prototype.visitPrimitiveExpression_Integer_AST = function(ctx) {
-    parseInt(ctx.INTEGER().getText(),10);
-    
-    return null;
+    return parseInt(ctx.INTEGER().getText(),10);
 };
 
 
 // Visit a parse tree produced by miniPythonParser#primitiveExpression_String_AST.
 VisitorInterprete.prototype.visitPrimitiveExpression_String_AST = function(ctx) {
-    ctx.STRING().getSymbol();
-    
-    return null;
+    return ctx.STRING().getText();
 };
-
 
 // Visit a parse tree produced by miniPythonParser#primitiveExpression_ID_AST.
 VisitorInterprete.prototype.visitPrimitiveExpression_ID_AST = function(ctx) {
-    ctx.ID().getSymbol();                                                                                 //HERE
-    
-    return null;
+    let metodo = ctx.ID().getSymbol();                                                                                 //HERE
+    return metodo;
 };
 
 
 // Visit a parse tree produced by miniPythonParser#primitiveExpression_Expression_AST.
 VisitorInterprete.prototype.visitPrimitiveExpression_Expression_AST = function(ctx) {
-    VisitorInterprete.prototype.visit(ctx.expression());
-
-    return null;
+    return VisitorInterprete.prototype.visit(ctx.expression());
 };
 
 
 // Visit a parse tree produced by miniPythonParser#primitiveExpression_listExpression_AST.
 VisitorInterprete.prototype.visitPrimitiveExpression_listExpression_AST = function(ctx) {
-    VisitorInterprete.prototype.visit(ctx.listExpression());
-    return null;
+    let primitiveList = VisitorInterprete.prototype.visit(ctx.listExpression());
+    console.log("List expression primitive", primitiveList);
+    return primitiveList;
 };
 
 VisitorInterprete.prototype.visitPrimitiveExpression_len_Expression_AST = function(ctx) {
-    VisitorInterprete.prototype.visit(ctx.expression());
+    let dataForLen = VisitorInterprete.prototype.visit(ctx.expression());
+    let len;
+    if(typeof dataForLen === 'object' || typeof dataForLen === 'string'){
+        console.log("DAtaaaa", dataForLen);
+        len = dataForLen.length;
+    }
+    else {
+        return null;
+    }
+    console.log("Leeeeen ", len);
+    return len;
 };
 
 // Visit a parse tree produced by miniPythonParser#primitiveExpression_functionCallExpression_AST.
@@ -390,8 +470,9 @@ VisitorInterprete.prototype.visitPrimitiveExpression_functionCallExpression_AST 
 
 // Visit a parse tree produced by miniPythonParser#listExpression_AST.
 VisitorInterprete.prototype.visitListExpression_AST = function(ctx) {
-    VisitorInterprete.prototype.visit(ctx.expressionList());
-    return null;
+    let listExp = VisitorInterprete.prototype.visit(ctx.expressionList());
+    console.log("List expression ", listExp);
+    return listExp;
 };
 
 VisitorInterprete.prototype.visitMultOperator = function(ctx) {
