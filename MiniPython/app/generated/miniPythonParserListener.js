@@ -1,4 +1,4 @@
-// Generated from C:/Users/Sarah/Documents/Proyecto-Mini-Python/Proyecto1CompiladoresRaquelySarah/MiniPython\miniPythonParser.g4 by ANTLR 4.7.2
+// Generated from C:/Users/Sarah/Documents/Proyecto3CompiladoresRaquelySarah/MiniPython\miniPythonParser.g4 by ANTLR 4.7.2
 // jshint ignore: start
 var antlr4 = require('antlr4/index');
 
@@ -449,6 +449,33 @@ miniPythonParserListener.prototype.enterListExpression_AST = function(ctx) {
 
 // Exit a parse tree produced by miniPythonParser#listExpression_AST.
 miniPythonParserListener.prototype.exitListExpression_AST = function(ctx) {
+};
+
+
+// Enter a parse tree produced by miniPythonParser#multOperator.
+miniPythonParserListener.prototype.enterMultOperator = function(ctx) {
+};
+
+// Exit a parse tree produced by miniPythonParser#multOperator.
+miniPythonParserListener.prototype.exitMultOperator = function(ctx) {
+};
+
+
+// Enter a parse tree produced by miniPythonParser#additionOperator.
+miniPythonParserListener.prototype.enterAdditionOperator = function(ctx) {
+};
+
+// Exit a parse tree produced by miniPythonParser#additionOperator.
+miniPythonParserListener.prototype.exitAdditionOperator = function(ctx) {
+};
+
+
+// Enter a parse tree produced by miniPythonParser#logicOperator.
+miniPythonParserListener.prototype.enterLogicOperator = function(ctx) {
+};
+
+// Exit a parse tree produced by miniPythonParser#logicOperator.
+miniPythonParserListener.prototype.exitLogicOperator = function(ctx) {
 };
 
 

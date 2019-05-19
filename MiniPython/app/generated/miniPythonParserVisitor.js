@@ -1,4 +1,4 @@
-// Generated from C:/Users/Sarah/Documents/Proyecto-Mini-Python/Proyecto1CompiladoresRaquelySarah/MiniPython\miniPythonParser.g4 by ANTLR 4.7.2
+// Generated from C:/Users/Sarah/Documents/Proyecto3CompiladoresRaquelySarah/MiniPython\miniPythonParser.g4 by ANTLR 4.7.2
 // jshint ignore: start
 var antlr4 = require('antlr4/index');
 
@@ -275,28 +275,51 @@ miniPythonParserVisitor.prototype.visitPrimitiveExpression_ID_AST = function(ctx
   return this.visitChildren(ctx);
 };
 
+
 // Visit a parse tree produced by miniPythonParser#primitiveExpression_Expression_AST.
 miniPythonParserVisitor.prototype.visitPrimitiveExpression_Expression_AST = function(ctx) {
   return this.visitChildren(ctx);
 };
+
 
 // Visit a parse tree produced by miniPythonParser#primitiveExpression_listExpression_AST.
 miniPythonParserVisitor.prototype.visitPrimitiveExpression_listExpression_AST = function(ctx) {
   return this.visitChildren(ctx);
 };
 
+
 // Visit a parse tree produced by miniPythonParser#primitiveExpression_len_Expression_AST.
 miniPythonParserVisitor.prototype.visitPrimitiveExpression_len_Expression_AST = function(ctx) {
   return this.visitChildren(ctx);
 };
+
 
 // Visit a parse tree produced by miniPythonParser#primitiveExpression_functionCallExpression_AST.
 miniPythonParserVisitor.prototype.visitPrimitiveExpression_functionCallExpression_AST = function(ctx) {
   return this.visitChildren(ctx);
 };
 
+
 // Visit a parse tree produced by miniPythonParser#listExpression_AST.
 miniPythonParserVisitor.prototype.visitListExpression_AST = function(ctx) {
+  return this.visitChildren(ctx);
+};
+
+
+// Visit a parse tree produced by miniPythonParser#multOperator.
+miniPythonParserVisitor.prototype.visitMultOperator = function(ctx) {
+  return this.visitChildren(ctx);
+};
+
+
+// Visit a parse tree produced by miniPythonParser#additionOperator.
+miniPythonParserVisitor.prototype.visitAdditionOperator = function(ctx) {
+  return this.visitChildren(ctx);
+};
+
+
+// Visit a parse tree produced by miniPythonParser#logicOperator.
+miniPythonParserVisitor.prototype.visitLogicOperator = function(ctx) {
   return this.visitChildren(ctx);
 };
 

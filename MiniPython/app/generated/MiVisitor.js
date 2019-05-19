@@ -14,13 +14,13 @@ var tablaIndent = new MiTablaId();
 var miTableMetodos = new MiTablaMet();
 var comeFromFor = false;
 var comeFromAMethod = false;
-console.log("Va a reiniciar la Lista Errores");
+//console.log("Va a reiniciar la Lista Errores");
 var listaError = new ListaErrores();
 MiVisitor.prototype.visitProgram_AST = function(ctx) {
     listaError.clearList();
-    console.log("Lista Errores al entrar a program",listaError.getListaErrores());
+    //console.log("Lista Errores al entrar a program",listaError.getListaErrores());
     tablaIndent.openScope();
-    console.log("In en visit program");
+    //console.log("In en visit program");
     //console.log(ctx);
     //console.log(ctx.statement());
     MiVisitor.prototype.visit(ctx.statement(0));
@@ -93,7 +93,7 @@ MiVisitor.prototype.visitStatement_expressionStatement_AST = function(ctx) {
 MiVisitor.prototype.visitDefStatement_AST = function(ctx) {
     tablaIndent.openScope();
     var cont = MiVisitor.prototype.visit(ctx.argList());
-    console.log("'soy el contador de params "+cont);
+    //console.log("'soy el contador de params "+cont);
     var nombreMet = ctx.ID().getSymbol();
     miTableMetodos.insertar(nombreMet, cont);
     miTableMetodos.imprimir();
@@ -107,9 +107,9 @@ MiVisitor.prototype.visitDefStatement_AST = function(ctx) {
 MiVisitor.prototype.visitArgList_AST = function(ctx) {
     //console.log("Estoy en el  argList y este es mi lenght",ctx.ID().length);
     cont = ctx.ID().length;
-    console.log("Voy a insertar parámetros");
+    //console.log("Voy a insertar parámetros");
     for(var i = 0; i < cont; i++){
-        console.log("Insertando");
+        //console.log("Insertando");
         tablaIndent.insertar(ctx.ID(i).getSymbol(),-1);
     }
     return cont;
@@ -189,12 +189,12 @@ MiVisitor.prototype.visitAssignStatement_AST = function(ctx) {
 
 // Visit a parse tree produced by miniPythonParser#functionCallStatement_AST.
 MiVisitor.prototype.visitFunctionCallStatement_AST = function(ctx) {                                                        //HERE
-    console.log("Hola llegué aquí");
+    //console.log("Hola llegué aquí");
     comeFromAMethod = true;
     var nombreMetodo = MiVisitor.prototype.visit(ctx.primitiveExpression());
     var params = MiVisitor.prototype.visit(ctx.expressionList());
-    console.log("Soy context de expression list",ctx);
-    console.log("soy la cantidad de parms que viene desde expression y more expressions",params);
+    //console.log("Soy context de expression list",ctx);
+    //console.log("soy la cantidad de parms que viene desde expression y more expressions",params);
     //console.log(nombreMetodo.text);
     if(!miTableMetodos.buscar(nombreMetodo.text)){
         //error no existe un metodo con ese nombre              //pasa que no lo encontro entonces no sirve
@@ -359,7 +359,7 @@ MiVisitor.prototype.visitMoreExpressions_Expression_AST = function(ctx) {
     var contParametros =1;
     for(i = 0; i < ctx.expression().length; i++){
         MiVisitor.prototype.visit(ctx.expression(i)); //En esta parte también hay dudas
-        console.log("Soy una i del more expressions", i);
+        //console.log("Soy una i del more expressions", i);
         contParametros ++;
     }
     //Hay que ver esta regla, porque el problema aquí podría ser que según la regla, element expression puede o no venir
@@ -400,16 +400,16 @@ MiVisitor.prototype.visitPrimitiveExpression_ID_AST = function(ctx) {
                 var idText = "'"+ctx.ID().getText()+"'";
                 var errorIdent =  idText.concat(texto);
                 listaError.agregarError(errorIdent);
-                console.log();
+                //console.log();
                 listaError.imprimirErrores();
 
         }else {
-            console.log("All good, el token ak7")
+            //console.log("All good, el token ak7")
         }
     }
     //var metodo = ctx.ID().getSymbol();
-    console.log("Raquel esta probando el retorno del token para el metodo que no existe");
-    console.log(metodo.text);
+    //console.log("Raquel esta probando el retorno del token para el metodo que no existe");
+    //console.log(metodo.text);
     return metodo;
 };
 
@@ -417,7 +417,7 @@ MiVisitor.prototype.visitPrimitiveExpression_ID_AST = function(ctx) {
 // Visit a parse tree produced by miniPythonParser#primitiveExpression_Expression_AST.
 MiVisitor.prototype.visitPrimitiveExpression_Expression_AST = function(ctx) {
     MiVisitor.prototype.visit(ctx.expression());
-    console.log("En efecto, entré a expression, expression");
+    //console.log("En efecto, entré a expression, expression");
     return null;
 };
 
