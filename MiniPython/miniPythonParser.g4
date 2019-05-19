@@ -60,5 +60,3 @@ listExpression : PCABRIR expressionList PCCERRAR                                
 multOperator:  MUL|DIV                                                                  #multOperator_AST;
 additionOperator: SUMA|RESTA                                                            #additionOperator_AST;
 logicOperator: MENOR|MAYOR|MENORIGUAL|MAYORIGUAL|COMP                                   #logicOperator_AST;
-
- 
