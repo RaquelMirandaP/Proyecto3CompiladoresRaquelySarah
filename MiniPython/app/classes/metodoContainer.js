@@ -3,19 +3,23 @@
 
 var variable = require('./variable');
 
-function almacenMetodo() {
+function metodoContainer() {
     this.token = 0;
     this.valorRetorno = 0;
-    this.variables = [];
-    this.nivelActual = -1;
+    this.variables = []; // se ingresa si no esta, pero se debe consultar si ya existe en el local o en el global
+    this.nivelActual = -1;   
+    this.puntero =  0;
     return this;
 
 }
 
 //metodo insertar variables a la lista
 
-almacenMetodo.prototype.insertar = function(token, tipo, valor){
-    c
+
+//ver si voy a ocupar ambos buscar porque, se busca local y luego global, no es necesario llevar el nivel??? creo
+
+metodoContainer.prototype.insertar = function(token, tipo, valor){
+    var temp = this.buscarVar(token.text);
     if ( temp == null) {
         var i = new variable(token, tipo, this.nivelActual, valor);  
         this.variables.push(i);
@@ -27,7 +31,7 @@ almacenMetodo.prototype.insertar = function(token, tipo, valor){
     
 };
 
-almacenMetodo.prototype.buscarVar = function(nombre){
+metodoContainer.prototype.buscarVar = function(nombre){
     temp = null;
     for(i = this.variables.length-1; i >=0;i--){
         if(this.variables[i].token.text === nombre){
@@ -37,7 +41,7 @@ almacenMetodo.prototype.buscarVar = function(nombre){
     return temp
 };
 
-almacenMetodo.prototype.buscarPorNivel = function(nombre){
+metodoContainer.prototype.buscarPorNivel = function(nombre){
     temp = null;
     for(i = this.variables.length-1; i >=0;i--){
         if(this.variables[i].nivel === this.nivelActual){
@@ -67,6 +71,6 @@ almacenMetodo.prototype.closeScope = function(){
     this.nivelActual--;
 };
 
-almacenMetodo.prototype.constructor = almacenMetodo;
+metodoContainer.prototype.constructor = metodoContainer;
 
-module.exports = almacenMetodo;
+module.exports = metodoContainer;
