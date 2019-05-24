@@ -4,8 +4,6 @@ var metodo = require('../classes/metodoContainer');
 var almacen = require('../classes/almacenMetodo');
 var pila = require('../classes/stack');
 
-
-
 function VisitorInterprete (){
     this.listaVisitor = [];
 
@@ -228,15 +226,20 @@ VisitorInterprete.prototype.visitPrintStatement_AST = function(ctx) {
 
 
 // Visit a parse tree produced by miniPythonParser#assignStatement_AST.
-VisitorInterprete.prototype.visitAssignStatement_AST = function(ctx) {  
-    var asignacion = VisitorInterprete.prototype.visit(ctx.expression());                            //HERE
-    if (!local){
-        almacenGlobales.insertar(ctx.ID.getSymbol, typeof(asignacion), asignacion.getText());
-        console.log(" inserte en almacen de globales")
-    }else{
-        metodoActual.insertarVar(ctx.ID.getSymbol, typeof(asignacion), asignacion.getText());
-        console.log(" inserte en un metodo")
+VisitorInterprete.prototype.visitAssignStatement_AST = function(ctx) {                         //HERE
+    var asignacion = VisitorInterprete.prototype.visit(ctx.expression());          
+    var symbol = ctx.ID().getSymbol();   
+    console.log(symbol);
+    if(asignacion !== null){
+        if (!local){
+                almacenGlobales.insertar(symbol, typeof(asignacion), asignacion);
+                console.log(" RAQUEL inserté en almacen de globales, simbolo " + symbol.text+ " tipo "+ typeof(asignacion) + " valor "+asignacion)
+            }else{
+                metodoActual.insertarVar(symbol, typeof(asignacion), asignacion);
+                console.log(" RAQUEL inserté en un metodo, simbolo " + symbol.text + " tipo "+ typeof(asignacion) + " valor "+asignacion)
+        }
     }
+
     
     return null;
 };
@@ -246,6 +249,12 @@ VisitorInterprete.prototype.visitAssignStatement_AST = function(ctx) {
 VisitorInterprete.prototype.visitFunctionCallStatement_AST = function(ctx) {                                                        
     VisitorInterprete.prototype.visit(ctx.primitiveExpression());
     VisitorInterprete.prototype.visit(ctx.expressionList());
+    console.log(" LLAMADAS A METODOS RAQUEL ESTUVO AQUI ")
+     if(local){
+        metodoActual.variables.push(VisitorInterprete.prototype.visit(ctx.expressionList())) //esto sirve???
+        console.log(" RAQUEL, ESTOY IMPRIMIENDO EL PUNTERO");
+        console.log(ctx.expressionList());
+    }
     
     return null;
 };
@@ -468,11 +477,13 @@ VisitorInterprete.prototype.visitElementAccess_Epsylon_AST = function(ctx) {
 };
 
 // Visit a parse tree produced by miniPythonParser#functionCallExpression_AST.
-VisitorInterprete.prototype.visitFunctionCallExpression_AST = function(ctx) {
-    //VisitorInterprete.prototype.visit(ctx.expressionList());
+VisitorInterprete.prototype.visitFunctionCallExpression_AST = function(ctx) {                           //HERE
+    VisitorInterprete.prototype.visit(ctx.expressionList());
+    console.log("RAQUEL FUNCTION CALL EXPRESSION");
     if(local){
-        metodoActual.variables.push(VisitorInterprete.prototype.visit(ctx.expressionList())) //esto sirve???
-        console.log(VisitorInterprete.prototype.visit(ctx.expressionList()));
+        metodoActual.variables.push(ctx.expressionList())                                      //esto sirve???
+        console.log(" RAQUEL, ESTOY IMPRIMIENDO EL PUNTERO");
+        console.log(ctx.expressionList());
     }
 
     return null;

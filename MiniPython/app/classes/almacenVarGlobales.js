@@ -13,7 +13,7 @@ almacenVarGlobales.prototype.constructor = almacenVarGlobales;
 almacenVarGlobales.prototype.insertar = function(token,tipo, valor){
     var temp = this.buscar(token.text);
     if (temp == null) {
-        var i = new Ident(token, tipo, valor);
+        var i = new variable(token, tipo, valor);
         this.tabla.push(i);
     }else{
         temp.valor = valor;
