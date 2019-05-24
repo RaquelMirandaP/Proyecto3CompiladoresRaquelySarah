@@ -1,4 +1,4 @@
-// Generated from C:/Users/Miranda/Desktop/Proyecto1CompiladoresRaquelySarah/MiniPython\miniPythonParser.g4 by ANTLR 4.7.2
+// Generated from C:/Users/Miranda/Desktop/Compilador e Interprete/Proyecto-Mini-Python/Proyecto1CompiladoresRaquelySarah/MiniPython\miniPythonParser.g4 by ANTLR 4.7.2
 // jshint ignore: start
 var antlr4 = require('antlr4/index');
 
@@ -302,6 +302,24 @@ miniPythonParserVisitor.prototype.visitPrimitiveExpression_functionCallExpressio
 
 // Visit a parse tree produced by miniPythonParser#listExpression_AST.
 miniPythonParserVisitor.prototype.visitListExpression_AST = function(ctx) {
+  return this.visitChildren(ctx);
+};
+
+
+// Visit a parse tree produced by miniPythonParser#multOperator.
+miniPythonParserVisitor.prototype.visitMultOperator = function(ctx) {
+  return this.visitChildren(ctx);
+};
+
+
+// Visit a parse tree produced by miniPythonParser#additionOperator.
+miniPythonParserVisitor.prototype.visitAdditionOperator = function(ctx) {
+  return this.visitChildren(ctx);
+};
+
+
+// Visit a parse tree produced by miniPythonParser#logicOperator.
+miniPythonParserVisitor.prototype.visitLogicOperator = function(ctx) {
   return this.visitChildren(ctx);
 };
 
