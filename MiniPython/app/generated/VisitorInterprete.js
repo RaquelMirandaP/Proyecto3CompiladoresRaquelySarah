@@ -1,7 +1,7 @@
 var parserGeneratedVisitor = require('generated/miniPythonParserVisitor');
 var globales = require('../classes/almacenVarGlobales');
 var metodo = require('../classes/metodoContainer');
-var almacen = require('../classes/almacenMetodos');
+var almacen = require('../classes/almacendeMetodos');
 var pila = require('../classes/stack');
 
 
@@ -95,6 +95,7 @@ VisitorInterprete.prototype.visitStatement_expressionStatement_AST = function(ct
 VisitorInterprete.prototype.visitDefStatement_AST = function(ctx) {
     local = true;
     met = new metodo();
+    met.token = ctx.ID().getSymbol();
     metodoActual = met;
     VisitorInterprete.prototype.visit(ctx.argList());
     VisitorInterprete.prototype.visit(ctx.sequence());
@@ -138,11 +139,14 @@ VisitorInterprete.prototype.visitWhileStatement_AST = function(ctx) {
 
 // Visit a parse tree produced by miniPythonParser#forStatement_AST.
 VisitorInterprete.prototype.visitForStatement_AST = function(ctx) {
-   
     VisitorInterprete.prototype.visit(ctx.expression());
     VisitorInterprete.prototype.visit(ctx.expressionList());
     VisitorInterprete.prototype.visit(ctx.sequence());
   
+   if(local){
+        
+   }
+    
     return null;
 };
 
@@ -160,8 +164,16 @@ VisitorInterprete.prototype.visitPrintStatement_AST = function(ctx) {
 
 
 // Visit a parse tree produced by miniPythonParser#assignStatement_AST.
-VisitorInterprete.prototype.visitAssignStatement_AST = function(ctx) {
-    VisitorInterprete.prototype.visit(ctx.expression());
+VisitorInterprete.prototype.visitAssignStatement_AST = function(ctx) {  
+    var asignacion = VisitorInterprete.prototype.visit(ctx.expression());                            //HERE
+    if (!local){
+        almacenGlobales.insertar(ctx.ID.getSymbol, typeof(asignacion), asignacion.getText());
+        console.log(" inserte en almacen de globales")
+    }else{
+        metodoActual.insertarVar(ctx.ID.getSymbol, typeof(asignacion), asignacion.getText());
+        console.log(" inserte en un metodo")
+    }
+    
     return null;
 };
 
@@ -389,7 +401,11 @@ VisitorInterprete.prototype.visitElementAccess_Epsylon_AST = function(ctx) {
 
 // Visit a parse tree produced by miniPythonParser#functionCallExpression_AST.
 VisitorInterprete.prototype.visitFunctionCallExpression_AST = function(ctx) {
-    VisitorInterprete.prototype.visit(ctx.expressionList());
+    //VisitorInterprete.prototype.visit(ctx.expressionList());
+    if(local){
+        metodoActual.variables.push(VisitorInterprete.prototype.visit(ctx.expressionList())) //esto sirve???
+        console.log(VisitorInterprete.prototype.visit(ctx.expressionList()));
+    }
 
     return null;
 };
