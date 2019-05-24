@@ -480,13 +480,8 @@ VisitorInterprete.prototype.visitElementAccess_Epsylon_AST = function(ctx) {
 VisitorInterprete.prototype.visitFunctionCallExpression_AST = function(ctx) {                           //HERE
     VisitorInterprete.prototype.visit(ctx.expressionList());
     console.log("RAQUEL FUNCTION CALL EXPRESSION");
-    if(local){
-        metodoActual.variables.push(ctx.expressionList())                                      //esto sirve???
-        console.log(" RAQUEL, ESTOY IMPRIMIENDO EL PUNTERO");
-        console.log(ctx.expressionList());
-    }
-
-    return null;
+    
+    return ctx.expressionList();
 };
 
 
