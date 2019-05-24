@@ -8,12 +8,12 @@ function almacendeMetodos(){
 
 almacendeMetodos.prototype.constructor = almacendeMetodos;
 
-almacendeMetodos.prototype.insertar = function(token){
+/*almacendeMetodos.prototype.insertar = function(token){
     var i = new metodo(token);
     this.almacen.push(i);
     
     
-};
+};*/
 
 almacendeMetodos.prototype.buscar = function(nombre){
     temp = null;

@@ -93,10 +93,14 @@ VisitorInterprete.prototype.visitStatement_expressionStatement_AST = function(ct
 
 // Visit a parse tree produced by miniPythonParser#defStatement_AST.
 VisitorInterprete.prototype.visitDefStatement_AST = function(ctx) {
-    
+    local = true;
+    met = new metodo();
+    metodoActual = met;
     VisitorInterprete.prototype.visit(ctx.argList());
     VisitorInterprete.prototype.visit(ctx.sequence());
- 
+    almacenMetodos.almacen.push(metodoActual); 
+    local = false;
+    metodoActual = null;
     return null;
 };
 
