@@ -1,12 +1,12 @@
 var metodo = require('./metodoContainer');
 
 
-function almacenMetodos(){
+function almacenMetodo(){
     this.almacen = [];
     return this;
 }
 
-almacenMetodos.prototype.constructor = almacenMetodos;
+almacenMetodo.prototype.constructor = almacenMetodo;
 
 /*almacendeMetodos.prototype.insertar = function(token){
     var i = new metodo(token);
@@ -15,7 +15,7 @@ almacenMetodos.prototype.constructor = almacenMetodos;
     
 };*/
 
-almacenMetodos.prototype.buscar = function(nombre){
+almacenMetodo.prototype.buscar = function(nombre){
     temp = null;
     for(i = this.almacen.length-1; i >=0;i--){
         if(this.almacen[i].token.text === nombre){
@@ -27,4 +27,4 @@ almacenMetodos.prototype.buscar = function(nombre){
 
 
 
-module.exports = almacenMetodos;
+module.exports = almacenMetodo;

@@ -1,7 +1,7 @@
 var parserGeneratedVisitor = require('generated/miniPythonParserVisitor');
 var globales = require('../classes/almacenVarGlobales');
 var metodo = require('../classes/metodoContainer');
-var almacen = require('../classes/almacenMetodos');
+var almacen = require('../classes/almacenMetodo');
 var pila = require('../classes/stack');
 
 
