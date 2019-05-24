@@ -4,7 +4,6 @@ var variable = require('./variable');
 
 function almacenVarGlobales(){
     this.tabla = [];
-    this.nivelActual = -1;
     return this;
 }
 
@@ -12,9 +11,9 @@ almacenVarGlobales.prototype.constructor = almacenVarGlobales;
 
 //metodo para insertar variables y actualizarlas
 almacenVarGlobales.prototype.insertar = function(token,tipo, valor){
-    var temp = this.buscarPorNivel(token.text);
+    var temp = this.buscar(token.text);
     if (temp == null) {
-        var i = new Ident(token, tipo, this.nivelActual, valor);
+        var i = new Ident(token, tipo, valor);
         this.tabla.push(i);
     }else{
         temp.valor = valor;
@@ -33,36 +32,5 @@ almacenVarGlobales.prototype.buscar = function(nombre){
     }
     return temp
 };
-almacenVarGlobales.prototype.buscarPorNivel = function(nombre){
-    temp = null;
-    for(i = this.tabla.length-1; i >=0;i--){
-        if(this.tabla[i].nivel === this.nivelActual){
-            if(this.tabla[i].token.text === nombre){
-                temp = this.tabla[i]
-            }
-        }
-    }
-    return temp
-};
-
-
-//alcance de las variables globales
-almacenVarGlobales.prototype.openScope =  function(){
-    this.nivelActual ++;
-};
-
-almacenVarGlobales.prototype.closeScope = function(){
-    var i = 0;
-    while (i < this.tabla.length){
-        if(this.tabla[i].nivel === this.nivelActual){
-            this.tabla.splice(i,1);
-            i = 0;
-        }else {
-            i++;
-        }
-    }
-    this.nivelActual--;
-};
-
 
 module.exports = almacenVarGlobales;

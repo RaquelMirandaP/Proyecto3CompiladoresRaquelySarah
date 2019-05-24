@@ -8,8 +8,8 @@ function almacendeMetodos(){
 
 almacendeMetodos.prototype.constructor = almacendeMetodos;
 
-almacendeMetodos.prototype.insertar = function(token, valorReturn, puntero){
-    var i = new metodo(token, valorReturn, puntero);
+almacendeMetodos.prototype.insertar = function(token){
+    var i = new metodo(token);
     this.almacen.push(i);
     
     

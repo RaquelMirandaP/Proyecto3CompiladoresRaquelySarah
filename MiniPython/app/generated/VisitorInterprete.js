@@ -1,4 +1,10 @@
 var parserGeneratedVisitor = require('generated/miniPythonParserVisitor');
+var globales = require('../classes/almacenVarGlobales');
+var metodo = require('../classes/metodoContainer');
+var almacen = require('../classes/almacenMetodos');
+var pila = require('../classes/stack');
+
+
 
 function VisitorInterprete (){
     this.listaVisitor = [];
@@ -9,6 +15,12 @@ function VisitorInterprete (){
 VisitorInterprete.prototype = Object.create(parserGeneratedVisitor.miniPythonParserVisitor.prototype);
 VisitorInterprete.prototype.constructor = VisitorInterprete;
 
+var almacenGlobales = new globales();
+var almacenMetodos = new almacen();
+var stack = new pila();
+var local = false;
+var metodoActual = null;
+//en cada def creo una instancia del metodo nuevo, y la guardo en metodoactual para poder usarla en los demas visit
 
 VisitorInterprete.prototype.visitProgram_AST = function(ctx) {
     
@@ -81,6 +93,7 @@ VisitorInterprete.prototype.visitStatement_expressionStatement_AST = function(ct
 
 // Visit a parse tree produced by miniPythonParser#defStatement_AST.
 VisitorInterprete.prototype.visitDefStatement_AST = function(ctx) {
+    
     VisitorInterprete.prototype.visit(ctx.argList());
     VisitorInterprete.prototype.visit(ctx.sequence());
  
