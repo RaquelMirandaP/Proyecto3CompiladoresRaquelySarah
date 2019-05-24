@@ -83,7 +83,6 @@ VisitorInterprete.prototype.visitStatement_expressionStatement_AST = function(ct
 VisitorInterprete.prototype.visitDefStatement_AST = function(ctx) {
     VisitorInterprete.prototype.visit(ctx.argList());
     VisitorInterprete.prototype.visit(ctx.sequence());
- 
     return null;
 };
 
@@ -101,10 +100,17 @@ VisitorInterprete.prototype.visitArgList_Epsylon_AST = function(ctx) {
 // Visit a parse tree produced by miniPythonParser#ifStatement_AST.
 VisitorInterprete.prototype.visitIfStatement_AST = function(ctx) {
    
-    VisitorInterprete.prototype.visit(ctx.expression());
-    VisitorInterprete.prototype.visit(ctx.sequence(0));
-    VisitorInterprete.prototype.visit(ctx.sequence(1));
-   
+    let expression = VisitorInterprete.prototype.visit(ctx.expression());
+    let validate = VisitorInterprete.prototype.expression(condition[0],condition[1],condition[2]);
+    if(validate.length > 3 || validate === null){
+        console.log("Expresion inválida ");
+    }
+    else{
+        if(validate){
+            VisitorInterprete.prototype.visit(ctx.sequence(0));
+            VisitorInterprete.prototype.visit(ctx.sequence(1));
+        }
+    }
     return null;
 };
 
@@ -112,12 +118,69 @@ VisitorInterprete.prototype.visitIfStatement_AST = function(ctx) {
 // Visit a parse tree produced by miniPythonParser#whileStatement_AST.
 VisitorInterprete.prototype.visitWhileStatement_AST = function(ctx) {
    
-    VisitorInterprete.prototype.visit(ctx.expression());
+    let condition = VisitorInterprete.prototype.visit(ctx.expression());
+    let validate = VisitorInterprete.prototype.validateExp(condition[0],condition[1],condition[2]);
+    if(validate.length > 3){
+        console.log("Expresión del while inválida")
+    }
+    //Esto es  un while
+    if(validate){
+        console.log("Soy un true");
+    }
+    else{
+        console.log("Soy un false");
+    }
     VisitorInterprete.prototype.visit(ctx.sequence());
    
     return null;
 };
+VisitorInterprete.prototype.validateExp = function (firstPart, oper, secondPart) {
+    if(typeof firstPart === 'object' || typeof secondPart === 'object'){
+        return null;
+    }
+    if(typeof firstPart === 'string' && oper !== '=='){
+        //First part busca en la tabla, si lo encuentra toma el valor, y sigue, si no
+        //retorna null
+    }
+  switch(oper){
+      case '>':
+          if(firstPart > secondPart){
+              return true;
+          }
+          else{
+              return false;
+          }
+      case '<':
+          if(firstPart < secondPart){
+              return true;
+          }
+          else{
+              return false;
+          }
+      case '<=':
+          if(firstPart <= secondPart){
+              return true;
+          }
+          else{
+              return false;
+          }
+      case '>=':
+          if(firstPart >= secondPart){
+              return true;
+          }
+          else{
+              return false;
+          }
+      case '==':
+          if(firstPart === secondPart){
+              return true;
+          }
+          else{
+              return false;
+          }
+  }
 
+};
 
 // Visit a parse tree produced by miniPythonParser#forStatement_AST.
 VisitorInterprete.prototype.visitForStatement_AST = function(ctx) {
@@ -184,14 +247,15 @@ VisitorInterprete.prototype.visitMoreStatements_AST = function(ctx) {
 // Visit a parse tree produced by miniPythonParser#expression_AST.
 VisitorInterprete.prototype.visitExpression_AST = function(ctx) {
     let exp = VisitorInterprete.prototype.visit(ctx.additionExpression());
-    console.log("Expresión cuarta devolución ", exp);
+    //console.log("Expresión cuarta devolución ", exp);
     secondExp = VisitorInterprete.prototype.visit(ctx.comparison());
-    console.log("Second expression en expression  ", secondExp);
+    //console.log("Second expression en expression  ", secondExp);
     if(secondExp.length !== 0) {
         secondExp.unshift(exp);
-        console.log("Expresión cuarta devolución dentro del if ", secondExp);
+        console.log("Expression del whilee ", secondExp);
         return secondExp;
     }
+    console.log("Expresion final", exp);
     return exp;
    
 };
@@ -206,7 +270,7 @@ VisitorInterprete.prototype.visitComparision_AST = function(ctx) {
         var exp2 = VisitorInterprete.prototype.visit(ctx.additionExpression(i)); //En esta parte también hay dudas
         lista.push(exp2);
     }
-    console.log("Adentro del operator ", lista);
+    //console.log("Adentro del operator ", lista);
     return lista;
 };
 
@@ -224,6 +288,7 @@ VisitorInterprete.prototype.visitAdditionExpression_AST = function(ctx) {
         //console.log("visitAdditionExpression_AST el número en la tercera llamada"+ exp.text);
     }
     let expressionList = VisitorInterprete.prototype.visit(ctx.additionFactor());
+    console.log("En addition expression ","De mul exp", exp, "de addition factor", expressionList);
     while (expressionList.length !== 0){
         let i = 0;
         exp = VisitorInterprete.prototype.operarNumeros(exp,expressionList[i],expressionList[i+1]);
@@ -246,6 +311,7 @@ VisitorInterprete.prototype.visitAdditionFactor_multExpression_AST = function(ct
         listaAddition.push(operator);
         listaAddition.push(expression);
     }
+    console.log("Adition factor ", listaAddition);
     return listaAddition;
 };
 
@@ -263,9 +329,10 @@ VisitorInterprete.prototype.visitMultiplicationExpression_AST = function(ctx) {
         //console.log("visitMultiplicationExpression_AST el número en la segunda llamada"+ exp.text);
     }
     let expressionList = VisitorInterprete.prototype.visit(ctx.multiplicationFactor());
-    console.log("Exp list ",expressionList);
+    console.log("Exp list en mult exp",expressionList);
     while (expressionList.length !== 0){
         let i = 0;
+        console.log("Va a operar", exp,", ",expressionList[i],",",expressionList[i+1]);
         exp = VisitorInterprete.prototype.operarNumeros(exp,expressionList[i],expressionList[i+1]);
         console.log("Se supone que operó ", exp);
         expressionList.splice(0,1);
@@ -289,10 +356,12 @@ VisitorInterprete.prototype.visitMultiplicationFactor_ElementExpression_AST = fu
         listaMult.push(operator);
         listaMult.push(expression);
     }
+    console.log("List multiplication en mult factor",listaMult);
     return listaMult;
 };
 VisitorInterprete.prototype.operarNumeros = function (par1, oper, par2){
-    if(typeof par1 === 'number' && par2 === 'number'){
+    if(typeof par1 === 'number' && typeof par2 === 'number'){
+        console.log("No entré");
         switch (oper){
             case "+":
                 return par1 + par2;
@@ -305,7 +374,7 @@ VisitorInterprete.prototype.operarNumeros = function (par1, oper, par2){
                 return result;
         }
     }
-    if(typeof par1 === 'string' && par2 === 'string') {
+    if(typeof par1 === 'string' && typeof par2 === 'string') {
         switch (oper) {
             case "+":
                 let res1 = par1.substring(0, par1.length - 1);
@@ -319,8 +388,7 @@ VisitorInterprete.prototype.operarNumeros = function (par1, oper, par2){
                 return null;
         }
     }
-    if(typeof par1 === 'object') {
-        if(typeof par2 === 'object'){
+    if(typeof par1 === 'object' && typeof par2 === 'object') {
             switch (oper) {
                 case "+":
                     console.log("LISTAS PEGADAS", par1.concat(par2));
@@ -333,7 +401,6 @@ VisitorInterprete.prototype.operarNumeros = function (par1, oper, par2){
                     return null;
             }
         }
-    }
 };
 
 
@@ -383,9 +450,9 @@ VisitorInterprete.prototype.visitExpressionList_AST = function(ctx) {
     let exp = VisitorInterprete.prototype.visit(ctx.expression());
     //var params = VisitorInterprete.prototype.visit(ctx.moreExpressions());
     let moreExpressions = VisitorInterprete.prototype.visit(ctx.moreExpressions());
-    console.log("more params ", moreExpressions);
+    //console.log("more params ", moreExpressions);
     moreExpressions.unshift(exp);
-    console.log("EXPRESION LIST ", moreExpressions);
+    //console.log("EXPRESION LIST ", moreExpressions);
     //return params;
     return moreExpressions;
 };
@@ -405,7 +472,7 @@ VisitorInterprete.prototype.visitMoreExpressions_Expression_AST = function(ctx) 
         expression = VisitorInterprete.prototype.visit(ctx.expression(i));
         moreExp.push(expression);
     }
-    console.log("More expressions ", moreExp);
+    //console.log("More expressions ", moreExp);
     return moreExp;
 };
 
@@ -429,8 +496,7 @@ VisitorInterprete.prototype.visitPrimitiveExpression_String_AST = function(ctx) 
 
 // Visit a parse tree produced by miniPythonParser#primitiveExpression_ID_AST.
 VisitorInterprete.prototype.visitPrimitiveExpression_ID_AST = function(ctx) {
-    let metodo = ctx.ID().getSymbol();                                                                                 //HERE
-    return metodo;
+    return ctx.ID().getText();                                                                                 //HERE
 };
 
 
@@ -443,7 +509,7 @@ VisitorInterprete.prototype.visitPrimitiveExpression_Expression_AST = function(c
 // Visit a parse tree produced by miniPythonParser#primitiveExpression_listExpression_AST.
 VisitorInterprete.prototype.visitPrimitiveExpression_listExpression_AST = function(ctx) {
     let primitiveList = VisitorInterprete.prototype.visit(ctx.listExpression());
-    console.log("List expression primitive", primitiveList);
+    //console.log("List expression primitive", primitiveList);
     return primitiveList;
 };
 
@@ -451,13 +517,12 @@ VisitorInterprete.prototype.visitPrimitiveExpression_len_Expression_AST = functi
     let dataForLen = VisitorInterprete.prototype.visit(ctx.expression());
     let len;
     if(typeof dataForLen === 'object' || typeof dataForLen === 'string'){
-        console.log("DAtaaaa", dataForLen);
         len = dataForLen.length;
     }
     else {
         return null;
     }
-    console.log("Leeeeen ", len);
+
     return len;
 };
 
@@ -471,7 +536,7 @@ VisitorInterprete.prototype.visitPrimitiveExpression_functionCallExpression_AST 
 // Visit a parse tree produced by miniPythonParser#listExpression_AST.
 VisitorInterprete.prototype.visitListExpression_AST = function(ctx) {
     let listExp = VisitorInterprete.prototype.visit(ctx.expressionList());
-    console.log("List expression ", listExp);
+    //console.log("List expression ", listExp);
     return listExp;
 };
 
