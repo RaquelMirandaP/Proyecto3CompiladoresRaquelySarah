@@ -25,7 +25,7 @@ forStatement : FOR ID IN expressionList DOSPUNTOS sequence                      
 returnStatement : RETURN expression NEWLINE                                             #returnStatement_AST;
 printStatement : PRINT PIZQ expression PDER NEWLINE                                     #printStatement_AST;
 assignStatement : ID IGUAL expression NEWLINE                                           #assignStatement_AST;
-functionCallStatement : primitiveExpression PIZQ expressionList PDER fceEnding          #functionCallStatement_AST;
+functionCallStatement : ID PIZQ expressionList PDER fceEnding          #functionCallStatement_AST;
 fceEnding                : NEWLINE
                            |
                          ;
