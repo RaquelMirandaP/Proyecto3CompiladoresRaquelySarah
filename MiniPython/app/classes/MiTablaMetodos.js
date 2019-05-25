@@ -8,7 +8,7 @@ MiTablaMetodos.prototype.constructor = MiTablaMetodos;
 
 
 MiTablaMetodos.prototype.insertar = function(n,param){
-    var temp = buscar(n.text);
+    var temp = this.buscar(n.text);
     if(temp === null){
         var i = new met(n,param);   
         this.tabla.push(i)
