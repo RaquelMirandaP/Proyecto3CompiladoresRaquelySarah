@@ -38,6 +38,13 @@ metodoContainer.prototype.buscarVar = function(nombre){
     }
     return temp
 };
+almacenVarGlobales.prototype.imprimir = function(){
+    console.log("Cantidad de variables del metodo ",this.variables.length);
+    for(i = 0; i<this.variables.length;i++){
+        s = this.tabla[i].token.text;
+        console.log("Nombre "+ s +" tipo: " +this.tabla[i].type +" tipo: " +this.tabla[i].valor);
+    }
+};
 
 
 metodoContainer.prototype.constructor = metodoContainer;

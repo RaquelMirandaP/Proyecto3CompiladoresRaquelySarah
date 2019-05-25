@@ -240,6 +240,7 @@ VisitorInterprete.prototype.visitAssignStatement_AST = function(ctx) {          
         }
     }
 
+    almacenGlobales.imprimir();
     
     return null;
 };
@@ -251,7 +252,7 @@ VisitorInterprete.prototype.visitFunctionCallStatement_AST = function(ctx) {
     VisitorInterprete.prototype.visit(ctx.expressionList());
     console.log(" LLAMADAS A METODOS RAQUEL ESTUVO AQUI ")
      if(local){
-        metodoActual.variables.push(VisitorInterprete.prototype.visit(ctx.expressionList())) //esto sirve???
+        metodoActual.variables.push(ctx.expressionList())                            //esto sirve???
         console.log(" RAQUEL, ESTOY IMPRIMIENDO EL PUNTERO");
         console.log(ctx.expressionList());
     }
@@ -478,10 +479,10 @@ VisitorInterprete.prototype.visitElementAccess_Epsylon_AST = function(ctx) {
 
 // Visit a parse tree produced by miniPythonParser#functionCallExpression_AST.
 VisitorInterprete.prototype.visitFunctionCallExpression_AST = function(ctx) {                           //HERE
-    VisitorInterprete.prototype.visit(ctx.expressionList());
+    //VisitorInterprete.prototype.visit(ctx.expressionList());
     console.log("RAQUEL FUNCTION CALL EXPRESSION");
-    
-    return ctx.expressionList();
+    var visit = ctx.expressionList();
+    return visit;
 };
 
 

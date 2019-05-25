@@ -33,4 +33,12 @@ almacenVarGlobales.prototype.buscar = function(nombre){
     return temp
 };
 
+almacenVarGlobales.prototype.imprimir = function(){
+    console.log("Cantidad de elementos del almacen de variables globales",this.tabla.length);
+    for(i = 0; i<this.tabla.length;i++){
+        s = this.tabla[i].token.text;
+        console.log("Nombre "+ s +" tipo: " +this.tabla[i].type + " tipo: " +this.tabla[i].valor);
+    }
+};
+
 module.exports = almacenVarGlobales;

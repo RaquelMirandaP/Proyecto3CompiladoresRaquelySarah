@@ -25,6 +25,16 @@ almacenMetodo.prototype.buscar = function(nombre){
     return temp
 };
 
+almacenVarGlobales.prototype.imprimir = function(){
+    console.log("Cantidad de elementos del almacen de metodos",this.almacen.length);
+    for(i = 0; i<this.almacen.length;i++){
+        s = this.almacen[i].token.text;
+        console.log("Nombre "+ s);
+        //imprimir las variables de los metodos
+        s.imprimir();
+    }
+};
+
 
 
 module.exports = almacenMetodo;
