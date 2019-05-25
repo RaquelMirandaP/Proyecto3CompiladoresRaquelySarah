@@ -97,7 +97,9 @@ VisitorInterprete.prototype.visitDefStatement_AST = function(ctx) {
     metodoActual = met;
     VisitorInterprete.prototype.visit(ctx.argList());
     VisitorInterprete.prototype.visit(ctx.sequence());
-    almacenMetodos.almacen.push(metodoActual); 
+    almacenMetodos.almacen.push(metodoActual);
+    almacenGlobales.imprimir();
+    almacenMetodos.imprimir();
     local = false;
     metodoActual = null;
     return null;
@@ -240,8 +242,9 @@ VisitorInterprete.prototype.visitAssignStatement_AST = function(ctx) {          
         }
     }
 
-    almacenGlobales.imprimir();
-    
+
+
+
     return null;
 };
 
@@ -481,7 +484,7 @@ VisitorInterprete.prototype.visitElementAccess_Epsylon_AST = function(ctx) {
 VisitorInterprete.prototype.visitFunctionCallExpression_AST = function(ctx) {                           //HERE
     //VisitorInterprete.prototype.visit(ctx.expressionList());
     console.log("RAQUEL FUNCTION CALL EXPRESSION");
-    var visit = ctx.expressionList();
+    var visit = "ctx.expressionList()";
     return visit;
 };
 

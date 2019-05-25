@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="fae78cde-8c4c-497c-827f-969f25b226ff" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/app/classes/almacenMetodo.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/classes/almacenMetodo.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/classes/almacenVarGlobales.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/classes/almacenVarGlobales.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/classes/metodoContainer.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/classes/metodoContainer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/generated/VisitorInterprete.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/generated/VisitorInterprete.js" afterDir="false" />
-    </list>
+    <list default="true" id="fae78cde-8c4c-497c-827f-969f25b226ff" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
     <ignored path="$PROJECT_DIR$/tmp/" />
@@ -18,7 +13,7 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/index.html">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="392">
@@ -27,11 +22,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/generated/VisitorInterprete.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="391">
-              <caret line="23" column="4" lean-forward="true" selection-start-line="23" selection-start-column="4" selection-end-line="23" selection-end-column="4" />
+            <state relative-caret-position="357">
+              <caret line="234" column="4" selection-start-line="234" selection-start-column="4" selection-end-line="234" selection-end-column="4" />
             </state>
           </provider>
         </entry>
@@ -48,8 +43,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/miniPythonParser.g4">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="561">
-              <caret line="33" column="26" selection-start-line="33" selection-start-column="17" selection-end-line="33" selection-end-column="26" />
+            <state relative-caret-position="269">
+              <caret line="46" column="47" selection-start-line="46" selection-start-column="33" selection-end-line="46" selection-end-column="47" />
             </state>
           </provider>
         </entry>
@@ -154,6 +149,7 @@
         <option value="$PROJECT_DIR$/app/style.css" />
         <option value="$PROJECT_DIR$/app/index.html" />
         <option value="$PROJECT_DIR$/app/classes/metodoContainer.js" />
+        <option value="$PROJECT_DIR$/app/generated/VisitorInterprete.js" />
       </list>
     </option>
   </component>
@@ -336,12 +332,12 @@
       <workItem from="1553899798682" duration="30000" />
       <workItem from="1556163937072" duration="13328000" />
       <workItem from="1556246886080" duration="9221000" />
-      <workItem from="1558727258392" duration="8422000" />
+      <workItem from="1558727258392" duration="9813000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="117816000" />
+    <option name="totallyTimeSpent" value="119207000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="784" extended-state="6" />
@@ -554,20 +550,6 @@
     <entry file="file://$PROJECT_DIR$/app/classes/almacenMetodos.js">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/generated/VisitorInterprete.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="23" column="4" lean-forward="true" selection-start-line="23" selection-start-column="4" selection-end-line="23" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/miniPythonParser.g4">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="561">
-          <caret line="33" column="26" selection-start-line="33" selection-start-column="17" selection-end-line="33" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/classes/metodoContainer.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="238">
@@ -575,10 +557,24 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/miniPythonParser.g4">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="269">
+          <caret line="46" column="47" selection-start-line="46" selection-start-column="33" selection-end-line="46" selection-end-column="47" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="392">
           <caret line="104" column="50" selection-start-line="104" selection-start-column="50" selection-end-line="104" selection-end-column="50" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/generated/VisitorInterprete.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="234" column="4" selection-start-line="234" selection-start-column="4" selection-end-line="234" selection-end-column="4" />
         </state>
       </provider>
     </entry>

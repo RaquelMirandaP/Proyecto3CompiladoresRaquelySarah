@@ -25,13 +25,16 @@ almacenMetodo.prototype.buscar = function(nombre){
     return temp
 };
 
-almacenVarGlobales.prototype.imprimir = function(){
+almacenMetodo.prototype.imprimir = function(){
     console.log("Cantidad de elementos del almacen de metodos",this.almacen.length);
     for(i = 0; i<this.almacen.length;i++){
         s = this.almacen[i].token.text;
-        console.log("Nombre "+ s);
-        //imprimir las variables de los metodos
-        s.imprimir();
+        console.log("Nombre "+ s + " Cantidad de objetos del metodo "+ this.almacen[i].variables.length);
+        for(j = 0; j<this.almacen[i].variables.length;j++){
+            //console.log("Nombre "+ s +" tipo: " +this.tabla[i].type +" tipo: " +this.tabla[i].valor);
+            console.log(this.almacen[i].variables[j]);
+        }
+
     }
 };
 
