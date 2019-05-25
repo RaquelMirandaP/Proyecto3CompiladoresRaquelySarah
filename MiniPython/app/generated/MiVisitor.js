@@ -95,7 +95,10 @@ MiVisitor.prototype.visitDefStatement_AST = function(ctx) {
     var cont = MiVisitor.prototype.visit(ctx.argList());
     //console.log("'soy el contador de params "+cont);
     var nombreMet = ctx.ID().getSymbol();
-    miTableMetodos.insertar(nombreMet, cont);
+    if(miTableMetodos.insertar(nombreMet, cont) === null){
+        var errorNombreRepetido = "Error, ya existe un metodo con ese nombre '" +  nombreMetodo.text + "' en "+ nombreMetodo.line + ":" + nombreMetodo.column ;
+        listaError.agregarError(errorNombreRepetido);
+    }
     miTableMetodos.imprimir();
     MiVisitor.prototype.visit(ctx.sequence());
     tablaIndent.imprimir();

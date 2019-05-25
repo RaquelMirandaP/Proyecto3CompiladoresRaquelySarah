@@ -8,8 +8,14 @@ MiTablaMetodos.prototype.constructor = MiTablaMetodos;
 
 
 MiTablaMetodos.prototype.insertar = function(n,param){
-    var i = new met(n,param);   //let me da error
-    this.tabla.push(i)
+    var temp = buscar(n.text);
+    if(temp === null){
+        var i = new met(n,param);   
+        this.tabla.push(i)
+    }else{
+        return null;
+    }
+    
 
 };
 
