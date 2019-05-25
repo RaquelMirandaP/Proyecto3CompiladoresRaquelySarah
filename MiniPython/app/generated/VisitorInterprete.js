@@ -230,9 +230,10 @@ VisitorInterprete.prototype.visitPrintStatement_AST = function(ctx) {
 // Visit a parse tree produced by miniPythonParser#assignStatement_AST.
 VisitorInterprete.prototype.visitAssignStatement_AST = function(ctx) {                         //HERE
     var asignacion = VisitorInterprete.prototype.visit(ctx.expression());          
-    var symbol = ctx.ID().getSymbol();   
+    var symbol = ctx.ID().getSymbol(); 
+    console.log(symbol.text);  
     console.log(symbol);
-    if(asignacion !== null){
+   /* if(asignacion !== null){
         if (!local){
                 almacenGlobales.insertar(symbol, typeof(asignacion), asignacion);
                 console.log(" RAQUEL inserté en almacen de globales, simbolo " + symbol.text+ " tipo "+ typeof(asignacion) + " valor "+asignacion)
@@ -241,7 +242,7 @@ VisitorInterprete.prototype.visitAssignStatement_AST = function(ctx) {          
                 console.log(" RAQUEL inserté en un metodo, simbolo " + symbol.text + " tipo "+ typeof(asignacion) + " valor "+asignacion)
         }
     }
-
+*/
 
 
 
@@ -255,8 +256,9 @@ VisitorInterprete.prototype.visitFunctionCallStatement_AST = function(ctx) {
     VisitorInterprete.prototype.visit(ctx.expressionList());
     console.log(" LLAMADAS A METODOS RAQUEL ESTUVO AQUI ")
      if(local){
-        metodoActual.variables.push(ctx.expressionList())                            //esto sirve???
+        //metodoActual.variables.push(ctx.expressionList())                            //esto sirve???
         console.log(" RAQUEL, ESTOY IMPRIMIENDO EL PUNTERO");
+        console.log(ctx.primitiveExpression());
         console.log(ctx.expressionList());
     }
     
@@ -482,10 +484,11 @@ VisitorInterprete.prototype.visitElementAccess_Epsylon_AST = function(ctx) {
 
 // Visit a parse tree produced by miniPythonParser#functionCallExpression_AST.
 VisitorInterprete.prototype.visitFunctionCallExpression_AST = function(ctx) {                           //HERE
-    //VisitorInterprete.prototype.visit(ctx.expressionList());
-    console.log("RAQUEL FUNCTION CALL EXPRESSION");
+    var temp = VisitorInterprete.prototype.visit(ctx.expressionList());
+    /*console.log("RAQUEL FUNCTION CALL EXPRESSION");
     var visit = "ctx.expressionList()";
-    return visit;
+    return visit;*/
+    return temp;
 };
 
 
@@ -540,7 +543,7 @@ VisitorInterprete.prototype.visitPrimitiveExpression_String_AST = function(ctx) 
 
 // Visit a parse tree produced by miniPythonParser#primitiveExpression_ID_AST.
 VisitorInterprete.prototype.visitPrimitiveExpression_ID_AST = function(ctx) {
-    return ctx.ID().getText();                                                                                 //HERE
+    return ctx.ID().getText();                                                                                
 };
 
 
