@@ -96,13 +96,13 @@ VisitorInterprete.prototype.visitDefStatement_AST = function(ctx) {
     //this.local = true;
     met = new metodo();
     met.token = ctx.ID().getSymbol();
-    console.log("TOKEN", met.token);
+    //console.log("TOKEN", met.token);
     VisitorInterprete.prototype.visit(ctx.argList());
     //VisitorInterprete.prototype.visit(ctx.sequence());
     met.puntero = ctx.sequence();
-    console.log("PUNTERO", met.puntero);
+    //console.log("PUNTERO", met.puntero);
     this.metodoActual = met;
-    console.log("METODO ACTUAL", this.metodoActual);
+    //console.log("METODO ACTUAL", this.metodoActual);
     almacenMetodos.almacen.push(this.metodoActual);
     //almacenGlobales.imprimir();
     almacenMetodos.imprimir();
@@ -114,7 +114,7 @@ VisitorInterprete.prototype.visitDefStatement_AST = function(ctx) {
 // Visit a parse tree produced by miniPythonParser#argList_AST.
 VisitorInterprete.prototype.visitArgList_AST = function(ctx) {
     cont = ctx.ID().length;
-    console.log("Voy a insertar parámetros");
+    //console.log("Voy a insertar parámetros");
     for(var i = 0; i < cont; i++){
         metodoActual.insertarParametros(ctx.ID(i).getSymbol());
     }
@@ -135,7 +135,7 @@ VisitorInterprete.prototype.visitIfStatement_AST = function(ctx) {
 
     let validate = VisitorInterprete.prototype.validateExp(expression[0],expression[1],expression[2]);
     if(validate.length > 3 || validate === null){
-        console.log("Expresion inválida ");
+        //console.log("Expresion inválida ");
     }
     else{
         if(validate){
@@ -153,16 +153,14 @@ VisitorInterprete.prototype.visitWhileStatement_AST = function(ctx) {
     let condition = VisitorInterprete.prototype.visit(ctx.expression());
     let validate = VisitorInterprete.prototype.validateExp(condition[0],condition[1],condition[2]);
     if(validate.length > 3){
-        console.log("Expresión del while inválida")
+        //console.log("Expresión del while inválida")
     }
     //Esto es  un while
-    if(validate){
-        console.log("Soy un true");
+    while(validate){
+        validate = VisitorInterprete.prototype.validateExp(condition[0],condition[1],condition[2]);
+        VisitorInterprete.prototype.visit(ctx.sequence());
     }
-    else{
-        console.log("Soy un false");
-    }
-    VisitorInterprete.prototype.visit(ctx.sequence());
+
    
     return null;
 };
@@ -244,8 +242,8 @@ VisitorInterprete.prototype.visitPrintStatement_AST = function(ctx) {
 VisitorInterprete.prototype.visitAssignStatement_AST = function(ctx) {                         //HERE
     var asignacion = VisitorInterprete.prototype.visit(ctx.expression());          
     var symbol = ctx.ID().getSymbol(); 
-    console.log(symbol.text);  
-    console.log(symbol);
+    //console.log(symbol.text);
+    //console.log(symbol);
     if(asignacion !== null){
         if (local === false){
             //ver si debo actualizarla
@@ -255,8 +253,8 @@ VisitorInterprete.prototype.visitAssignStatement_AST = function(ctx) {          
                 variable.valor = asignacion;
             }else{
                 almacenGlobales.insertar(symbol, typeof(asignacion), asignacion);
-                console.log(" RAQUEL inserté en almacen de globales, simbolo " + symbol.text+ " tipo "
-                + typeof(asignacion) + " valor "+asignacion);
+                //console.log(" RAQUEL inserté en almacen de globales, simbolo " + symbol.text+ " tipo "
+                //+ typeof(asignacion) + " valor "+asignacion);
             }
         }
         if(local === true){
@@ -273,8 +271,8 @@ VisitorInterprete.prototype.visitAssignStatement_AST = function(ctx) {          
                     variable.valor = asignacion;
                 }else{
                     metodoActual.insertarVar(symbol, typeof(asignacion), asignacion);
-                    console.log("statement RAQUEL inserté en" + metodoActual.text + " simbolo " + symbol.text + " tipo "
-                    + typeof(asignacion) + " valor "+asignacion);
+                    //console.log("statement RAQUEL inserté en" + metodoActual.text + " simbolo " + symbol.text + " tipo "
+                   // + typeof(asignacion) + " valor "+asignacion);
                 }
                 
             }
@@ -293,14 +291,14 @@ VisitorInterprete.prototype.asignarValorAParametros = function(ctx){
             for(var j = 0; j < lista.length; j++){
                 this.metodoActual.variables[i].type = typeof(lista[j]);
                 this.metodoActual.variables[j].valor = lista[j];
-                console.log("asigné valor");
+                //console.log("asigné valor");
         }
     }
 };
 
 // Visit a parse tree produced by miniPythonParser#functionCallStatement_AST.
 VisitorInterprete.prototype.visitFunctionCallStatement_AST = function(ctx) {                        //esto sirve???
-    console.log(" LLAMADAS A METODOS RAQUEL ESTUVO AQUI ")
+    //console.log(" LLAMADAS A METODOS RAQUEL ESTUVO AQUI ")
     var nombreMetodo = ctx.ID().getSymbol();
     var metodo = almacenMetodos.buscar(nombreMetodo.text);
     if(metodo!==null){
@@ -355,10 +353,10 @@ VisitorInterprete.prototype.visitExpression_AST = function(ctx) {
     //console.log("Second expression en expression  ", secondExp);
     if(secondExp.length !== 0) {
         secondExp.unshift(exp);
-        console.log("Expression del whilee ", secondExp);
+        //console.log("Expression del whilee ", secondExp);
         return secondExp;
     }
-    console.log("Expresion final", exp);
+    //console.log("Expresion final", exp);
     return exp;
    
 };
@@ -391,14 +389,14 @@ VisitorInterprete.prototype.visitAdditionExpression_AST = function(ctx) {
         //console.log("visitAdditionExpression_AST el número en la tercera llamada"+ exp.text);
     }
     let expressionList = VisitorInterprete.prototype.visit(ctx.additionFactor());
-    console.log("En addition expression ","De mul exp", exp, "de addition factor", expressionList);
+    //console.log("En addition expression ","De mul exp", exp, "de addition factor", expressionList);
     while (expressionList.length !== 0){
         let i = 0;
         exp = VisitorInterprete.prototype.operarNumeros(exp,expressionList[i],expressionList[i+1]);
         expressionList.splice(0,1);
         expressionList.splice(0,1);
     }
-    console.log("Expression tercera devolución ", exp);
+    //console.log("Expression tercera devolución ", exp);
     return exp;
 };
 
@@ -414,7 +412,7 @@ VisitorInterprete.prototype.visitAdditionFactor_multExpression_AST = function(ct
         listaAddition.push(operator);
         listaAddition.push(expression);
     }
-    console.log("Adition factor ", listaAddition);
+    //console.log("Adition factor ", listaAddition);
     return listaAddition;
 };
 
@@ -432,16 +430,16 @@ VisitorInterprete.prototype.visitMultiplicationExpression_AST = function(ctx) {
         //console.log("visitMultiplicationExpression_AST el número en la segunda llamada"+ exp.text);
     }
     let expressionList = VisitorInterprete.prototype.visit(ctx.multiplicationFactor());
-    console.log("Exp list en mult exp",expressionList);
+    //console.log("Exp list en mult exp",expressionList);
     while (expressionList.length !== 0){
         let i = 0;
-        console.log("Va a operar", exp,", ",expressionList[i],",",expressionList[i+1]);
+        //console.log("Va a operar", exp,", ",expressionList[i],",",expressionList[i+1]);
         exp = VisitorInterprete.prototype.operarNumeros(exp,expressionList[i],expressionList[i+1]);
-        console.log("Se supone que operó ", exp);
+        //console.log("Se supone que operó ", exp);
         expressionList.splice(0,1);
         expressionList.splice(0,1);
     }
-    console.log("Expression segunda devolución ", exp);
+    //console.log("Expression segunda devolución ", exp);
     //expressionList.unshift(exp);
     return  exp;
 };
@@ -459,12 +457,12 @@ VisitorInterprete.prototype.visitMultiplicationFactor_ElementExpression_AST = fu
         listaMult.push(operator);
         listaMult.push(expression);
     }
-    console.log("List multiplication en mult factor",listaMult);
+    //console.log("List multiplication en mult factor",listaMult);
     return listaMult;
 };
 VisitorInterprete.prototype.operarNumeros = function (par1, oper, par2){
     if(typeof par1 === 'number' && typeof par2 === 'number'){
-        console.log("No entré");
+        //console.log("No entré");
         switch (oper){
             case "+":
                 return par1 + par2;
@@ -494,7 +492,7 @@ VisitorInterprete.prototype.operarNumeros = function (par1, oper, par2){
     if(typeof par1 === 'object' && typeof par2 === 'object') {
             switch (oper) {
                 case "+":
-                    console.log("LISTAS PEGADAS", par1.concat(par2));
+                    //console.log("LISTAS PEGADAS", par1.concat(par2));
                     return par1.concat(par2);
                 case "-":
                     return null;
@@ -520,7 +518,7 @@ VisitorInterprete.prototype.visitElementExpression_AST = function(ctx) {
     if(exp != null){
         //console.log("visitElementExpression_AST el número"+ exp.text);
     }
-    console.log("Expression primera devolución ", exp);
+    //console.log("Expression primera devolución ", exp);
     VisitorInterprete.prototype.visit(ctx.elementAccess());
     return exp;
 };
@@ -542,7 +540,7 @@ VisitorInterprete.prototype.visitElementAccess_Epsylon_AST = function(ctx) {
 
 // Visit a parse tree produced by miniPythonParser#functionCallExpression_AST.
 VisitorInterprete.prototype.visitFunctionCallExpression_AST = function(ctx) {                           //HERE
-    console.log(" ASIGNACIONES COMO METODOS RAQUEL ESTUVO AQUI ")
+    //console.log(" ASIGNACIONES COMO METODOS RAQUEL ESTUVO AQUI ");
     nombreMetodo = ctx.ID().getSymbol(); 
     var metodo = almacenMetodos.buscar(nombreMetodo.text);
     if(metodo!==null){
