@@ -17,7 +17,9 @@ var almacenGlobales = new globales();
 var almacenMetodos = new almacen();
 var stack = new pila();
 var local = false;
-//var metodoActual = null;
+var localCallExpression = false;
+var MethodExpressionCurrent = null;
+var metodoActual = null;
 //en cada def creo una instancia del metodo nuevo, y la guardo en metodoactual para poder usarla en los demas visit
 
 VisitorInterprete.prototype.visitProgram_AST = function(ctx) {
@@ -241,31 +243,79 @@ VisitorInterprete.prototype.visitAssignStatement_AST = function(ctx) {          
     console.log(symbol.text);  
     console.log(symbol);
     if(asignacion !== null){
-        if (!local){
+        if (local ===false && localCallExpression ===false){
+            //ver si debo actualizarla
+            var variable = almacenGlobales.buscar(symbol.text);
+            if(variable !== null){
+                variable.type =  typeof(asignacion);
+                variable.valor = asignacion;
+            }else{
                 almacenGlobales.insertar(symbol, typeof(asignacion), asignacion);
                 console.log(" RAQUEL inserté en almacen de globales, simbolo " + symbol.text+ " tipo "
-                + typeof(asignacion) + " valor "+asignacion)
+                + typeof(asignacion) + " valor "+asignacion);
+            }
+        }
+        //SEPARARLO POR METODOS
+        //esto es por si es un llamado a metodo normal
+        if(local === true){
+            //busqueda local, si existe actualice, sino, busque global
+            variable = metodoActual.buscarVar(symbol.text);
+            if(variable !== null){
+                variable.type =  typeof(asignacion);
+                variable.valor = asignacion;
             }else{
-                //validar que se este buscando a nivel local y luego global para asignar el valor
-                var variable = almacenGlobales.buscar(symbol.text);
+                //busqueda global //existe global, actualice //si no existe, inserte local
+                variable = almacenGlobales.buscar(symbol.text);
                 if(variable !== null){
                     variable.type =  typeof(asignacion);
                     variable.valor = asignacion;
                 }else{
                     metodoActual.insertarVar(symbol, typeof(asignacion), asignacion);
-                    console.log(" RAQUEL inserté en" + metodoActual.text + " simbolo " + symbol.text + " tipo "
-                    + typeof(asignacion) + " valor "+asignacion)
-
+                    console.log("statement RAQUEL inserté en" + metodoActual.text + " simbolo " + symbol.text + " tipo "
+                    + typeof(asignacion) + " valor "+asignacion);
                 }
                 
+            }
+            
         }
+        //esto es por si es una asignacion con la llamada de un metodo
+        if(localCallExpression === true){
+            //busqueda local, si existe actualice, sino, busque global
+            variable = MethodExpressionCurrent.buscarVar(symbol.text);
+            if(variable !== null){
+                variable.type =  typeof(asignacion);
+                variable.valor = asignacion;
+            }else{
+                //busqueda global //existe global, actualice //si no existe, inserte local
+                variable = almacenGlobales.buscar(symbol.text);
+                if(variable !== null){
+                    variable.type =  typeof(asignacion);
+                    variable.valor = asignacion;
+                }else{
+                    MethodExpressionCurrent.insertarVar(symbol, typeof(asignacion), asignacion);
+                    console.log("statement RAQUEL inserté en" + MethodExpressionCurrent.text + " simbolo " + symbol.text + " tipo "
+                    + typeof(asignacion) + " valor "+asignacion);
+                }
+                
+            }
+            
+        }
+
     }
-
-
 
 
     return null;
 };
+//metodo para asignarle valor y tipo a los parametros de un metodo
+VisitorInterprete.prototype.asignarValorAParametros = function(currentMethod){
+    var lista = VisitorInterprete.prototype.visit(ctx.expressionList());
+        for(var i = 0; i < this.currentMethod.variables.length; i++){
+            for(var j = 0; j < lista.length; j++){
+                this.currentMethod.variables[i].type = typeof(lista[j]);
+                this.currentMethod.variables[j].valor = lista[j];
+                console.log("asigné valor");
+        }
+}
 
 // Visit a parse tree produced by miniPythonParser#functionCallStatement_AST.
 VisitorInterprete.prototype.visitFunctionCallStatement_AST = function(ctx) {                   //esto sirve???
@@ -275,7 +325,7 @@ VisitorInterprete.prototype.visitFunctionCallStatement_AST = function(ctx) {    
     if(metodo!==null){
         this.local = true;
         this.metodoActual = metodo;
-        VisitorInterprete.prototypeasignarValorAParametros();
+        VisitorInterprete.prototypeasignarValorAParametros(this.metodoActual);
         VisitorInterprete.prototype.visit(metodo.puntero);
         //no se si hace falta algo aqui, luego de que se ejecuta 
         this.local=false;
@@ -285,16 +335,7 @@ VisitorInterprete.prototype.visitFunctionCallStatement_AST = function(ctx) {    
     
     return null;
 };
-//metodo para asignarle valor y tipo a los parametros de un metodo
-VisitorInterprete.prototype.asignarValorAParametros = function(){
-    var lista = VisitorInterprete.prototype.visit(ctx.expressionList());
-        for(var i = 0; i < this.metodoActual.variables.length; i++){
-            for(var j = 0; j < lista.length; j++){
-                this.metodoActual.variables[i].type = typeof(lista[j]);
-                this.metodoActual.variables[j].valor = lista[j];
-                console.log("asigné valor");
-        }
-}
+
 
 
 // Visit a parse tree produced by miniPythonParser#expressionStatement_AST.
@@ -515,11 +556,22 @@ VisitorInterprete.prototype.visitElementAccess_Epsylon_AST = function(ctx) {
 
 // Visit a parse tree produced by miniPythonParser#functionCallExpression_AST.
 VisitorInterprete.prototype.visitFunctionCallExpression_AST = function(ctx) {                           //HERE
-    var temp = VisitorInterprete.prototype.visit(ctx.expressionList());
-    /*console.log("RAQUEL FUNCTION CALL EXPRESSION");
-    var visit = "ctx.expressionList()";
-    return visit;*/
-    return temp;
+    console.log(" ASIGNACIONES COMO METODOS RAQUEL ESTUVO AQUI ")
+    nombreMetodo = ctx.ID().getSymbol(); 
+    var metodo = almacenMetodos.buscar(nombreMetodo.text);
+    if(metodo!==null){
+        this.localCallExpression = true;
+        this.MethodExpressionCurrent = metodo;
+        VisitorInterprete.prototypeasignarValorAParametros(this.MethodExpressionCurrent);
+        VisitorInterprete.prototype.visit(metodo.puntero);
+        //ocupo que me retorne el valor que da el sequence para asignarlo en la variable
+        //yo retorno ese valor.
+        this.localCallExpression=false;
+        this.MethodExpressionCurrent = null;
+    }                                                      
+    
+    
+    return null;
 };
 
 
