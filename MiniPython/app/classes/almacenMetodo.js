@@ -17,7 +17,9 @@ almacenMetodo.prototype.constructor = almacenMetodo;
 
 almacenMetodo.prototype.buscar = function(nombre){
     temp = null;
+    console.log("Qué tengo en el almacén?", this.almacen);
     for(i = this.almacen.length-1; i >=0;i--){
+        console.log("Qué tengo en el almacén?", this.almacen[i]);
         if(this.almacen[i].token.text === nombre){
             temp = this.almacen[i]
         }
@@ -26,6 +28,7 @@ almacenMetodo.prototype.buscar = function(nombre){
 };
 
 almacenMetodo.prototype.imprimir = function(){
+    console.log("ALOHA");
     console.log("Cantidad de elementos del almacen de metodos",this.almacen.length);
     for(i = 0; i<this.almacen.length;i++){
         s = this.almacen[i].token.text;

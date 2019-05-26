@@ -94,7 +94,7 @@ var serializedATN = ["\u0003\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964",
     "\u0002st\u0005\u001c\u000f\u0002t\u000b\u0003\u0002\u0002\u0002uv\u0007",
     "\u000b\u0002\u0002vw\u0005 \u0011\u0002wx\u0007\u001b\u0002\u0002xy",
     "\u0005\u001c\u000f\u0002y\r\u0003\u0002\u0002\u0002z{\u0007\b\u0002",
-    "\u0002{|\u0005 \u0011\u0002|}\u0007\t\u0002\u0002}~\u00052\u001a\u0002",
+    "\u0002{|\u0007!\u0002\u0002|}\u0007\t\u0002\u0002}~\u00052\u001a\u0002",
     "~\u007f\u0007\u001b\u0002\u0002\u007f\u0080\u0005\u001c\u000f\u0002",
     "\u0080\u000f\u0003\u0002\u0002\u0002\u0081\u0082\u0007\f\u0002\u0002",
     "\u0082\u0083\u0005 \u0011\u0002\u0083\u0084\u0007\u000f\u0002\u0002",
@@ -104,7 +104,7 @@ var serializedATN = ["\u0003\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964",
     "\u008a\u0013\u0003\u0002\u0002\u0002\u008b\u008c\u0007!\u0002\u0002",
     "\u008c\u008d\u0007\u0010\u0002\u0002\u008d\u008e\u0005 \u0011\u0002",
     "\u008e\u008f\u0007\u000f\u0002\u0002\u008f\u0015\u0003\u0002\u0002\u0002",
-    "\u0090\u0091\u00056\u001c\u0002\u0091\u0092\u0007\u0013\u0002\u0002",
+    "\u0090\u0091\u0007!\u0002\u0002\u0091\u0092\u0007\u0013\u0002\u0002",
     "\u0092\u0093\u00052\u001a\u0002\u0093\u0094\u0007\u0014\u0002\u0002",
     "\u0094\u0095\u0005\u0018\r\u0002\u0095\u0017\u0003\u0002\u0002\u0002",
     "\u0096\u0099\u0007\u000f\u0002\u0002\u0097\u0099\u0003\u0002\u0002\u0002",
@@ -1416,8 +1416,8 @@ ForStatement_ASTContext.prototype.FOR = function() {
     return this.getToken(miniPythonParser.FOR, 0);
 };
 
-ForStatement_ASTContext.prototype.expression = function() {
-    return this.getTypedRuleContext(ExpressionContext,0);
+ForStatement_ASTContext.prototype.ID = function() {
+    return this.getToken(miniPythonParser.ID, 0);
 };
 
 ForStatement_ASTContext.prototype.IN = function() {
@@ -1469,7 +1469,7 @@ miniPythonParser.prototype.forStatement = function() {
         this.state = 120;
         this.match(miniPythonParser.FOR);
         this.state = 121;
-        this.expression();
+        this.match(miniPythonParser.ID);
         this.state = 122;
         this.match(miniPythonParser.IN);
         this.state = 123;
@@ -1836,8 +1836,8 @@ FunctionCallStatement_ASTContext.prototype.constructor = FunctionCallStatement_A
 
 miniPythonParser.FunctionCallStatement_ASTContext = FunctionCallStatement_ASTContext;
 
-FunctionCallStatement_ASTContext.prototype.primitiveExpression = function() {
-    return this.getTypedRuleContext(PrimitiveExpressionContext,0);
+FunctionCallStatement_ASTContext.prototype.ID = function() {
+    return this.getToken(miniPythonParser.ID, 0);
 };
 
 FunctionCallStatement_ASTContext.prototype.PIZQ = function() {
@@ -1887,7 +1887,7 @@ miniPythonParser.prototype.functionCallStatement = function() {
         localctx = new FunctionCallStatement_ASTContext(this, localctx);
         this.enterOuterAlt(localctx, 1);
         this.state = 142;
-        this.primitiveExpression();
+        this.match(miniPythonParser.ID);
         this.state = 143;
         this.match(miniPythonParser.PIZQ);
         this.state = 144;

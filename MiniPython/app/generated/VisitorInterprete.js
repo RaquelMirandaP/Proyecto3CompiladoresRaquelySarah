@@ -96,13 +96,16 @@ VisitorInterprete.prototype.visitDefStatement_AST = function(ctx) {
     //this.local = true;
     met = new metodo();
     met.token = ctx.ID().getSymbol();
+    console.log("TOKEN", met.token);
     VisitorInterprete.prototype.visit(ctx.argList());
     //VisitorInterprete.prototype.visit(ctx.sequence());
     met.puntero = ctx.sequence();
+    console.log("PUNTERO", met.puntero);
     this.metodoActual = met;
-    almacenMetodos.almacen.push(metodoActual);
+    console.log("METODO ACTUAL", this.metodoActual);
+    almacenMetodos.almacen.push(this.metodoActual);
     //almacenGlobales.imprimir();
-    //almacenMetodos.imprimir();
+    almacenMetodos.imprimir();
     //this.local = false;
     this.metodoActual = null;
     return null;
@@ -284,12 +287,12 @@ VisitorInterprete.prototype.visitAssignStatement_AST = function(ctx) {          
 };
 
 //metodo para asignarle valor y tipo a los parametros de un metodo
-VisitorInterprete.prototype.asignarValorAParametros = function(currentMethod){
+VisitorInterprete.prototype.asignarValorAParametros = function(ctx){
     var lista = VisitorInterprete.prototype.visit(ctx.expressionList());
-        for(var i = 0; i < this.currentMethod.variables.length; i++){
+        for(var i = 0; i < this.metodoActual.variables.length; i++){
             for(var j = 0; j < lista.length; j++){
-                this.currentMethod.variables[i].type = typeof(lista[j]);
-                this.currentMethod.variables[j].valor = lista[j];
+                this.metodoActual.variables[i].type = typeof(lista[j]);
+                this.metodoActual.variables[j].valor = lista[j];
                 console.log("asigné valor");
         }
     }
@@ -304,7 +307,7 @@ VisitorInterprete.prototype.visitFunctionCallStatement_AST = function(ctx) {    
         this.local = true;
         this.metodoActual = metodo;
         stack.insertar(this.metodoActual);
-        VisitorInterprete.prototype.asignarValorAParametros(this.metodoActual);
+        VisitorInterprete.prototype.asignarValorAParametros(ctx);
         VisitorInterprete.prototype.visit(metodo.puntero);
         //no se si hace falta algo aqui, luego de que se ejecuta
         stack.eliminar(this);
@@ -546,7 +549,7 @@ VisitorInterprete.prototype.visitFunctionCallExpression_AST = function(ctx) {   
         this.local = true;
         this.metodoActual=metodo;
         stack.insertar(this.metodoActual);
-        VisitorInterprete.prototype.asignarValorAParametros(this.metodoActual);
+        VisitorInterprete.prototype.asignarValorAParametros(ctx);
         VisitorInterprete.prototype.visit(metodo.puntero);
         //ocupo que me retorne el valor que da el sequence para asignarlo en la variable o operarlo x= 4+funct()
         //yo retorno ese valor.
