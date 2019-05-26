@@ -19,9 +19,9 @@ Stack.prototype.insertar = function(){
 
 
 //sacar del almacen, Retorna el último valor ingresado a la pila, sacándolo de ésta.
-Stack.prototype.eliminar() = function(){
+Stack.prototype.eliminar = function(){
     return this.stack.pop();              
-}
+};
 
 
 

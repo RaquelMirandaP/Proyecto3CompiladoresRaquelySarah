@@ -21,7 +21,7 @@ argList : ID(COMA ID)*                                                          
                     |                                                                   #argList_Epsylon_AST;
 ifStatement : IF expression DOSPUNTOS sequence ELSE DOSPUNTOS sequence                  #ifStatement_AST;
 whileStatement : WHILE expression DOSPUNTOS sequence                                    #whileStatement_AST;
-forStatement : FOR ID IN expressionList DOSPUNTOS sequence                      #forStatement_AST;
+forStatement : FOR ID IN expressionList DOSPUNTOS sequence                              #forStatement_AST;
 returnStatement : RETURN expression NEWLINE                                             #returnStatement_AST;
 printStatement : PRINT PIZQ expression PDER NEWLINE                                     #printStatement_AST;
 assignStatement : ID IGUAL expression NEWLINE                                           #assignStatement_AST;
@@ -39,7 +39,7 @@ additionExpression : multiplicationExpression additionFactor                    
 additionFactor : ((additionOperator) multiplicationExpression)*                               #additionFactor_multExpression_AST
                   |                                                                     #additionFactor_Epsylon_AST;
 multiplicationExpression : elementExpression multiplicationFactor                       #multiplicationExpression_AST;
-multiplicationFactor : (multOperator elementExpression)*                                     #multiplicationFactor_ElementExpression_AST
+multiplicationFactor : (multOperator elementExpression)*                                #multiplicationFactor_ElementExpression_AST
                        |                                                                #multiplicationFactor_Epsylon_AST;
 elementExpression : primitiveExpression elementAccess                                   #elementExpression_AST;
 elementAccess : (PCABRIR expression PCCERRAR)*                                          #elementAccess_Expression_AST

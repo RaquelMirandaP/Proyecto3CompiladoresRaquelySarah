@@ -154,7 +154,8 @@ MiVisitor.prototype.visitWhileStatement_AST = function(ctx) {
 MiVisitor.prototype.visitForStatement_AST = function(ctx) {
     tablaIndent.openScope();
     this.comeFromFor = true;
-    MiVisitor.prototype.visit(ctx.expression());
+    tablaIndent.insertar(ctx.ID().getSymbol(), -1);
+    //MiVisitor.prototype.visit(ctx.expression());
     MiVisitor.prototype.visit(ctx.expressionList());
     MiVisitor.prototype.visit(ctx.sequence());
     tablaIndent.imprimir();
@@ -388,12 +389,12 @@ MiVisitor.prototype.visitPrimitiveExpression_String_AST = function(ctx) {
 
 // Visit a parse tree produced by miniPythonParser#primitiveExpression_ID_AST.
 MiVisitor.prototype.visitPrimitiveExpression_ID_AST = function(ctx) {
-    var metodo = ctx.ID().getSymbol();                                                                                 //HERE
-    if(this.comeFromFor){
+    var metodo = ctx.ID().getSymbol();                                                                                //HERE
+    /*if(this.comeFromFor){
         tablaIndent.insertar(ctx.ID().getSymbol(), -1);
         this.comeFromFor = false;
-    }
-    else if(!comeFromAMethod){
+    }*/
+    if(!comeFromAMethod){
         var existToken = tablaIndent.buscar(ctx.ID().getText());
         if(existToken == null){
                 var texto = " no existe " + " en "+metodo.line +":" + metodo.column;

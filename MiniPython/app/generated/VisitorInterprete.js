@@ -1,7 +1,5 @@
 var parserGeneratedVisitor = require('generated/miniPythonParserVisitor');
-var globales = require('../classes/almacenVarGlobales');
 var metodo = require('../classes/metodoContainer');
-var almacen = require('../classes/almacenMetodos');
 var pila = require('../classes/stack');
 
 
@@ -15,8 +13,8 @@ function VisitorInterprete (){
 VisitorInterprete.prototype = Object.create(parserGeneratedVisitor.miniPythonParserVisitor.prototype);
 VisitorInterprete.prototype.constructor = VisitorInterprete;
 
-var almacenGlobales = new globales();
-var almacenMetodos = new almacen();
+//var almacenGlobales = new globales();
+//var almacendeMetodos = new almacen();
 var stack = new pila();
 var local = false;
 var metodoActual = null;
@@ -98,7 +96,7 @@ VisitorInterprete.prototype.visitDefStatement_AST = function(ctx) {
     metodoActual = met;
     VisitorInterprete.prototype.visit(ctx.argList());
     VisitorInterprete.prototype.visit(ctx.sequence());
-    almacenMetodos.almacen.push(metodoActual); 
+    //almacenMetodos.almacen.push(metodoActual);
     local = false;
     metodoActual = null;
     return null;
@@ -202,11 +200,17 @@ VisitorInterprete.prototype.validateExp = function (firstPart, oper, secondPart)
 
 // Visit a parse tree produced by miniPythonParser#forStatement_AST.
 VisitorInterprete.prototype.visitForStatement_AST = function(ctx) {
-   
-    VisitorInterprete.prototype.visit(ctx.expression());
-    VisitorInterprete.prototype.visit(ctx.expressionList());
-    VisitorInterprete.prototype.visit(ctx.sequence());
-  
+    let index = 0;
+    let i = ctx.ID().getSymbol();
+    let list = VisitorInterprete.prototype.visit(ctx.expressionList());
+    let realList = list[0];
+    console.log("Lista", list);
+    while(index < realList.length){
+        i = realList[index]; //En este punto actualiza en el almacén
+        console.log("La i es", i);
+        VisitorInterprete.prototype.visit(ctx.sequence());
+        index++;
+    }
     return null;
 };
 
@@ -218,7 +222,8 @@ VisitorInterprete.prototype.visitReturnStatement_AST = function(ctx) {
 
 // Visit a parse tree produced by miniPythonParser#printStatement_AST.
 VisitorInterprete.prototype.visitPrintStatement_AST = function(ctx) {
-    VisitorInterprete.prototype.visit(ctx.expression());
+    let printExpression = VisitorInterprete.prototype.visit(ctx.expression());
+    console.log("La expression en print",printExpression); //Hay que agregarlo a una lista para que imprima en msg
     return null;
 };
 
@@ -472,6 +477,7 @@ VisitorInterprete.prototype.visitExpressionList_AST = function(ctx) {
     moreExpressions.unshift(exp);
     //console.log("EXPRESION LIST ", moreExpressions);
     //return params;
+    console.log("Listaaaaas", moreExpressions);
     return moreExpressions;
 };
 
@@ -554,12 +560,20 @@ VisitorInterprete.prototype.visitPrimitiveExpression_functionCallExpression_AST 
 // Visit a parse tree produced by miniPythonParser#listExpression_AST.
 VisitorInterprete.prototype.visitListExpression_AST = function(ctx) {
     let listExp = VisitorInterprete.prototype.visit(ctx.expressionList());
-    //console.log("List expression ", listExp);
+    console.log("List expression ", listExp);
+    let listType = typeof listExp[0];
+    let flagType = false;
+    for(let i =0; i < listExp.length; i++){
+        if(typeof listExp[i] !== listType){
+            flagType = false;
+            console.log("Lista mixta, es inválida");
+            return null;
+        }
+    }
     return listExp;
 };
 
 VisitorInterprete.prototype.visitMultOperator = function(ctx) {
- 
     return ctx.getText();
 };
 

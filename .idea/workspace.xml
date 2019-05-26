@@ -20,8 +20,8 @@
       <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/MiniPython/app/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="441">
-              <caret line="152" column="19" lean-forward="false" selection-start-line="152" selection-start-column="19" selection-end-line="152" selection-end-column="19" />
+            <state relative-caret-position="0">
+              <caret line="145" column="49" lean-forward="true" selection-start-line="145" selection-start-column="49" selection-end-line="145" selection-end-column="49" />
               <folding />
             </state>
           </provider>
@@ -30,8 +30,8 @@
       <file leaf-file-name="MiVisitor.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/MiniPython/app/generated/MiVisitor.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1428">
-              <caret line="12" column="14" lean-forward="false" selection-start-line="12" selection-start-column="14" selection-end-line="12" selection-end-column="14" />
+            <state relative-caret-position="164">
+              <caret line="216" column="63" lean-forward="false" selection-start-line="216" selection-start-column="51" selection-end-line="216" selection-end-column="63" />
               <folding />
             </state>
           </provider>
@@ -41,52 +41,58 @@
         <entry file="file://$PROJECT_DIR$/MiniPython/app/classes/MiTabla.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="21">
-              <caret line="10" column="29" lean-forward="false" selection-start-line="10" selection-start-column="24" selection-end-line="10" selection-end-column="29" />
+              <caret line="10" column="58" lean-forward="false" selection-start-line="10" selection-start-column="58" selection-end-line="10" selection-end-column="58" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Identificador.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/MiniPython/app/classes/Identificador.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="168">
-              <caret line="8" column="31" lean-forward="false" selection-start-line="8" selection-start-column="31" selection-end-line="8" selection-end-column="31" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="VisitorInterprete.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="VisitorInterprete.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/MiniPython/app/generated/VisitorInterprete.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="273">
-              <caret line="103" column="16" lean-forward="true" selection-start-line="103" selection-start-column="16" selection-end-line="103" selection-end-column="16" />
+            <state relative-caret-position="420">
+              <caret line="80" column="15" lean-forward="true" selection-start-line="80" selection-start-column="15" selection-end-line="80" selection-end-column="15" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="miniPythonParserVisitor.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/MiniPython/app/generated/miniPythonParserVisitor.js">
+      <file leaf-file-name="almacenMetodo.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/MiniPython/app/classes/almacenMetodo.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="126">
-              <caret line="7" column="44" lean-forward="false" selection-start-line="7" selection-start-column="44" selection-end-line="7" selection-end-column="44" />
-              <folding>
-                <element signature="n#!!doc" expanded="true" />
-              </folding>
+            <state relative-caret-position="59">
+              <caret line="5" column="16" lean-forward="false" selection-start-line="5" selection-start-column="16" selection-end-line="5" selection-end-column="16" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="miniPythonParser.g4" pinned="false" current-in-tab="false">
+      <file leaf-file-name="almacenVarGlobales.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/MiniPython/app/classes/almacenVarGlobales.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="258">
+              <caret line="29" column="26" lean-forward="false" selection-start-line="29" selection-start-column="26" selection-end-line="29" selection-end-column="26" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="metodoContainer.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/MiniPython/app/classes/metodoContainer.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-189">
+              <caret line="12" column="38" lean-forward="true" selection-start-line="12" selection-start-column="38" selection-end-line="12" selection-end-column="38" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="miniPythonParser.g4" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/MiniPython/miniPythonParser.g4">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="286">
-              <caret line="23" column="22" lean-forward="false" selection-start-line="23" selection-start-column="22" selection-end-line="23" selection-end-column="22" />
-              <folding>
-                <marker date="1558725246264" expanded="true" signature="1793:1800" ph=":...;" />
-              </folding>
+            <state relative-caret-position="105">
+              <caret line="17" column="25" lean-forward="false" selection-start-line="17" selection-start-column="25" selection-end-line="17" selection-end-column="25" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -102,9 +108,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>ID</find>
-      <find>err</find>
-      <find>come</find>
       <find>def</find>
       <find>assign</find>
       <find>funct</find>
@@ -132,6 +135,9 @@
       <find>console</find>
       <find>consol</find>
       <find>oper</find>
+      <find>alma</find>
+      <find>almace</find>
+      <find>expressionSt</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -144,15 +150,16 @@
         <option value="$PROJECT_DIR$/MiniPython/app/generated/miniPythonParserVisitor.js" />
         <option value="$PROJECT_DIR$/MiniPython/app/MiTabla.js" />
         <option value="$PROJECT_DIR$/MiniPython/app/classes/Identificador.js" />
-        <option value="$PROJECT_DIR$/MiniPython/miniPythonParser.g4" />
         <option value="$PROJECT_DIR$/MiniPython/app/classes/MiTabla.js" />
         <option value="$PROJECT_DIR$/MiniPython/app/classes/listaErrores.js" />
         <option value="$PROJECT_DIR$/MiniPython/app/classes/ListaErrores.js" />
         <option value="$PROJECT_DIR$/MiniPython/app/classes/MiTablaMetodos.js" />
         <option value="$PROJECT_DIR$/MiniPython/app/classes/Metodo.js" />
         <option value="$PROJECT_DIR$/MiniPython/miniPythonLexer.g4" />
-        <option value="$PROJECT_DIR$/MiniPython/app/index.html" />
         <option value="$PROJECT_DIR$/MiniPython/app/generated/MiVisitor.js" />
+        <option value="$PROJECT_DIR$/MiniPython/app/classes/stack.js" />
+        <option value="$PROJECT_DIR$/MiniPython/app/index.html" />
+        <option value="$PROJECT_DIR$/MiniPython/miniPythonParser.g4" />
         <option value="$PROJECT_DIR$/MiniPython/app/generated/VisitorInterprete.js" />
       </list>
     </option>
@@ -184,7 +191,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -210,11 +216,19 @@
               <item name="app" type="462c0819:PsiDirectoryNode" />
               <item name="classes" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="Proyecto3CompiladoresRaquelySarah" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Proyecto3CompiladoresRaquelySarah" type="462c0819:PsiDirectoryNode" />
+              <item name="MiniPython" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="lib" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
       <pane id="Scope" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -236,6 +250,7 @@
     <property name="$PROJECT_DIR$/MiniPython/miniPythonParser.g4::/language" value="JavaScript" />
     <property name="$PROJECT_DIR$/MiniPython/miniPythonParser.g4::/gen-listener" value="true" />
     <property name="$PROJECT_DIR$/MiniPython/miniPythonParser.g4::/gen-visitor" value="true" />
+    <property name="SearchEverywhereHistoryKey" value="almacenMetodo&#9;FILE&#9;file://C:/Users/Sarah/Documents/Proyecto3CompiladoresRaquelySarah/MiniPython/app/classes/almacendeMetodos.js" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -289,12 +304,14 @@
       <workItem from="1558389283630" duration="2378000" />
       <workItem from="1558575007863" duration="749000" />
       <workItem from="1558652213928" duration="3132000" />
-      <workItem from="1558710234880" duration="9604000" />
+      <workItem from="1558710234880" duration="10914000" />
+      <workItem from="1558727954578" duration="8539000" />
+      <workItem from="1558820551096" duration="8379000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="129145000" />
+    <option name="totallyTimeSpent" value="147373000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-9" y="-9" width="1938" height="1048" extended-state="6" />
@@ -363,43 +380,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/MiniPython/app/classes/MiTablaMetodos.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="693">
-          <caret line="33" column="2" lean-forward="true" selection-start-line="33" selection-start-column="2" selection-end-line="33" selection-end-column="2" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/MiniPython/app/classes/Metodo.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="147">
-          <caret line="7" column="24" lean-forward="true" selection-start-line="7" selection-start-column="24" selection-end-line="7" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/MiniPython/app/classes/Identificador.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="8" column="6" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/MiniPython/app/generated/MiVisitor.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4074">
-          <caret line="194" column="84" lean-forward="false" selection-start-line="194" selection-start-column="84" selection-end-line="194" selection-end-column="84" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/MiniPython/app/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/MiniPython/app/generated/MiVisitor.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="357">
@@ -687,47 +667,29 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/MiniPython/app/classes/MiTabla.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="21">
-          <caret line="10" column="29" lean-forward="false" selection-start-line="10" selection-start-column="24" selection-end-line="10" selection-end-column="29" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/MiniPython/app/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="441">
-          <caret line="152" column="19" lean-forward="false" selection-start-line="152" selection-start-column="19" selection-end-line="152" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/MiniPython/app/generated/MiVisitor.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1428">
-          <caret line="12" column="14" lean-forward="false" selection-start-line="12" selection-start-column="14" selection-end-line="12" selection-end-column="14" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/MiniPython/app/generated/miniPythonParserVisitor.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="7" column="44" lean-forward="false" selection-start-line="7" selection-start-column="44" selection-end-line="7" selection-end-column="44" />
+        <state relative-caret-position="441">
+          <caret line="34" column="33" lean-forward="true" selection-start-line="34" selection-start-column="33" selection-end-line="34" selection-end-column="33" />
           <folding>
-            <element signature="n#!!doc" expanded="true" />
+            <element signature="n#!!doc" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/MiniPython/miniPythonParser.g4">
+    <entry file="file://$PROJECT_DIR$/MiniPython/app/classes/stack.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="286">
-          <caret line="23" column="22" lean-forward="false" selection-start-line="23" selection-start-column="22" selection-end-line="23" selection-end-column="22" />
-          <folding>
-            <marker date="1558725246264" expanded="true" signature="1793:1800" ph=":...;" />
-          </folding>
+        <state relative-caret-position="483">
+          <caret line="23" column="2" lean-forward="false" selection-start-line="23" selection-start-column="2" selection-end-line="23" selection-end-column="2" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/MiniPython/app/lib/require.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="9" column="2" lean-forward="true" selection-start-line="9" selection-start-column="2" selection-end-line="9" selection-end-column="2" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -735,14 +697,69 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="168">
           <caret line="8" column="31" lean-forward="false" selection-start-line="8" selection-start-column="31" selection-end-line="8" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/MiniPython/app/classes/MiTabla.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="21">
+          <caret line="10" column="58" lean-forward="false" selection-start-line="10" selection-start-column="58" selection-end-line="10" selection-end-column="58" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/MiniPython/app/classes/almacenMetodo.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="59">
+          <caret line="5" column="16" lean-forward="false" selection-start-line="5" selection-start-column="16" selection-end-line="5" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/MiniPython/app/classes/almacenVarGlobales.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="258">
+          <caret line="29" column="26" lean-forward="false" selection-start-line="29" selection-start-column="26" selection-end-line="29" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/MiniPython/app/classes/metodoContainer.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-189">
+          <caret line="12" column="38" lean-forward="true" selection-start-line="12" selection-start-column="38" selection-end-line="12" selection-end-column="38" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/MiniPython/app/generated/VisitorInterprete.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="273">
-          <caret line="103" column="16" lean-forward="true" selection-start-line="103" selection-start-column="16" selection-end-line="103" selection-end-column="16" />
+        <state relative-caret-position="420">
+          <caret line="80" column="15" lean-forward="true" selection-start-line="80" selection-start-column="15" selection-end-line="80" selection-end-column="15" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/MiniPython/app/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="145" column="49" lean-forward="true" selection-start-line="145" selection-start-column="49" selection-end-line="145" selection-end-column="49" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/MiniPython/app/generated/MiVisitor.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="164">
+          <caret line="216" column="63" lean-forward="false" selection-start-line="216" selection-start-column="51" selection-end-line="216" selection-end-column="63" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/MiniPython/miniPythonParser.g4">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="17" column="25" lean-forward="false" selection-start-line="17" selection-start-column="25" selection-end-line="17" selection-end-column="25" />
           <folding />
         </state>
       </provider>
