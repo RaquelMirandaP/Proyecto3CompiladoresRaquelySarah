@@ -243,7 +243,7 @@ VisitorInterprete.prototype.visitAssignStatement_AST = function(ctx) {          
     console.log(symbol.text);  
     console.log(symbol);
     if(asignacion !== null){
-        if (local ===false){
+        if (local === false){
             //ver si debo actualizarla
             var variable = almacenGlobales.buscar(symbol.text);
             if(variable !== null){
@@ -255,8 +255,6 @@ VisitorInterprete.prototype.visitAssignStatement_AST = function(ctx) {          
                 + typeof(asignacion) + " valor "+asignacion);
             }
         }
-        //SEPARARLO POR METODOS
-        //esto es por si es un llamado a metodo normal
         if(local === true){
             //busqueda local, si existe actualice, sino, busque global
             variable = metodoActual.buscarVar(symbol.text);
@@ -297,7 +295,7 @@ VisitorInterprete.prototype.asignarValorAParametros = function(currentMethod){
 };
 
 // Visit a parse tree produced by miniPythonParser#functionCallStatement_AST.
-VisitorInterprete.prototype.visitFunctionCallStatement_AST = function(ctx) {                   //esto sirve???
+VisitorInterprete.prototype.visitFunctionCallStatement_AST = function(ctx) {                        //esto sirve???
     console.log(" LLAMADAS A METODOS RAQUEL ESTUVO AQUI ")
     nombreMetodo = ctx.ID().getSymbol(); 
     var metodo = almacenMetodos.buscar(nombreMetodo.text);
@@ -307,13 +305,16 @@ VisitorInterprete.prototype.visitFunctionCallStatement_AST = function(ctx) {    
         stack.insertar(this.metodoActual);
         VisitorInterprete.prototype.asignarValorAParametros(this.metodoActual);
         VisitorInterprete.prototype.visit(metodo.puntero);
-        //no se si hace falta algo aqui, luego de que se ejecuta 
-        this.local=false;
-        //this.metodoActual = null;
-        //cuando saco de pila??
-    }                                                      
-    
-    
+        //no se si hace falta algo aqui, luego de que se ejecuta
+        stack.eliminar(this);
+        if(stack.length>0){
+            this.metodoActual = stack[length-1];
+        }else{
+            this.local=false;
+        }
+        
+        
+    }                                                         
     return null;
 };
 
@@ -541,17 +542,19 @@ VisitorInterprete.prototype.visitFunctionCallExpression_AST = function(ctx) {   
     nombreMetodo = ctx.ID().getSymbol(); 
     var metodo = almacenMetodos.buscar(nombreMetodo.text);
     if(metodo!==null){
-        //this.localCallExpression = true;
-        //this.MethodExpressionCurrent = metodo;
         this.local = true;
-        metodoActual=metodo;
+        this.metodoActual=metodo;
+        stack.insertar(this.metodoActual);
         VisitorInterprete.prototype.asignarValorAParametros(this.metodoActual);
         VisitorInterprete.prototype.visit(metodo.puntero);
-        //ocupo que me retorne el valor que da el sequence para asignarlo en la variable
+        //ocupo que me retorne el valor que da el sequence para asignarlo en la variable o operarlo x= 4+funct()
         //yo retorno ese valor.
-        //this.localCallExpression=false;
-        //this.MethodExpressionCurrent = null;
-        this.local = false;
+        stack.eliminar(this);
+        if(stack.length>0){
+            this.metodoActual = stack[length-1];
+        }else{
+            this.local=false;
+        }
     }                                                      
     
     
