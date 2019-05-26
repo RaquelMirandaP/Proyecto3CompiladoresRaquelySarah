@@ -92,15 +92,6 @@ miniPythonParserListener.prototype.exitStatement_functionCallStatemt_AST = funct
 };
 
 
-// Enter a parse tree produced by miniPythonParser#statement_expressionStatement_AST.
-miniPythonParserListener.prototype.enterStatement_expressionStatement_AST = function(ctx) {
-};
-
-// Exit a parse tree produced by miniPythonParser#statement_expressionStatement_AST.
-miniPythonParserListener.prototype.exitStatement_expressionStatement_AST = function(ctx) {
-};
-
-
 // Enter a parse tree produced by miniPythonParser#defStatement_AST.
 miniPythonParserListener.prototype.enterDefStatement_AST = function(ctx) {
 };

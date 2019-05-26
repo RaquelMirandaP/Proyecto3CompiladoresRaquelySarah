@@ -45,8 +45,10 @@ VisitorInterprete.prototype.visitStatement_IfStatement_AST = function(ctx) {
     return null;
 };
 VisitorInterprete.prototype.visitStatement_returnStatement_AST = function(ctx) {
-    VisitorInterprete.prototype.visit(ctx.returnStatement());
-    return null
+    let returnSt = VisitorInterprete.prototype.visit(ctx.returnStatement());
+    console.log("RETURN STATEMENT",returnSt);
+    return returnSt;
+
 };
 
 // Visit a parse tree produced by miniPythonParser#statement_printStatement_AST.
@@ -83,10 +85,10 @@ VisitorInterprete.prototype.visitStatement_functionCallStatemt_AST = function(ct
 
 
 // Visit a parse tree produced by miniPythonParser#statement_expressionStatement_AST.
-VisitorInterprete.prototype.visitStatement_expressionStatement_AST = function(ctx) {
+/*VisitorInterprete.prototype.visitStatement_expressionStatement_AST = function(ctx) {
     VisitorInterprete.prototype.visit(ctx.expressionStatement());
     return null
-};
+};*/
 
 
 // Visit a parse tree produced by miniPythonParser#defStatement_AST.
@@ -124,6 +126,7 @@ VisitorInterprete.prototype.visitIfStatement_AST = function(ctx) {
     else{
         if(validate){
             VisitorInterprete.prototype.visit(ctx.sequence(0));
+        }else{
             VisitorInterprete.prototype.visit(ctx.sequence(1));
         }
     }
@@ -136,28 +139,31 @@ VisitorInterprete.prototype.visitWhileStatement_AST = function(ctx) {
    
     let condition = VisitorInterprete.prototype.visit(ctx.expression());
     let validate = VisitorInterprete.prototype.validateExp(condition[0],condition[1],condition[2]);
-    if(validate.length > 3){
+    if(condition.length > 3){
         console.log("Expresión del while inválida")
     }
     //Esto es  un while
-    if(validate){
-        console.log("Soy un true");
+    while(validate){
+        validate = VisitorInterprete.prototype.validateExp(condition[0],condition[1],condition[2]);
+        VisitorInterprete.prototype.visit(ctx.sequence());
+        console.log("PROBANDO EL WHILE ", i);
     }
-    else{
-        console.log("Soy un false");
-    }
-    VisitorInterprete.prototype.visit(ctx.sequence());
+
    
     return null;
 };
 VisitorInterprete.prototype.validateExp = function (firstPart, oper, secondPart) {
-    if(typeof firstPart === 'object' || typeof secondPart === 'object'){
+    /*if(typeof firstPart === 'object' || typeof secondPart === 'object'){
         return null;
     }
     if(typeof firstPart === 'string' && oper !== '=='){
         //First part busca en la tabla, si lo encuentra toma el valor, y sigue, si no
         //retorna null
     }
+    if(typeof secondPart === 'string' && oper !== '=='){
+        //Second part busca en la tabla, si lo encuentra toma el valor, y sigue, si no
+        //retorna null
+    }*/
   switch(oper){
       case '>':
           if(firstPart > secondPart){
@@ -216,8 +222,7 @@ VisitorInterprete.prototype.visitForStatement_AST = function(ctx) {
 
 // Visit a parse tree produced by miniPythonParser#returnStatement_AST.
 VisitorInterprete.prototype.visitReturnStatement_AST = function(ctx) {
-    VisitorInterprete.prototype.visit(ctx.expression());
-    return null;
+    return VisitorInterprete.prototype.visit(ctx.expression());
 };
 
 // Visit a parse tree produced by miniPythonParser#printStatement_AST.
@@ -245,24 +250,34 @@ VisitorInterprete.prototype.visitFunctionCallStatement_AST = function(ctx) {
 
 
 // Visit a parse tree produced by miniPythonParser#expressionStatement_AST.
-VisitorInterprete.prototype.visitExpressionStatement_AST = function(ctx) {
+/*VisitorInterprete.prototype.visitExpressionStatement_AST = function(ctx) {
     VisitorInterprete.prototype.visit(ctx.expressionList());
     return null;
-};
+};*/
 
 
 // Visit a parse tree produced by miniPythonParser#sequence_AST.
 VisitorInterprete.prototype.visitSequence_AST = function(ctx) {
-    VisitorInterprete.prototype.visit(ctx.moreStatements());
+    let seeIfReturn = VisitorInterprete.prototype.visit(ctx.moreStatements());
+    console.log("ESTOY DESDE ALGÚN SEQUENCE, QUIZÁ RETORNE", seeIfReturn);
+    if(seeIfReturn != null){
+        return seeIfReturn;
+    }
     return null;
 };
 
 
 // Visit a parse tree produced by miniPythonParser#moreStatements_AST.
 VisitorInterprete.prototype.visitMoreStatements_AST = function(ctx) {
-    VisitorInterprete.prototype.visit(ctx.statement(0));
+    let seeIfReturn = VisitorInterprete.prototype.visit(ctx.statement(0));
+    if(seeIfReturn != null){
+        return seeIfReturn;
+    }
     for(var i = 1; i < ctx.statement().length; i++){
-        VisitorInterprete.prototype.visit(ctx.statement(i));
+        seeIfReturn = VisitorInterprete.prototype.visit(ctx.statement(i));
+        if(seeIfReturn != null){
+            return seeIfReturn;
+        }
     }
     return null;
 };

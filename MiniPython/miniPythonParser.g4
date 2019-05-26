@@ -15,7 +15,7 @@ statement : defStatement                                                        
             | forStatement                                                              #statement_forStatement_AST
             | assignStatement                                                           #statement_asignStatemen_AST
             | functionCallStatement                                                     #statement_functionCallStatemt_AST
-            | expressionStatement                                                       #statement_expressionStatement_AST;
+            ;
 defStatement : DEF ID PIZQ argList PDER DOSPUNTOS sequence                              #defStatement_AST;
 argList : ID(COMA ID)*                                                                  #argList_AST
                     |                                                                   #argList_Epsylon_AST;

@@ -81,12 +81,12 @@ MiVisitor.prototype.visitStatement_functionCallStatemt_AST = function(ctx) {
     return null
 };
 
-
+/*
 // Visit a parse tree produced by miniPythonParser#statement_expressionStatement_AST.
 MiVisitor.prototype.visitStatement_expressionStatement_AST = function(ctx) {
     MiVisitor.prototype.visit(ctx.expressionStatement());
     return null
-};
+};*/
 
 
 // Visit a parse tree produced by miniPythonParser#defStatement_AST.
@@ -180,14 +180,12 @@ MiVisitor.prototype.visitPrintStatement_AST = function(ctx) {
 MiVisitor.prototype.visitAssignStatement_AST = function(ctx) {
     //Aquí debería ingresar en la tabla de identificadores
     //
-
     tablaIndent.insertar(ctx.ID().getSymbol(),-1);
-
     MiVisitor.prototype.visit(ctx.expression());
+    console.log("LO QUE INSERTÉ " ,ctx.ID().getSymbol().text);
+    tablaIndent.imprimir();
     return null;
 };
-
-
 // Visit a parse tree produced by miniPythonParser#functionCallStatement_AST.
 MiVisitor.prototype.visitFunctionCallStatement_AST = function(ctx) {                                                        //HERE
     //console.log("Hola llegué aquí");
@@ -215,10 +213,10 @@ MiVisitor.prototype.visitFunctionCallStatement_AST = function(ctx) {            
 
 
 // Visit a parse tree produced by miniPythonParser#expressionStatement_AST.
-MiVisitor.prototype.visitExpressionStatement_AST = function(ctx) {
+/*MiVisitor.prototype.visitExpressionStatement_AST = function(ctx) {
     MiVisitor.prototype.visit(ctx.expressionList());
     return null;
-};
+};*/
 
 
 // Visit a parse tree produced by miniPythonParser#sequence_AST.
@@ -396,6 +394,7 @@ MiVisitor.prototype.visitPrimitiveExpression_ID_AST = function(ctx) {
     }*/
     if(!comeFromAMethod){
         var existToken = tablaIndent.buscar(ctx.ID().getText());
+        console.log("Lo que voy a buscar", ctx.ID().getSymbol().text);
         if(existToken == null){
                 var texto = " no existe " + " en "+metodo.line +":" + metodo.column;
                 var idText = "'"+ctx.ID().getText()+"'";

@@ -66,12 +66,6 @@ miniPythonParserVisitor.prototype.visitStatement_functionCallStatemt_AST = funct
 };
 
 
-// Visit a parse tree produced by miniPythonParser#statement_expressionStatement_AST.
-miniPythonParserVisitor.prototype.visitStatement_expressionStatement_AST = function(ctx) {
-  return this.visitChildren(ctx);
-};
-
-
 // Visit a parse tree produced by miniPythonParser#defStatement_AST.
 miniPythonParserVisitor.prototype.visitDefStatement_AST = function(ctx) {
   return this.visitChildren(ctx);
