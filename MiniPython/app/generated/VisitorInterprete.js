@@ -298,7 +298,7 @@ VisitorInterprete.prototype.asignarValorAParametros = function(currentMethod){
 // Visit a parse tree produced by miniPythonParser#functionCallStatement_AST.
 VisitorInterprete.prototype.visitFunctionCallStatement_AST = function(ctx) {                        //esto sirve???
     console.log(" LLAMADAS A METODOS RAQUEL ESTUVO AQUI ")
-    nombreMetodo = ctx.ID().getSymbol(); 
+    nombreMetodo = ctx.ID().getSymbol();
     var metodo = almacenMetodos.buscar(nombreMetodo.text);
     if(metodo!==null){
         this.local = true;
