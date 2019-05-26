@@ -137,7 +137,7 @@
                 document.getElementById("messages").value += (element + '\n');
             });
         }
-        else {
+        /*else {
             document.getElementById("messages").value = 'Sin errores de sintaxis\n\n';
             visitor.visit(tree);
             //listaErrores2 = visitor.listaErroresID;
@@ -153,7 +153,7 @@
                 });
             }
             //impresión del árbol
-        }
+        }*/
         visitorInterp.visit(tree);
     });
 
