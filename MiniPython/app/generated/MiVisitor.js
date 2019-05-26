@@ -196,7 +196,7 @@ MiVisitor.prototype.visitFunctionCallStatement_AST = function(ctx) {            
     //console.log("Hola llegué aquí");
     comeFromAMethod = true;
     //var nombreMetodo = MiVisitor.prototype.visit(ctx.primitiveExpression());
-    var nombreMetodo = ctx.getSymbol();
+    var nombreMetodo = ctx.ID().getSymbol();
     var params = MiVisitor.prototype.visit(ctx.expressionList());
     //console.log("Soy context de expression list",ctx);
     //console.log("soy la cantidad de parms que viene desde expression y more expressions",params);
