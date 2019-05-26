@@ -108,7 +108,13 @@ VisitorInterprete.prototype.visitDefStatement_AST = function(ctx) {
 
 // Visit a parse tree produced by miniPythonParser#argList_AST.
 VisitorInterprete.prototype.visitArgList_AST = function(ctx) {
+    cont = ctx.ID().length;
+    console.log("Voy a insertar parámetros");
+    for(var i = 0; i < cont; i++){
+        metodoActual.insertarParametros(ctx.ID(i).getSymbol());
+    }
     return null;
+
 };
 
 // Visit a parse tree produced by miniPythonParser#argList_Epsylon_AST.
@@ -241,9 +247,17 @@ VisitorInterprete.prototype.visitAssignStatement_AST = function(ctx) {          
                 + typeof(asignacion) + " valor "+asignacion)
             }else{
                 //validar que se este buscando a nivel local y luego global para asignar el valor
-                metodoActual.insertarVar(symbol, typeof(asignacion), asignacion);
-                console.log(" RAQUEL inserté en" + metodoActual.text + " simbolo " + symbol.text + " tipo "
-                + typeof(asignacion) + " valor "+asignacion)
+                var variable = almacenGlobales.buscar(symbol.text);
+                if(variable !== null){
+                    variable.type =  typeof(asignacion);
+                    variable.valor = asignacion;
+                }else{
+                    metodoActual.insertarVar(symbol, typeof(asignacion), asignacion);
+                    console.log(" RAQUEL inserté en" + metodoActual.text + " simbolo " + symbol.text + " tipo "
+                    + typeof(asignacion) + " valor "+asignacion)
+
+                }
+                
         }
     }
 
@@ -253,7 +267,6 @@ VisitorInterprete.prototype.visitAssignStatement_AST = function(ctx) {          
     return null;
 };
 
-
 // Visit a parse tree produced by miniPythonParser#functionCallStatement_AST.
 VisitorInterprete.prototype.visitFunctionCallStatement_AST = function(ctx) {                   //esto sirve???
     console.log(" LLAMADAS A METODOS RAQUEL ESTUVO AQUI ")
@@ -262,16 +275,26 @@ VisitorInterprete.prototype.visitFunctionCallStatement_AST = function(ctx) {    
     if(metodo!==null){
         this.local = true;
         this.metodoActual = metodo;
+        VisitorInterprete.prototypeasignarValorAParametros();
         VisitorInterprete.prototype.visit(metodo.puntero);
         //no se si hace falta algo aqui, luego de que se ejecuta 
         this.local=false;
         this.metodoActual = null;
     }                                                      
-    VisitorInterprete.prototype.visit(ctx.expressionList());
-    console.log(" LLAMADAS A METODOS RAQUEL ESTUVO AQUI ")
+    
     
     return null;
 };
+//metodo para asignarle valor y tipo a los parametros de un metodo
+VisitorInterprete.prototype.asignarValorAParametros = function(){
+    var lista = VisitorInterprete.prototype.visit(ctx.expressionList());
+        for(var i = 0; i < this.metodoActual.variables.length; i++){
+            for(var j = 0; j < lista.length; j++){
+                this.metodoActual.variables[i].type = typeof(lista[j]);
+                this.metodoActual.variables[j].valor = lista[j];
+                console.log("asigné valor");
+        }
+}
 
 
 // Visit a parse tree produced by miniPythonParser#expressionStatement_AST.
