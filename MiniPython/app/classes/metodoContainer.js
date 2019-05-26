@@ -6,6 +6,7 @@ var variable = require('./variable');
 function metodoContainer() {
     this.token = 0;
     this.variables = []; // se ingresa si no esta, pero se debe consultar si ya existe en el local o en el global 
+    this.puntero = null;
     return this;
 
 }

@@ -17,7 +17,7 @@ var almacenGlobales = new globales();
 var almacenMetodos = new almacen();
 var stack = new pila();
 var local = false;
-var metodoActual = null;
+//var metodoActual = null;
 //en cada def creo una instancia del metodo nuevo, y la guardo en metodoactual para poder usarla en los demas visit
 
 VisitorInterprete.prototype.visitProgram_AST = function(ctx) {
@@ -91,17 +91,18 @@ VisitorInterprete.prototype.visitStatement_expressionStatement_AST = function(ct
 
 // Visit a parse tree produced by miniPythonParser#defStatement_AST.
 VisitorInterprete.prototype.visitDefStatement_AST = function(ctx) {
-    local = true;
+    this.local = true;
     met = new metodo();
     met.token = ctx.ID().getSymbol();
-    metodoActual = met;
     VisitorInterprete.prototype.visit(ctx.argList());
-    VisitorInterprete.prototype.visit(ctx.sequence());
+    //VisitorInterprete.prototype.visit(ctx.sequence());
+    met.puntero = ctx.sequence();
+    this.metodoActual = met;
     almacenMetodos.almacen.push(metodoActual);
-    almacenGlobales.imprimir();
-    almacenMetodos.imprimir();
-    local = false;
-    metodoActual = null;
+    //almacenGlobales.imprimir();
+    //almacenMetodos.imprimir();
+    this.local = false;
+    this.metodoActual = null;
     return null;
 };
 
@@ -203,7 +204,7 @@ VisitorInterprete.prototype.validateExp = function (firstPart, oper, secondPart)
 
 // Visit a parse tree produced by miniPythonParser#forStatement_AST.
 VisitorInterprete.prototype.visitForStatement_AST = function(ctx) {
-    VisitorInterprete.prototype.visit(ctx.expression());
+    //VisitorInterprete.prototype.visit(ctx.expression());
     VisitorInterprete.prototype.visit(ctx.expressionList());
     VisitorInterprete.prototype.visit(ctx.sequence());
   
@@ -233,16 +234,19 @@ VisitorInterprete.prototype.visitAssignStatement_AST = function(ctx) {          
     var symbol = ctx.ID().getSymbol(); 
     console.log(symbol.text);  
     console.log(symbol);
-   /* if(asignacion !== null){
+    if(asignacion !== null){
         if (!local){
                 almacenGlobales.insertar(symbol, typeof(asignacion), asignacion);
-                console.log(" RAQUEL inserté en almacen de globales, simbolo " + symbol.text+ " tipo "+ typeof(asignacion) + " valor "+asignacion)
+                console.log(" RAQUEL inserté en almacen de globales, simbolo " + symbol.text+ " tipo "
+                + typeof(asignacion) + " valor "+asignacion)
             }else{
+                //validar que se este buscando a nivel local y luego global para asignar el valor
                 metodoActual.insertarVar(symbol, typeof(asignacion), asignacion);
-                console.log(" RAQUEL inserté en un metodo, simbolo " + symbol.text + " tipo "+ typeof(asignacion) + " valor "+asignacion)
+                console.log(" RAQUEL inserté en" + metodoActual.text + " simbolo " + symbol.text + " tipo "
+                + typeof(asignacion) + " valor "+asignacion)
         }
     }
-*/
+
 
 
 
@@ -251,16 +255,20 @@ VisitorInterprete.prototype.visitAssignStatement_AST = function(ctx) {          
 
 
 // Visit a parse tree produced by miniPythonParser#functionCallStatement_AST.
-VisitorInterprete.prototype.visitFunctionCallStatement_AST = function(ctx) {                                                        
-    VisitorInterprete.prototype.visit(ctx.primitiveExpression());
+VisitorInterprete.prototype.visitFunctionCallStatement_AST = function(ctx) {                   //esto sirve???
+    console.log(" LLAMADAS A METODOS RAQUEL ESTUVO AQUI ")
+    nombreMetodo = ctx.ID().getSymbol(); 
+    var metodo = almacenMetodos.buscar(nombreMetodo.text);
+    if(metodo!==null){
+        this.local = true;
+        this.metodoActual = metodo;
+        VisitorInterprete.prototype.visit(metodo.puntero);
+        //no se si hace falta algo aqui, luego de que se ejecuta 
+        this.local=false;
+        this.metodoActual = null;
+    }                                                      
     VisitorInterprete.prototype.visit(ctx.expressionList());
     console.log(" LLAMADAS A METODOS RAQUEL ESTUVO AQUI ")
-     if(local){
-        //metodoActual.variables.push(ctx.expressionList())                            //esto sirve???
-        console.log(" RAQUEL, ESTOY IMPRIMIENDO EL PUNTERO");
-        console.log(ctx.primitiveExpression());
-        console.log(ctx.expressionList());
-    }
     
     return null;
 };
