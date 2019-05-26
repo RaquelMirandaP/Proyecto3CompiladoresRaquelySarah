@@ -129,7 +129,8 @@ VisitorInterprete.prototype.visitArgList_Epsylon_AST = function(ctx) {
 VisitorInterprete.prototype.visitIfStatement_AST = function(ctx) {
    
     let expression = VisitorInterprete.prototype.visit(ctx.expression());
-    let validate = VisitorInterprete.prototype.expression(condition[0],condition[1],condition[2]);
+
+    let validate = VisitorInterprete.prototype.validateExp(expression[0],expression[1],expression[2]);
     if(validate.length > 3 || validate === null){
         console.log("Expresion inválida ");
     }

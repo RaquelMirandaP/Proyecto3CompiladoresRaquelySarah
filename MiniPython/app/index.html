@@ -112,7 +112,7 @@
         var tokens = new antlr4.CommonTokenStream(lexer);
         var parser = new Pgenerated.miniPythonParser(tokens);
 
-        var visitor = new Visitor();
+        var visitor = new Visitor();               
         var visitorInterp = new VisitorInterprete();
         var msg = document.getElementById("messages");
 
@@ -145,7 +145,7 @@
             //console.log("Errores impresion",erroresList.imprimirErrores());
             if(visitor.listaVisitor.length == 0){
                 document.getElementById("messages").value += 'Sin errores semánticos\n\n';
-                visitorInterp.visit(tree);
+                //visitorInterp.visit(tree);
             }
             else{
                 visitor.listaVisitor.forEach(function (error) {
@@ -154,6 +154,7 @@
             }
             //impresión del árbol
         }
+        visitorInterp.visit(tree);
     });
 
 

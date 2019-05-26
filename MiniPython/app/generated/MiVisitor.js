@@ -12,8 +12,8 @@ MiVisitor.prototype = Object.create(parserGeneratedVisitor.miniPythonParserVisit
 MiVisitor.prototype.constructor = MiVisitor;
 var tablaIndent = new MiTablaId();
 var miTableMetodos = new MiTablaMet();
-var comeFromFor = false;
-var comeFromAMethod = false;
+//var comeFromFor = false;
+//var comeFromAMethod = false;
 //console.log("Va a reiniciar la Lista Errores");
 var listaError = new ListaErrores();
 MiVisitor.prototype.visitProgram_AST = function(ctx) {
@@ -185,7 +185,6 @@ MiVisitor.prototype.visitAssignStatement_AST = function(ctx) {
     //
 
     tablaIndent.insertar(ctx.ID().getSymbol(),-1);
-
     MiVisitor.prototype.visit(ctx.expression());
     return null;
 };
@@ -194,7 +193,7 @@ MiVisitor.prototype.visitAssignStatement_AST = function(ctx) {
 // Visit a parse tree produced by miniPythonParser#functionCallStatement_AST.
 MiVisitor.prototype.visitFunctionCallStatement_AST = function(ctx) {                                                        //HERE
     //console.log("Hola llegué aquí");
-    comeFromAMethod = true;
+    //comeFromAMethod = true;
     //var nombreMetodo = MiVisitor.prototype.visit(ctx.primitiveExpression());
     var nombreMetodo = ctx.ID().getSymbol();
     var params = MiVisitor.prototype.visit(ctx.expressionList());
@@ -213,7 +212,7 @@ MiVisitor.prototype.visitFunctionCallStatement_AST = function(ctx) {            
             listaError.agregarError(errorCantParams);
         }
     }
-    comeFromAMethod = false;
+    //comeFromAMethod = false;
     return null;
 };
 
