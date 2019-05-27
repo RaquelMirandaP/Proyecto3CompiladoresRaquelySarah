@@ -17,6 +17,7 @@ var almacenMetodos = new almacen();
 var stack = new pila();
 var local = false;
 var stat = false;
+var llamada = false;
 //var localCallExpression = false;
 //var MethodExpressionCurrent = null;
 var metodoActual = null;
@@ -327,6 +328,7 @@ VisitorInterprete.prototype.visitAssignStatement_AST = function(ctx) {          
 };
 //metodo para asignarle valor y tipo a los parametros de un metodo
 VisitorInterprete.prototype.asignarValorAParametros = function(ctx){
+    llamada = true;
     var lista = VisitorInterprete.prototype.visit(ctx.expressionList());
     if(this.metodoActual.variables.length>0 && lista !== null){
         for(var i = 0; i < this.metodoActual.variables.length; i++){
@@ -341,6 +343,7 @@ VisitorInterprete.prototype.asignarValorAParametros = function(ctx){
     }
     console.log("estoy validando que se actualice el valor de los parametros");
     console.log(this.metodoActual.variables);
+    llamada = false;
 };
 // Visit a parse tree produced by miniPythonParser#functionCallStatement_AST.
 VisitorInterprete.prototype.visitFunctionCallStatement_AST = function(ctx) {                        //esto sirve???
@@ -363,7 +366,8 @@ VisitorInterprete.prototype.visitFunctionCallStatement_AST = function(ctx) {    
         //no se si hace falta algo aqui, luego de que se ejecuta
         stack.imprimir();
         if(stack.stack.length>0){
-            this.metodoActual = stack.stack[length-1];
+            var tam = stack.stack.length
+            this.metodoActual = stack.stack[tam-1];
             console.log("ESTA TODO BIEN EN CASA??????", this.metodoActual);
         }else{
             this.local=false;
@@ -607,6 +611,7 @@ VisitorInterprete.prototype.visitElementAccess_Epsylon_AST = function(ctx) {
 // Visit a parse tree produced by miniPythonParser#functionCallExpression_AST.
 VisitorInterprete.prototype.visitFunctionCallExpression_AST = function(ctx) {                           //HERE
     //console.log(" ASIGNACIONES COMO METODOS RAQUEL ESTUVO AQUI ");
+
     nombreMetodo = ctx.ID().getSymbol(); 
     var metodo = almacenMetodos.buscar(nombreMetodo.text);
     if(metodo!==null){
@@ -620,7 +625,8 @@ VisitorInterprete.prototype.visitFunctionCallExpression_AST = function(ctx) {   
         //stack.eliminar();
         stack.imprimir();
         if(stack.stack.length>0){
-            this.metodoActual = stack.stack[length-1];
+            var tam = stack.stack.length
+            this.metodoActual = stack.stack[tam-1];
         }else{
             this.local=false;
         }
@@ -682,8 +688,9 @@ VisitorInterprete.prototype.visitPrimitiveExpression_String_AST = function(ctx) 
 };
 
 // Visit a parse tree produced by miniPythonParser#primitiveExpression_ID_AST.
-VisitorInterprete.prototype.visitPrimitiveExpression_ID_AST = function(ctx) {
-
+VisitorInterprete.prototype.visitPrimitiveExpression_ID_AST = function(ctx) {                           //HERE IDDDDDD
+    var metAux;
+    console.log("VALOR DE CALL ",llamada);
     let id = ctx.ID().getText();
     if(!stat){
         let idValue = this.metodoActual.buscarValor(id);
@@ -692,10 +699,38 @@ VisitorInterprete.prototype.visitPrimitiveExpression_ID_AST = function(ctx) {
         }
         return idValue;
     }
+    if(llamada){
+        console.log("CALL ESTA TRUE Y NECESITO QUE BUSQUE ")
+        if(stack.stack.length >= 2){   
+            var tam = stack.stack.length
+            metAux = stack.stack[tam-1];  
+            console.log("PENULTIMA POSICION DE LA PILA");
+            console.log(metAux);
+            idValue= metAux.buscarValor(id);
+        }else{
+            idValue = almacenGlobales.buscarValor(id);
+        }
+        llamada=false;
+        console.log("ESTO ES CASI CASI LA GLORIA", idValue);
+        return idValue;   
+    }
     stat = false;
     return id;
 };
-
+/*
+if(idValue == null){
+                if(stack.stack.length >=2){    //que pasa si la penultima pos no existe
+                    var tam = stack.stack.length
+                    metAux = stack.stack[tam-1];  
+                    console.log("PENULTIMA POSICION DE LA PILA");
+                    console.log(metAux);
+                    idValue= metAux.buscarValor(id);
+                }
+                    
+            }else{
+                console.log("estoy mamando");
+            }
+*/
 
 // Visit a parse tree produced by miniPythonParser#primitiveExpression_Expression_AST.
 VisitorInterprete.prototype.visitPrimitiveExpression_Expression_AST = function(ctx) {
