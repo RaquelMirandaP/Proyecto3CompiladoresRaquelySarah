@@ -108,7 +108,7 @@ VisitorInterprete.prototype.visitDefStatement_AST = function(ctx) {
     //almacenGlobales.imprimir();
     almacenMetodos.imprimir();
     this.local = false;
-    this.metodoActual = null;
+    //this.metodoActual = null;
     return null;
 };
 
@@ -121,6 +121,7 @@ VisitorInterprete.prototype.visitArgList_AST = function(ctx) {
         this.metodoActual.insertarParametros(ctx.ID(i).getSymbol());
         //console.log(ctx.ID(i).getSymbol());
     }
+    console.log("parametros del metodo", this.metodoActual.token.text);
     console.log(this.metodoActual.variables);
     return null;
 
