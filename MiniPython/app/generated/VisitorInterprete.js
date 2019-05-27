@@ -361,13 +361,14 @@ VisitorInterprete.prototype.visitFunctionCallStatement_AST = function(ctx) {    
         //console.log(this.metodoActual.puntero);
         VisitorInterprete.prototype.visit(this.metodoActual.puntero);
         //no se si hace falta algo aqui, luego de que se ejecuta
-        stack.eliminar();
+        stack.imprimir();
         if(stack.stack.length>0){
             this.metodoActual = stack.stack[length-1];
             console.log("ESTA TODO BIEN EN CASA??????", this.metodoActual);
         }else{
             this.local=false;
         }
+        stack.eliminar();
     }
     console.log("IMPRIMIR GLOBALES");
     almacenGlobales.imprimir();
