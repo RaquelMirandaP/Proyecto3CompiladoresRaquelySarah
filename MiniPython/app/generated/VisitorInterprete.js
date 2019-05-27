@@ -47,8 +47,9 @@ VisitorInterprete.prototype.visitStatement_IfStatement_AST = function(ctx) {
     return null;
 };
 VisitorInterprete.prototype.visitStatement_returnStatement_AST = function(ctx) {
-    VisitorInterprete.prototype.visit(ctx.returnStatement());
-    return null
+    let returnSt = VisitorInterprete.prototype.visit(ctx.returnStatement());
+    console.log("RETURN STATEMENT",returnSt);
+    return returnSt;
 };
 
 // Visit a parse tree produced by miniPythonParser#statement_printStatement_AST.
@@ -251,8 +252,7 @@ VisitorInterprete.prototype.visitForStatement_AST = function(ctx) {
 
 // Visit a parse tree produced by miniPythonParser#returnStatement_AST.
 VisitorInterprete.prototype.visitReturnStatement_AST = function(ctx) {
-    VisitorInterprete.prototype.visit(ctx.expression());
-    return null;
+    return VisitorInterprete.prototype.visit(ctx.expression());
 };
 
 // Visit a parse tree produced by miniPythonParser#printStatement_AST.
@@ -350,16 +350,26 @@ VisitorInterprete.prototype.visitExpressionStatement_AST = function(ctx) {
 
 // Visit a parse tree produced by miniPythonParser#sequence_AST.
 VisitorInterprete.prototype.visitSequence_AST = function(ctx) {
-    VisitorInterprete.prototype.visit(ctx.moreStatements());
+    let seeIfReturn = VisitorInterprete.prototype.visit(ctx.moreStatements());
+    console.log("ESTOY DESDE ALGÚN SEQUENCE, QUIZÁ RETORNE", seeIfReturn);
+    if(seeIfReturn != null){
+        return seeIfReturn;
+    }
     return null;
 };
 
 
 // Visit a parse tree produced by miniPythonParser#moreStatements_AST.
 VisitorInterprete.prototype.visitMoreStatements_AST = function(ctx) {
-    VisitorInterprete.prototype.visit(ctx.statement(0));
+    let seeIfReturn = VisitorInterprete.prototype.visit(ctx.statement(0));
+    if(seeIfReturn != null){
+        return seeIfReturn;
+    }
     for(var i = 1; i < ctx.statement().length; i++){
-        VisitorInterprete.prototype.visit(ctx.statement(i));
+        seeIfReturn = VisitorInterprete.prototype.visit(ctx.statement(i));
+        if(seeIfReturn != null){
+            return seeIfReturn;
+        }
     }
     return null;
 };
