@@ -28,8 +28,6 @@ almacenMetodo.prototype.buscar = function(nombre){
 };
 
 almacenMetodo.prototype.imprimir = function(){
-    console.log("ALOHA");
-    console.log("Cantidad de elementos del almacen de metodos",this.almacen.length);
     for(i = 0; i<this.almacen.length;i++){
         s = this.almacen[i].token.text;
         console.log("Nombre "+ s +" Cantidad de objetos del metodo "+ this.almacen[i].variables.length);

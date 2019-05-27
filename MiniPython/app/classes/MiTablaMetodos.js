@@ -32,7 +32,6 @@ MiTablaMetodos.prototype.buscar = function(nombre){
 
 
 MiTablaMetodos.prototype.imprimir = function(){
-    console.log("Cantidad de elementos de la tabla metodos ",this.tabla.length);
     for(var i = 0; i<this.tabla.length;i++){
         var s = this.tabla[i].token.text;
         console.log("Nombre "+ s+" - " +" parametros: " +this.tabla[i].param );
