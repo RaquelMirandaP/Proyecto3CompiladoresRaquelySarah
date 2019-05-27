@@ -272,6 +272,7 @@ VisitorInterprete.prototype.visitAssignStatement_AST = function(ctx) {          
     var symbol = ctx.ID().getSymbol(); 
     //console.log(symbol.text);
     //console.log(symbol);
+    console.log("IMPRESION DEL ESTADO DE LOCAL ", this.local);
     if(asignacion !== null){
         if (!this.local){
 
@@ -280,7 +281,7 @@ VisitorInterprete.prototype.visitAssignStatement_AST = function(ctx) {          
                 }
         }
         if(this.local){
-                 if(!this.metodoActual.buscarAsignar(symbol.text)) { //no entra es porque la actualizó
+                 if(!this.metodoActual.buscarAsignar(symbol.text)) { 
                      if(!almacenGlobales.buscarAsignar(symbol.text)){
                          this.metodoActual.insertarVar(symbol, typeof(asignacion), asignacion)
                          console.log("inserté la variable local ", symbol.text );
@@ -594,7 +595,7 @@ VisitorInterprete.prototype.visitFunctionCallExpression_AST = function(ctx) {   
         //ocupo que me retorne el valor que da el sequence para asignarlo en la variable o operarlo x= 4+funct()
         //yo retorno ese valor.
         stack.eliminar(this);
-        if(stack.length>0){
+        if(stack.stack.length>0){
             this.metodoActual = stack[length-1];
         }else{
             this.local=false;
@@ -658,9 +659,15 @@ VisitorInterprete.prototype.visitPrimitiveExpression_String_AST = function(ctx) 
 // Visit a parse tree produced by miniPythonParser#primitiveExpression_ID_AST.
 VisitorInterprete.prototype.visitPrimitiveExpression_ID_AST = function(ctx) {
     let id = ctx.ID().getText();
+    console.log("DECIME QUE ES ID POR FAVOR")
+    console.log(id);
     let idValue = this.metodoActual.buscarValor(id);
-    if(idValue == null){
+    console.log(idValue);
+    if(idValue === null){
         idValue = almacenGlobales.buscarValor(id);
+        if(idValue === null){
+            idValue = almacenMetodos.buscar(id);
+        }
     }
     return idValue;
 };
