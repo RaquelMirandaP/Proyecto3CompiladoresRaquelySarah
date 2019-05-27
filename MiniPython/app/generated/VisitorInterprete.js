@@ -16,7 +16,7 @@ var almacenGlobales = new globales();
 var almacenMetodos = new almacen();
 var stack = new pila();
 var local = false;
-
+var stat = false;
 //var localCallExpression = false;
 //var MethodExpressionCurrent = null;
 var metodoActual = null;
@@ -131,18 +131,19 @@ VisitorInterprete.prototype.visitArgList_AST = function(ctx) {
 VisitorInterprete.prototype.visitArgList_Epsylon_AST = function(ctx) {
     return null;
 };
-
-
 // Visit a parse tree produced by miniPythonParser#ifStatement_AST.
 VisitorInterprete.prototype.visitIfStatement_AST = function(ctx) {
+    stat = true;
     let expression = VisitorInterprete.prototype.visit(ctx.expression());
     let validate = VisitorInterprete.prototype.validateExp(expression[0],expression[1],expression[2]);
-    if(validate.length > 3 || validate === null){
-        //console.log("Expresion inválida ");
+    if(expression.length > 3 || expression === null){
+        console.log("Expresion inválida ");
+        return null;
     }
     else{
         if(validate){
             VisitorInterprete.prototype.visit(ctx.sequence(0));
+        }else{
             VisitorInterprete.prototype.visit(ctx.sequence(1));
         }
     }
@@ -152,28 +153,53 @@ VisitorInterprete.prototype.visitIfStatement_AST = function(ctx) {
 
 // Visit a parse tree produced by miniPythonParser#whileStatement_AST.
 VisitorInterprete.prototype.visitWhileStatement_AST = function(ctx) {
-   
+    stat = true;
     let condition = VisitorInterprete.prototype.visit(ctx.expression());
     let validate = VisitorInterprete.prototype.validateExp(condition[0],condition[1],condition[2]);
     if(validate.length > 3){
         //console.log("Expresión del while inválida")
     }
     //Esto es  un while
+    let iter = 0;
     while(validate){
-        validate = VisitorInterprete.prototype.validateExp(condition[0],condition[1],condition[2]);
+        if(iter === 50){
+            break;
+        }
+        iter ++;
         VisitorInterprete.prototype.visit(ctx.sequence());
+        validate = VisitorInterprete.prototype.validateExp(condition[0],condition[1],condition[2]);
     }
-
-   
     return null;
 };
 VisitorInterprete.prototype.validateExp = function (firstPart, oper, secondPart) {
+    let auxFirstPart = firstPart;
+    let auxSecondPart = secondPart;
     if(typeof firstPart === 'object' || typeof secondPart === 'object'){
         return null;
     }
-    if(typeof firstPart === 'string' && oper !== '=='){
-        //First part busca en la tabla, si lo encuentra toma el valor, y sigue, si no
-        //retorna null
+    console.log("validateExp", firstPart);
+    if(typeof firstPart === 'string'){
+        firstPart = this.metodoActual.buscarValor(auxFirstPart);
+        console.log("FIRST PART", firstPart);
+        if(firstPart == null){
+            firstPart = almacenGlobales.buscarValor(auxFirstPart);
+            if(firstPart == null){
+                console.log("No existe esa variable");
+                return null;
+            }
+        }
+        console.log("first part value", firstPart);
+    }
+    if(typeof secondPart === 'string'){
+        secondPart = this.metodoActual.buscarValor(auxSecondPart);
+        if(secondPart == null){
+            secondPart = almacenGlobales.buscarValor(auxSecondPart);
+            if(secondPart == null){
+                console.log("No existe esa variable");
+                return null
+            }
+        }
+        console.log("second part value", secondPart);
     }
   switch(oper){
       case '>':
@@ -212,7 +238,6 @@ VisitorInterprete.prototype.validateExp = function (firstPart, oper, secondPart)
               return false;
           }
   }
-
 };
 
 // Visit a parse tree produced by miniPythonParser#forStatement_AST.
@@ -227,16 +252,13 @@ VisitorInterprete.prototype.visitForStatement_AST = function(ctx) {
     if(typeof realList === 'string'){
             console.log("Buscando local", list[0]);
             realList = this.metodoActual.buscarValor(list[0]);
-
             if(realList === null){
                 console.log("Buscando global", list[0]);
                 realList = almacenGlobales.buscarValor(list[0]);
-
             }else {
                 console.log("No existe")
             }
     }
-
     while(index < realList.length){
         if(!this.local){
             almacenGlobales.insertar(i,typeof realList[index],realList[index]);
@@ -300,7 +322,6 @@ VisitorInterprete.prototype.visitAssignStatement_AST = function(ctx) {          
     almacenMetodos.imprimir();
     return null;
 };
-
 //metodo para asignarle valor y tipo a los parametros de un metodo
 VisitorInterprete.prototype.asignarValorAParametros = function(ctx){
     var lista = VisitorInterprete.prototype.visit(ctx.expressionList());
@@ -318,7 +339,6 @@ VisitorInterprete.prototype.asignarValorAParametros = function(ctx){
     console.log("estoy validando que se actualice el valor de los parametros");
     console.log(this.metodoActual.variables);
 };
-
 // Visit a parse tree produced by miniPythonParser#functionCallStatement_AST.
 VisitorInterprete.prototype.visitFunctionCallStatement_AST = function(ctx) {                        //esto sirve???
     //console.log(" LLAMADAS A METODOS RAQUEL ESTUVO AQUI ")
@@ -344,8 +364,6 @@ VisitorInterprete.prototype.visitFunctionCallStatement_AST = function(ctx) {    
         }else{
             this.local=false;
         }
-        
-        
     }
     console.log("IMPRIMIR GLOBALES");
     almacenGlobales.imprimir();
@@ -506,7 +524,6 @@ VisitorInterprete.prototype.visitMultiplicationFactor_ElementExpression_AST = fu
 };
 VisitorInterprete.prototype.operarNumeros = function (par1, oper, par2){
     if(typeof par1 === 'number' && typeof par2 === 'number'){
-        //console.log("No entré");
         switch (oper){
             case "+":
                 return par1 + par2;
@@ -659,18 +676,17 @@ VisitorInterprete.prototype.visitPrimitiveExpression_String_AST = function(ctx) 
 
 // Visit a parse tree produced by miniPythonParser#primitiveExpression_ID_AST.
 VisitorInterprete.prototype.visitPrimitiveExpression_ID_AST = function(ctx) {
+
     let id = ctx.ID().getText();
-    console.log("DECIME QUE ES ID POR FAVOR")
-    console.log(id);
-    let idValue = this.metodoActual.buscarValor(id);
-    console.log(idValue);
-    if(idValue === null){
-        idValue = almacenGlobales.buscarValor(id);
-        if(idValue === null){
-            idValue = almacenMetodos.buscar(id);
+    if(!stat){
+        let idValue = this.metodoActual.buscarValor(id);
+        if(idValue == null){
+            idValue = almacenGlobales.buscarValor(id);
         }
+        return idValue;
     }
-    return idValue;
+    stat = false;
+    return id;
 };
 
 
