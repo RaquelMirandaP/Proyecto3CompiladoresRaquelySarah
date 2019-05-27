@@ -15,12 +15,13 @@ almacenVarGlobales.prototype.insertar = function(token,tipo, valor){
     if (temp == null) {
         var i = new variable(token, tipo, valor);
         this.tabla.push(i);
+        return true;
     }else{
         temp.valor = valor;
         temp.type = tipo;
+        return true;
     }
-    
-    
+    return false;
 };
 
 almacenVarGlobales.prototype.buscar = function(nombre){
@@ -33,11 +34,36 @@ almacenVarGlobales.prototype.buscar = function(nombre){
     return temp
 };
 
+almacenVarGlobales.prototype.buscarAsignar = function(nombre){
+    for(i = this.tabla.length-1; i >=0;i--){
+        if(this.tabla[i].token.text === nombre){
+            return true;
+        }
+    }
+    return false;
+};
+almacenVarGlobales.prototype.buscarValor = function(nombre){
+    let temp = null;
+    for(i = this.tabla.length-1; i >=0;i--){
+        console.log(this.tabla[i]);
+        if(this.tabla[i].token.text === nombre){
+            temp = this.tabla[i].valor ;
+        }
+    }
+    return temp;
+};
+
+almacenVarGlobales.prototype.insertarVarFor = function(token,tipo, valor){
+    let i = new variable(token, tipo, valor);
+    this.tabla.push(i);
+};
+
+
 almacenVarGlobales.prototype.imprimir = function(){
-    console.log("Cantidad de elementos del almacen de variables globales",this.tabla.length);
     for(i = 0; i<this.tabla.length;i++){
         s = this.tabla[i].token.text;
         console.log("Nombre "+ s +" tipo: " +this.tabla[i].type + " valor: " +this.tabla[i].valor);
+
     }
 };
 

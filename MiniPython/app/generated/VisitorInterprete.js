@@ -3,7 +3,6 @@ var globales = require('../classes/almacenVarGlobales');
 var metodo = require('../classes/metodoContainer');
 var almacen = require('../classes/almacenMetodo');
 var pila = require('../classes/stack');
-
 function VisitorInterprete (){
     this.listaVisitor = [];
 
@@ -17,6 +16,7 @@ var almacenGlobales = new globales();
 var almacenMetodos = new almacen();
 var stack = new pila();
 var local = false;
+
 //var localCallExpression = false;
 //var MethodExpressionCurrent = null;
 var metodoActual = null;
@@ -93,7 +93,7 @@ VisitorInterprete.prototype.visitStatement_expressionStatement_AST = function(ct
 
 // Visit a parse tree produced by miniPythonParser#defStatement_AST.
 VisitorInterprete.prototype.visitDefStatement_AST = function(ctx) {
-    //this.local = true;
+    this.local = true;
     met = new metodo();
     met.token = ctx.ID().getSymbol();
     //console.log("TOKEN", met.token);
@@ -106,7 +106,7 @@ VisitorInterprete.prototype.visitDefStatement_AST = function(ctx) {
     almacenMetodos.almacen.push(this.metodoActual);
     //almacenGlobales.imprimir();
     almacenMetodos.imprimir();
-    //this.local = false;
+    this.local = false;
     this.metodoActual = null;
     return null;
 };
@@ -116,7 +116,7 @@ VisitorInterprete.prototype.visitArgList_AST = function(ctx) {
     cont = ctx.ID().length;
     //console.log("Voy a insertar parámetros");
     for(var i = 0; i < cont; i++){
-        metodoActual.insertarParametros(ctx.ID(i).getSymbol());
+        this.metodoActual.insertarParametros(ctx.ID(i).getSymbol());
     }
     return null;
 
@@ -130,9 +130,7 @@ VisitorInterprete.prototype.visitArgList_Epsylon_AST = function(ctx) {
 
 // Visit a parse tree produced by miniPythonParser#ifStatement_AST.
 VisitorInterprete.prototype.visitIfStatement_AST = function(ctx) {
-   
     let expression = VisitorInterprete.prototype.visit(ctx.expression());
-
     let validate = VisitorInterprete.prototype.validateExp(expression[0],expression[1],expression[2]);
     if(validate.length > 3 || validate === null){
         //console.log("Expresion inválida ");
@@ -215,10 +213,36 @@ VisitorInterprete.prototype.validateExp = function (firstPart, oper, secondPart)
 // Visit a parse tree produced by miniPythonParser#forStatement_AST.
 VisitorInterprete.prototype.visitForStatement_AST = function(ctx) {
     //VisitorInterprete.prototype.visit(ctx.expression());
-    VisitorInterprete.prototype.visit(ctx.expressionList());
-    VisitorInterprete.prototype.visit(ctx.sequence());
-  
-   if(local){
+    let variable;
+    let index = 0;
+    let i = ctx.ID().getSymbol();
+    let list = VisitorInterprete.prototype.visit(ctx.expressionList());
+    let realList = list[0];
+    console.log("Lista", realList);
+    if(typeof realList === 'string'){
+            console.log("Buscando local", list[0]);
+            realList = this.metodoActual.buscarValor(list[0]);
+
+            if(realList === null){
+                console.log("Buscando global", list[0]);
+                realList = almacenGlobales.buscarValor(list[0]);
+
+            }else {
+                console.log("No existe")
+            }
+    }
+
+    while(index < realList.length){
+        if(!this.local){
+            almacenGlobales.insertar(i,typeof realList[index],realList[index]);
+        }
+        else{
+            this.metodoActual.insertarVar(i, typeof(realList[index]), realList[index]);
+        }
+        VisitorInterprete.prototype.visit(ctx.sequence());
+        index++;
+    }
+   if(this.local){
         
    }
     
@@ -233,7 +257,8 @@ VisitorInterprete.prototype.visitReturnStatement_AST = function(ctx) {
 
 // Visit a parse tree produced by miniPythonParser#printStatement_AST.
 VisitorInterprete.prototype.visitPrintStatement_AST = function(ctx) {
-    VisitorInterprete.prototype.visit(ctx.expression());
+    let printExpression = VisitorInterprete.prototype.visit(ctx.expression());
+    console.log("La expression en print",printExpression); //Hay que agregarlo a una lista para que imprima en msg
     return null;
 };
 
@@ -245,55 +270,45 @@ VisitorInterprete.prototype.visitAssignStatement_AST = function(ctx) {          
     //console.log(symbol.text);
     //console.log(symbol);
     if(asignacion !== null){
-        if (local === false){
-            //ver si debo actualizarla
-            var variable = almacenGlobales.buscar(symbol.text);
-            if(variable !== null){
-                variable.type =  typeof(asignacion);
-                variable.valor = asignacion;
-            }else{
-                almacenGlobales.insertar(symbol, typeof(asignacion), asignacion);
-                //console.log(" RAQUEL inserté en almacen de globales, simbolo " + symbol.text+ " tipo "
-                //+ typeof(asignacion) + " valor "+asignacion);
-            }
-        }
-        if(local === true){
-            //busqueda local, si existe actualice, sino, busque global
-            variable = metodoActual.buscarVar(symbol.text);
-            if(variable !== null){
-                variable.type =  typeof(asignacion);
-                variable.valor = asignacion;
-            }else{
-                //busqueda global //existe global, actualice //si no existe, inserte local
-                variable = almacenGlobales.buscar(symbol.text);
-                if(variable !== null){
-                    variable.type =  typeof(asignacion);
-                    variable.valor = asignacion;
-                }else{
-                    metodoActual.insertarVar(symbol, typeof(asignacion), asignacion);
-                    //console.log("statement RAQUEL inserté en" + metodoActual.text + " simbolo " + symbol.text + " tipo "
-                   // + typeof(asignacion) + " valor "+asignacion);
+        if (!this.local){
+
+                if(almacenGlobales.insertar(symbol, typeof(asignacion), asignacion)) {
+                    console.log("inserté o actualicé la variable global ", symbol.text );
                 }
-                
+        }
+        if(this.local){
+                 if(!this.metodoActual.buscarAsignar(symbol.text)) { //no entra es porque la actualizó
+                     if(!almacenGlobales.buscarAsignar(symbol.text)){
+                         this.metodoActual.insertarVar(symbol, typeof(asignacion), asignacion)
+                         console.log("inserté la variable local ", symbol.text );
+                     }else{
+                         almacenGlobales.insertar(symbol, typeof(asignacion), asignacion);
+                         console.log("actualicé la variable global ", symbol.text );
+                     }
+                 }else{
+                     this.metodoActual.insertarVar(symbol, typeof(asignacion), asignacion)
+                     console.log("actualicé la variable local ", symbol.text );
+                 }
             }
             
         }
-    }
-       
-
     return null;
 };
 
 //metodo para asignarle valor y tipo a los parametros de un metodo
 VisitorInterprete.prototype.asignarValorAParametros = function(ctx){
     var lista = VisitorInterprete.prototype.visit(ctx.expressionList());
+    if(this.metodoActual.variables.length>0 && lista !== null){
         for(var i = 0; i < this.metodoActual.variables.length; i++){
             for(var j = 0; j < lista.length; j++){
                 this.metodoActual.variables[i].type = typeof(lista[j]);
                 this.metodoActual.variables[j].valor = lista[j];
                 //console.log("asigné valor");
+            }
         }
+
     }
+
 };
 
 // Visit a parse tree produced by miniPythonParser#functionCallStatement_AST.
@@ -316,7 +331,11 @@ VisitorInterprete.prototype.visitFunctionCallStatement_AST = function(ctx) {    
         }
         
         
-    }                                                         
+    }
+    console.log("IMPRIMIR GLOBALES");
+    almacenGlobales.imprimir();
+    console.log("IMPRIMIR LOCALES");
+    almacenMetodos.imprimir();
     return null;
 };
 
@@ -615,7 +634,12 @@ VisitorInterprete.prototype.visitPrimitiveExpression_String_AST = function(ctx) 
 
 // Visit a parse tree produced by miniPythonParser#primitiveExpression_ID_AST.
 VisitorInterprete.prototype.visitPrimitiveExpression_ID_AST = function(ctx) {
-    return ctx.ID().getText();                                                                                
+    let id = ctx.ID().getText();
+    let idValue = this.metodoActual.buscarValor(id);
+    if(idValue == null){
+        idValue = almacenGlobales.buscarValor(id);
+    }
+    return idValue;
 };
 
 
@@ -655,7 +679,16 @@ VisitorInterprete.prototype.visitPrimitiveExpression_functionCallExpression_AST 
 // Visit a parse tree produced by miniPythonParser#listExpression_AST.
 VisitorInterprete.prototype.visitListExpression_AST = function(ctx) {
     let listExp = VisitorInterprete.prototype.visit(ctx.expressionList());
-    //console.log("List expression ", listExp);
+    console.log("List expression ", listExp);
+    let listType = typeof listExp[0];
+    let flagType = false;
+    for(let i =0; i < listExp.length; i++){
+        if(typeof listExp[i] !== listType){
+            flagType = false;
+            console.log("Lista mixta, es inválida");
+            return null;
+        }
+    }
     return listExp;
 };
 

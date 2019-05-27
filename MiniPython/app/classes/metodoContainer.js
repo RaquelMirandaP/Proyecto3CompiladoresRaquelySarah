@@ -21,13 +21,17 @@ metodoContainer.prototype.insertarVar = function(token, tipo, valor){
     if ( temp == null) {
         var i = new variable(token, tipo, valor);  
         this.variables.push(i);
+        return true;
         
     }else{   
         temp.valor = valor;
         temp.type = tipo;
+        return true;
     }
+    return false;
     
 };
+
 //los punteros y el token del metodo, se insertan desde el visitor como un objeto
 
 metodoContainer.prototype.buscarVar = function(nombre){
@@ -40,7 +44,25 @@ metodoContainer.prototype.buscarVar = function(nombre){
     return temp
 };
 
+metodoContainer.prototype.buscarAsignar = function(nombre){
+    for(i = this.variables.length-1; i >=0;i--){
+        if(this.variables[i].token.text === nombre){
+            return true;
+        }
+    }
+    return false;
+};
 
+metodoContainer.prototype.buscarValor = function(nombre){
+    let temp = null;
+    for(i = this.variables.length-1; i >=0;i--){
+        console.log(this.variables[i].token.text);
+        if(this.variables[i].token.text === nombre){
+            temp = this.variables[i].valor ;
+        }
+    }
+    return temp;
+};
 
 metodoContainer.prototype.constructor = metodoContainer;
 
