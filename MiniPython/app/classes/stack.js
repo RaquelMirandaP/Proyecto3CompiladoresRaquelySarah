@@ -14,6 +14,7 @@ Stack.prototype.constructor = Stack;
 Stack.prototype.insertar = function(){
     var i = new almacen();  
     this.stack.push(i)
+    console.log("insercion completa en la pila");
 
 };
 
@@ -21,7 +22,9 @@ Stack.prototype.insertar = function(){
 
 //sacar del almacen, Retorna el último valor ingresado a la pila, sacándolo de ésta.
 Stack.prototype.eliminar = function(){
-    return this.stack.pop();              
+    console.log("elimino de la pila");
+    return this.stack.pop(); 
+         
 }
 
 

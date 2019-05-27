@@ -13,6 +13,7 @@ function metodoContainer() {
 metodoContainer.prototype.insertarParametros = function(token){
     var i = new variable(token, null, null);
     this.variables.push(i);
+    //console.log("si inserto en parametro")
 }
 
 
