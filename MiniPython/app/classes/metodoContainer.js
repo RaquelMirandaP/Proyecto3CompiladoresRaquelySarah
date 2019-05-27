@@ -51,6 +51,7 @@ metodoContainer.prototype.buscarAsignar = function(nombre){
             return true;
         }
     }
+    console.log("soy una variable que no existo local: ",nombre);
     return false;
 };
 

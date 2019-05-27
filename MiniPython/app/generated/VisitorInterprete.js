@@ -304,7 +304,10 @@ VisitorInterprete.prototype.visitAssignStatement_AST = function(ctx) {          
                 }
         }
         if(this.local){
-                 if(!this.metodoActual.buscarAsignar(symbol.text)) { 
+                console.log("ASIGNACION");
+                console.log(symbol.text);
+                console.log(this.metodoActual);
+                 if(!(this.metodoActual.buscarAsignar(symbol.text))) { 
                      if(!almacenGlobales.buscarAsignar(symbol.text)){
                          this.metodoActual.insertarVar(symbol, typeof(asignacion), asignacion)
                          console.log("inserté la variable local ", symbol.text );
@@ -344,8 +347,8 @@ VisitorInterprete.prototype.visitFunctionCallStatement_AST = function(ctx) {    
     //console.log(" LLAMADAS A METODOS RAQUEL ESTUVO AQUI ")
     var nombreMetodo = ctx.ID().getSymbol();
     var metodo = almacenMetodos.buscar(nombreMetodo.text);
-    //console.log("AQUI PROBANDO");
-    //console.log(metodo);
+    console.log("AQUI PROBANDO SI ENCUENTRA EL METODO EN EL ALMACEN DE METODOS");
+    console.log(metodo);
     if(metodo!==null){
         this.local = true;
         this.metodoActual = metodo;
@@ -358,9 +361,10 @@ VisitorInterprete.prototype.visitFunctionCallStatement_AST = function(ctx) {    
         //console.log(this.metodoActual.puntero);
         VisitorInterprete.prototype.visit(this.metodoActual.puntero);
         //no se si hace falta algo aqui, luego de que se ejecuta
-        stack.eliminar(this);
+        stack.eliminar();
         if(stack.stack.length>0){
-            this.metodoActual = stack[length-1];
+            this.metodoActual = stack.stack[length-1];
+            console.log("ESTA TODO BIEN EN CASA??????", this.metodoActual);
         }else{
             this.local=false;
         }
@@ -609,15 +613,17 @@ VisitorInterprete.prototype.visitFunctionCallExpression_AST = function(ctx) {   
         this.metodoActual=metodo;
         stack.insertar(this.metodoActual);
         VisitorInterprete.prototype.asignarValorAParametros(ctx);
-        VisitorInterprete.prototype.visit(metodo.puntero);
+        VisitorInterprete.prototype.visit(this.metodoActual.puntero);
         //ocupo que me retorne el valor que da el sequence para asignarlo en la variable o operarlo x= 4+funct()
         //yo retorno ese valor.
-        stack.eliminar(this);
+        //stack.eliminar();
+        stack.imprimir();
         if(stack.stack.length>0){
-            this.metodoActual = stack[length-1];
+            this.metodoActual = stack.stack[length-1];
         }else{
             this.local=false;
         }
+        stack.eliminar();
     }                                                      
     
     

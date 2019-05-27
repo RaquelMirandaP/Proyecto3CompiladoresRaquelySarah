@@ -26,6 +26,12 @@ Stack.prototype.eliminar = function(){
     return this.stack.pop(); 
          
 }
+Stack.prototype.imprimir = function(){
+    for(var i = 0; this.stack.length>0; i++){
+        console.log("pila");
+        console.log(this.stack[i]);
+    }        
+}
 
 
 
