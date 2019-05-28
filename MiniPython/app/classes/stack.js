@@ -36,6 +36,9 @@ Stack.prototype.imprimir = function(){
         console.log(this.stack[i]);
     }        
 }
+Stack.prototype.clearList = function () {
+    this.stack = [];
+};
 
 
 

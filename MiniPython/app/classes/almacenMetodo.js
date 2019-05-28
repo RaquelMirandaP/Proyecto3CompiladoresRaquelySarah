@@ -39,7 +39,9 @@ almacenMetodo.prototype.imprimir = function(){
 
     }
 };
-
+almacenMetodo.prototype.clearList = function () {
+    this.almacen = [];
+};
 
 
 module.exports = almacenMetodo;

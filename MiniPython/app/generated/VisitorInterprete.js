@@ -24,8 +24,11 @@ var metodoActual = null;
 //en cada def creo una instancia del metodo nuevo, y la guardo en metodoactual para poder usarla en los demas visit
 
 VisitorInterprete.prototype.visitProgram_AST = function(ctx) {
-    
- 
+    stack.clearList();
+    almacenMetodos.clearList();
+    almacenGlobales.clearList();
+    this.metodoActual = null;
+
     VisitorInterprete.prototype.visit(ctx.statement(0));
     for(var i = 1; i < ctx.statement().length; i++){
         VisitorInterprete.prototype.visit(ctx.statement(i));
@@ -34,6 +37,7 @@ VisitorInterprete.prototype.visitProgram_AST = function(ctx) {
    
     return null;
 };
+
 
 VisitorInterprete.prototype.visitStatement_DefStatement_AST = function(ctx) {
     
