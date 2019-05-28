@@ -1,6 +1,6 @@
 //aqui se almacenan los almacenes  de metodos
 
-var almacen = require('./almacenMetodo');
+var metodo = require('./metodoContainer');
 
 function Stack(){
     this.stack = [];
@@ -12,8 +12,10 @@ Stack.prototype.constructor = Stack;
 
 
 Stack.prototype.insertar = function(){
-    var i = new almacen();  
+    var i = new metodo();  
     this.stack.push(i)
+    console.log("insercion completa en la pila");
+    this.imprimir();
 
 };
 
@@ -21,8 +23,22 @@ Stack.prototype.insertar = function(){
 
 //sacar del almacen, Retorna el último valor ingresado a la pila, sacándolo de ésta.
 Stack.prototype.eliminar = function(){
-    return this.stack.pop();              
+    console.log("elimino de la pila");
+    //var tam = this.stack.length
+     this.stack.pop();    
+     //this.stack.splice(tam,1);  
+     this.imprimir(); 
 }
+
+Stack.prototype.imprimir = function(){
+    for(var i = 0; i<this.stack.length; i++){
+        //console.log("pila");
+        console.log(this.stack[i]);
+    }        
+}
+Stack.prototype.clearList = function () {
+    this.stack = [];
+};
 
 
 
