@@ -702,7 +702,7 @@ VisitorInterprete.prototype.visitPrimitiveExpression_ID_AST = function(ctx) {   
     if(llamada){
         console.log("CALL ESTA TRUE Y NECESITO QUE BUSQUE ");
         if(stack.stack.length >= 2){   
-            var tam = stack.stack.length
+            var tam = stack.stack.length;
             metAux = stack.stack[tam-2];  
             console.log("PENULTIMA POSICION DE LA PILA");
             console.log(metAux);
@@ -714,16 +714,18 @@ VisitorInterprete.prototype.visitPrimitiveExpression_ID_AST = function(ctx) {   
         //console.log("ESTO ES CASI CASI LA GLORIA", idValue);
         return idValue;   
     }
-    if(!stat){
+    if(stat){
+        stat = false;
+        return id;
+    }
+    else{
         let idValue = this.metodoActual.buscarValor(id);
         if(idValue == null){
             idValue = almacenGlobales.buscarValor(id);
         }
+        stat = false;
         return idValue;
     }
-    
-    stat = false;
-    return id;
 };
 
 // Visit a parse tree produced by miniPythonParser#primitiveExpression_Expression_AST.
