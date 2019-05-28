@@ -24,9 +24,12 @@ Stack.prototype.insertar = function(){
 //sacar del almacen, Retorna el último valor ingresado a la pila, sacándolo de ésta.
 Stack.prototype.eliminar = function(){
     console.log("elimino de la pila");
-    return this.stack.pop(); 
-         
+    //var tam = this.stack.length
+     this.stack.pop();    
+     //this.stack.splice(tam,1);  
+     this.imprimir(); 
 }
+
 Stack.prototype.imprimir = function(){
     for(var i = 0; i<this.stack.length; i++){
         //console.log("pila");

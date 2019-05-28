@@ -349,8 +349,8 @@ VisitorInterprete.prototype.asignarValorAParametros = function(ctx){
 VisitorInterprete.prototype.visitFunctionCallStatement_AST = function(ctx) {                        //esto sirve???
     var nombreMetodo = ctx.ID().getSymbol();
     var metodo = almacenMetodos.buscar(nombreMetodo.text);
-    console.log("AQUI PROBANDO SI ENCUENTRA EL METODO EN EL ALMACEN DE METODOS");
-    console.log(metodo);
+    // console.log("AQUI PROBANDO SI ENCUENTRA EL METODO EN EL ALMACEN DE METODOS");
+    // console.log(metodo);
     if(metodo!==null){
         this.local = true;
         this.metodoActual = metodo;
@@ -360,14 +360,16 @@ VisitorInterprete.prototype.visitFunctionCallStatement_AST = function(ctx) {    
         VisitorInterprete.prototype.visit(this.metodoActual.puntero);
         //no se si hace falta algo aqui, luego de que se ejecuta
         stack.imprimir();
-        stack.eliminar();
         if(stack.stack.length>0){
             var tam = stack.stack.length
-            this.metodoActual = stack.stack[tam];
-            //console.log("ESTA TODO BIEN EN CASA??????", this.metodoActual);
+            this.metodoActual = stack.stack[tam-2];
+            console.log("ESTA TODO BIEN EN CASA??????", this.metodoActual);
         }else{
             this.local=false;
         }
+        //stack.eliminar();
+        stack.stack.pop();
+        stack.imprimir();
         
     }
     console.log("IMPRIMIR GLOBALES");
