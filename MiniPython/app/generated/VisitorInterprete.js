@@ -310,7 +310,7 @@ VisitorInterprete.prototype.visitAssignStatement_AST = function(ctx) {          
                 console.log(this.metodoActual);
                  if(!this.metodoActual.buscarAsignar(symbol.text)) { 
                      if(!almacenGlobales.buscarAsignar(symbol.text)){
-                         this.metodoActual.insertarVar(symbol, typeof(asignacion), asignacion)
+                         this.metodoActual.insertarVar(symbol, typeof(asignacion), asignacion);
                          console.log("inserté la variable local ", symbol.text );
                      }else{
                          almacenGlobales.insertar(symbol, typeof(asignacion), asignacion);
@@ -690,23 +690,16 @@ VisitorInterprete.prototype.visitPrimitiveExpression_String_AST = function(ctx) 
 
 // Visit a parse tree produced by miniPythonParser#primitiveExpression_ID_AST.
 VisitorInterprete.prototype.visitPrimitiveExpression_ID_AST = function(ctx) {                           //HERE IDDDDDD
-    var metAux;
-    //console.log("VALOR DE CALL ",llamada);
+    var metAux = null;
+    console.log("VALOR DE CALL ",llamada);
     let id = ctx.ID().getText();
-    if(!stat){
-        let idValue = this.metodoActual.buscarValor(id);
-        if(idValue == null){
-            idValue = almacenGlobales.buscarValor(id);
-        }
-        return idValue;
-    }
     if(llamada){
-        //console.log("CALL ESTA TRUE Y NECESITO QUE BUSQUE ")
+        console.log("CALL ESTA TRUE Y NECESITO QUE BUSQUE ")
         if(stack.stack.length >= 2){   
             var tam = stack.stack.length
             metAux = stack.stack[tam-2];  
-            //console.log("PENULTIMA POSICION DE LA PILA");
-            //console.log(metAux);
+            console.log("PENULTIMA POSICION DE LA PILA");
+            console.log(metAux);
             idValue= metAux.buscarValor(id);
         }else{
             idValue = almacenGlobales.buscarValor(id);
@@ -715,6 +708,14 @@ VisitorInterprete.prototype.visitPrimitiveExpression_ID_AST = function(ctx) {   
         //console.log("ESTO ES CASI CASI LA GLORIA", idValue);
         return idValue;   
     }
+    if(!stat){
+        let idValue = this.metodoActual.buscarValor(id);
+        if(idValue == null){
+            idValue = almacenGlobales.buscarValor(id);
+        }
+        return idValue;
+    }
+    
     stat = false;
     return id;
 };

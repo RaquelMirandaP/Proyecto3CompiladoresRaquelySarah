@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="fae78cde-8c4c-497c-827f-969f25b226ff" name="Default" comment="" />
+    <list default="true" id="fae78cde-8c4c-497c-827f-969f25b226ff" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/app/generated/VisitorInterprete.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/generated/VisitorInterprete.js" afterDir="false" />
+    </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
     <ignored path="$PROJECT_DIR$/tmp/" />
@@ -151,6 +153,28 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope">
+        <subPane subId="Project Files">
+          <expand>
+            <path>
+              <item name="Root" type="cbb8eebc:String" user="Root" />
+              <item name="MiniPython" type="cbb8eebc:String" user="MiniPython" />
+            </path>
+            <path>
+              <item name="Root" type="cbb8eebc:String" user="Root" />
+              <item name="MiniPython" type="cbb8eebc:String" user="MiniPython" />
+              <item name="app" type="cbb8eebc:String" user="app" />
+            </path>
+            <path>
+              <item name="Root" type="cbb8eebc:String" user="Root" />
+              <item name="MiniPython" type="cbb8eebc:String" user="MiniPython" />
+              <item name="app" type="cbb8eebc:String" user="app" />
+              <item name="generated" type="cbb8eebc:String" user="generated" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -174,28 +198,6 @@
               <item name="MiniPython" type="462c0819:PsiDirectoryNode" />
               <item name="app" type="462c0819:PsiDirectoryNode" />
               <item name="generated" type="462c0819:PsiDirectoryNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
-      <pane id="Scope">
-        <subPane subId="Project Files">
-          <expand>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="MiniPython" type="cbb8eebc:String" user="MiniPython" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="MiniPython" type="cbb8eebc:String" user="MiniPython" />
-              <item name="app" type="cbb8eebc:String" user="app" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="MiniPython" type="cbb8eebc:String" user="MiniPython" />
-              <item name="app" type="cbb8eebc:String" user="app" />
-              <item name="generated" type="cbb8eebc:String" user="generated" />
             </path>
           </expand>
           <select />
@@ -313,14 +315,16 @@
       <workItem from="1558973531744" duration="2831000" />
       <workItem from="1558989154999" duration="3873000" />
       <workItem from="1559003520907" duration="1566000" />
+      <workItem from="1559016278444" duration="647000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="143299000" />
+    <option name="totallyTimeSpent" value="143946000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="784" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.20907739" />
       <window_info id="Structure" order="1" weight="0.25" />
