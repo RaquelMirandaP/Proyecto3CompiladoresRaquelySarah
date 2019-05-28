@@ -608,8 +608,6 @@ VisitorInterprete.prototype.visitElementAccess_Epsylon_AST = function(ctx) {
 
 // Visit a parse tree produced by miniPythonParser#functionCallExpression_AST.
 VisitorInterprete.prototype.visitFunctionCallExpression_AST = function(ctx) {                           //HERE
-    //console.log(" ASIGNACIONES COMO METODOS RAQUEL ESTUVO AQUI ");
-
     nombreMetodo = ctx.ID().getSymbol(); 
     var metodo = almacenMetodos.buscar(nombreMetodo.text);
     if(metodo!==null){
@@ -620,19 +618,23 @@ VisitorInterprete.prototype.visitFunctionCallExpression_AST = function(ctx) {   
         VisitorInterprete.prototype.visit(this.metodoActual.puntero);
         //ocupo que me retorne el valor que da el sequence para asignarlo en la variable o operarlo x= 4+funct()
         //yo retorno ese valor.
-        //stack.eliminar();
         stack.imprimir();
-        stack.eliminar();
         if(stack.stack.length>0){
             var tam = stack.stack.length
-            this.metodoActual = stack.stack[tam];
+            this.metodoActual = stack.stack[tam-2];
+            console.log("ESTA TODO BIEN EN CASA?????? exPRESSION", this.metodoActual);
         }else{
             this.local=false;
         }
+        //stack.eliminar();
+        stack.stack.pop();
+        stack.imprimir();
         
-    }                                                      
-    
-    
+    }
+    console.log("IMPRIMIR GLOBALES");
+    almacenGlobales.imprimir();
+    console.log("IMPRIMIR LOCALES");
+    almacenMetodos.imprimir();
     return null;
 };
 
@@ -702,7 +704,7 @@ VisitorInterprete.prototype.visitPrimitiveExpression_ID_AST = function(ctx) {   
         //console.log("CALL ESTA TRUE Y NECESITO QUE BUSQUE ")
         if(stack.stack.length >= 2){   
             var tam = stack.stack.length
-            metAux = stack.stack[tam-1];  
+            metAux = stack.stack[tam-2];  
             //console.log("PENULTIMA POSICION DE LA PILA");
             //console.log(metAux);
             idValue= metAux.buscarValor(id);
