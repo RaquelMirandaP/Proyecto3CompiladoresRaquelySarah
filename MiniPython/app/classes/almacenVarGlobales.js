@@ -67,4 +67,9 @@ almacenVarGlobales.prototype.imprimir = function(){
     }
 };
 
+almacenVarGlobales.prototype.clearList = function () {
+    this.tabla = [];
+};
+
+
 module.exports = almacenVarGlobales;
