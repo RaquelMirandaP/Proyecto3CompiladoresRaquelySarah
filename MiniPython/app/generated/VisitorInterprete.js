@@ -615,9 +615,11 @@ VisitorInterprete.prototype.visitFunctionCallExpression_AST = function(ctx) {   
         this.metodoActual=metodo;
         stack.stack.push(this.metodoActual);
         VisitorInterprete.prototype.asignarValorAParametros(ctx);
-        VisitorInterprete.prototype.visit(this.metodoActual.puntero);
+        var resultado = VisitorInterprete.prototype.visit(this.metodoActual.puntero);
         //ocupo que me retorne el valor que da el sequence para asignarlo en la variable o operarlo x= 4+funct()
         //yo retorno ese valor.
+        console.log("PRUEBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+        console.log(resultado);
         stack.imprimir();
         if(stack.stack.length>0){
             var tam = stack.stack.length
@@ -635,7 +637,7 @@ VisitorInterprete.prototype.visitFunctionCallExpression_AST = function(ctx) {   
     almacenGlobales.imprimir();
     console.log("IMPRIMIR LOCALES");
     almacenMetodos.imprimir();
-    return null;
+    return resultado;
 };
 
 
@@ -748,8 +750,10 @@ VisitorInterprete.prototype.visitPrimitiveExpression_len_Expression_AST = functi
 
 // Visit a parse tree produced by miniPythonParser#primitiveExpression_functionCallExpression_AST.
 VisitorInterprete.prototype.visitPrimitiveExpression_functionCallExpression_AST = function(ctx) {
-    VisitorInterprete.prototype.visit(ctx.functionCallExpression());
-    return null;
+    
+    let kawai = VisitorInterprete.prototype.visit(ctx.functionCallExpression());
+    console.log("LALALALALALALALAA",kawai);
+    return kawai;
 };
 
 
