@@ -15,6 +15,7 @@ Stack.prototype.insertar = function(){
     var i = new metodo();  
     this.stack.push(i)
     console.log("insercion completa en la pila");
+    this.imprimir();
 
 };
 
@@ -28,7 +29,7 @@ Stack.prototype.eliminar = function(){
 }
 Stack.prototype.imprimir = function(){
     for(var i = 0; i<this.stack.length; i++){
-        console.log("pila");
+        //console.log("pila");
         console.log(this.stack[i]);
     }        
 }

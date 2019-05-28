@@ -32,7 +32,7 @@ almacenMetodo.prototype.imprimir = function(){
         s = this.almacen[i].token.text;
         console.log("Nombre "+ s +" Cantidad de objetos del metodo "+ this.almacen[i].variables.length);
         for(j = 0; j<this.almacen[i].variables.length;j++){
-            //console.log(this.almacen[i].variables[j]);
+            console.log(this.almacen[i].variables[j]);
             console.log("var "+this.almacen[i].variables[j].token.text +" type "+ this.almacen[i].variables[j].type
              +" valor "+ this.almacen[i].variables[j].valor);
         }
