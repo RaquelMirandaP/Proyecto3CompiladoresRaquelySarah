@@ -158,7 +158,7 @@ VisitorInterprete.prototype.visitWhileStatement_AST = function(ctx) {
     //Esto es  un while
     let iter = 0;
     while(validate){
-        if(iter === 50){
+        if(iter === 1000){
             break;
         }
         iter ++;
@@ -661,7 +661,6 @@ VisitorInterprete.prototype.visitPrimitiveExpression_String_AST = function(ctx) 
 
 // Visit a parse tree produced by miniPythonParser#primitiveExpression_ID_AST.
 VisitorInterprete.prototype.visitPrimitiveExpression_ID_AST = function(ctx) {
-
     let id = ctx.ID().getText();
     if(!stat){
         let idValue = this.metodoActual.buscarValor(id);
@@ -691,14 +690,25 @@ VisitorInterprete.prototype.visitPrimitiveExpression_listExpression_AST = functi
 VisitorInterprete.prototype.visitPrimitiveExpression_len_Expression_AST = function(ctx) {
     let dataForLen = VisitorInterprete.prototype.visit(ctx.expression());
     let len;
-    if(typeof dataForLen === 'object' || typeof dataForLen === 'string'){
+    if(typeof dataForLen === 'object'){
         len = dataForLen.length;
+        return len;
     }
-    else {
-        return null;
+    if(typeof dataForLen === 'string'){
+        let dataValue = this.metodoActual.buscarValor(dataForLen);
+        if(dataValue == null){
+            dataValue = almacenGlobales.buscarValor(dataForLen);
+        }
+        if(dataValue != null){
+            len = dataValue.length;
+            return len;
+        }
+        else{
+            len = dataForLen.length -2 ;
+            return len
+        }
     }
-
-    return len;
+    return null;
 };
 
 // Visit a parse tree produced by miniPythonParser#primitiveExpression_functionCallExpression_AST.
