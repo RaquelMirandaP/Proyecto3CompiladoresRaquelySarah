@@ -48,7 +48,7 @@ almacenVarGlobales.prototype.buscarValor = function(nombre){
         //console.log(this.tabla[i]);
         if(this.tabla[i].token.text === nombre){
             temp = this.tabla[i].valor ;
-            console.log("QUE VALE ",temp);
+            //console.log("QUE VALE ",temp);
         }
     }
     return temp;

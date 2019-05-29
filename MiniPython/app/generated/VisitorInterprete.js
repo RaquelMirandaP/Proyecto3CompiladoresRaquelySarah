@@ -51,12 +51,13 @@ VisitorInterprete.prototype.visitStatement_DefStatement_AST = function(ctx) {
 };
 
 VisitorInterprete.prototype.visitStatement_IfStatement_AST = function(ctx) {
-    console.log("BABABABABABA");
-    return VisitorInterprete.prototype.visit(ctx.ifStatement());
+    //console.log("BABABABABABA");
+    VisitorInterprete.prototype.visit(ctx.ifStatement());
+    return null;
 };
 VisitorInterprete.prototype.visitStatement_returnStatement_AST = function(ctx) {
     let returnSt = VisitorInterprete.prototype.visit(ctx.returnStatement());
-    console.log("RETURN STATEMENT",returnSt);
+    //console.log("RETURN STATEMENT",returnSt);
     return returnSt;
 };
 
@@ -154,7 +155,7 @@ VisitorInterprete.prototype.visitIfStatement_AST = function(ctx) {
 VisitorInterprete.prototype.visitWhileStatement_AST = function(ctx) {
     stat = true;
     let condition = VisitorInterprete.prototype.visit(ctx.expression());
-    console.log("No llegó", condition.length);
+    //console.log("No llegó", condition.length);
     let validate = VisitorInterprete.prototype.validateExp(condition[0],condition[1],condition[2]);
     if(condition.length > 3){
         //console.log("Expresión del while inválida")
@@ -308,6 +309,7 @@ VisitorInterprete.prototype.visitPrintStatement_AST = function(ctx) {
 VisitorInterprete.prototype.visitAssignStatement_AST = function(ctx) {                         //HERE
     var asignacion = VisitorInterprete.prototype.visit(ctx.expression());          
     var symbol = ctx.ID().getSymbol(); 
+
     if(asignacion !== null){
         if (!this.local){
 
@@ -339,7 +341,7 @@ VisitorInterprete.prototype.visitAssignStatement_AST = function(ctx) {          
 };
 //metodo para asignarle valor y tipo a los parametros de un metodo
 VisitorInterprete.prototype.asignarValorAParametros = function(ctx){
-    llamada = true;
+    this.llamada = true;
     var lista = VisitorInterprete.prototype.visit(ctx.expressionList());
     console.log("QUE TRAE LIST");
     console.log(lista);
@@ -349,11 +351,10 @@ VisitorInterprete.prototype.asignarValorAParametros = function(ctx){
             console.log(temp.valor);
             console.log(this.metodoActual);
             for(var j = 0; j < lista.length; j++){
-                console.log("QUE HACES WEEE");
-                console.log(lista[j]);
                 if(i==j){
                     temp.type = typeof(lista[j]);
                     temp.valor =  lista[j];
+
                 }
                 
             }
@@ -362,7 +363,7 @@ VisitorInterprete.prototype.asignarValorAParametros = function(ctx){
     }
     console.log("estoy validando que se actualice el valor de los parametros");
     console.log(this.metodoActual.variables);
-    llamada = false;
+    this.llamada = false;
 };
 // Visit a parse tree produced by miniPythonParser#functionCallStatement_AST.
 VisitorInterprete.prototype.visitFunctionCallStatement_AST = function(ctx) {                        //esto sirve???
@@ -371,12 +372,14 @@ VisitorInterprete.prototype.visitFunctionCallStatement_AST = function(ctx) {    
     if(metodo!==null){
         this.local = true;
         this.metodoActual = metodo;
-        console.log("QUE SOYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY");
-        console.log(this.metodoActual)
+        //console.log("QUE SOYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY");
+        //console.log(this.metodoActual)
         stack.stack.push(this.metodoActual);
         VisitorInterprete.prototype.asignarValorAParametros(ctx);
-        VisitorInterprete.prototype.visit(this.metodoActual.puntero);
-        stack.imprimir();
+        var puntero = this.metodoActual.puntero;
+        VisitorInterprete.prototype.visit(puntero);
+        //stack.imprimir();
+    
         if(stack.stack.length>0){
             var tam = stack.stack.length
             this.metodoActual = stack.stack[tam-2];
@@ -384,13 +387,20 @@ VisitorInterprete.prototype.visitFunctionCallStatement_AST = function(ctx) {    
             this.local=false;
         }
         stack.stack.pop();
-        stack.imprimir();
+        if(stack.stack.length<=0){
+            this.local=false;
+        }
+        
+         
         
     }
     console.log("IMPRIMIR GLOBALES");
     almacenGlobales.imprimir();
     console.log("IMPRIMIR LOCALES");
     almacenMetodos.imprimir();
+    console.log("STACK");
+    stack.imprimir();
+
     return null;
 };
 
@@ -406,7 +416,7 @@ VisitorInterprete.prototype.visitExpressionStatement_AST = function(ctx) {
 // Visit a parse tree produced by miniPythonParser#sequence_AST.
 VisitorInterprete.prototype.visitSequence_AST = function(ctx) {
     let seeIfReturn = VisitorInterprete.prototype.visit(ctx.moreStatements());
-    console.log("ESTOY DESDE ALGÚN SEQUENCE, QUIZÁ RETORNE", seeIfReturn);
+    //console.log("ESTOY DESDE ALGÚN SEQUENCE, QUIZÁ RETORNE", seeIfReturn);
     if(seeIfReturn != null){
         return seeIfReturn;
     }
@@ -437,7 +447,7 @@ VisitorInterprete.prototype.visitExpression_AST = function(ctx) {
         secondExp.unshift(exp);
         return secondExp;
     }
-    console.log("I AM A EXPRESSION", exp);
+    //console.log("I AM A EXPRESSION", exp);
     return exp;
 };
 
@@ -513,7 +523,7 @@ VisitorInterprete.prototype.visitMultiplicationExpression_AST = function(ctx) {
         //console.log("visitMultiplicationExpression_AST el número en la segunda llamada"+ exp.text);
     }
     let expressionList = VisitorInterprete.prototype.visit(ctx.multiplicationFactor());
-    console.log("visitMultiplicationExpression_AST el número en la segunda llamada", expressionList);
+    //console.log("visitMultiplicationExpression_AST el número en la segunda llamada", expressionList);
     while (expressionList.length !== 0){
         let i = 0;
         exp = VisitorInterprete.prototype.operarNumeros(exp,expressionList[i],expressionList[i+1]);
@@ -647,7 +657,9 @@ VisitorInterprete.prototype.visitFunctionCallExpression_AST = function(ctx) {   
         this.metodoActual=metodo;
         stack.stack.push(this.metodoActual);
         VisitorInterprete.prototype.asignarValorAParametros(ctx);
-        var resultado = VisitorInterprete.prototype.visit(this.metodoActual.puntero);
+        var puntero = this.metodoActual.puntero;
+        var resultado = VisitorInterprete.prototype.visit(puntero);
+        console.log("JOJOJjojojJOJOJOJOJO"+resultado);
         stack.imprimir();
         if(stack.stack.length>0){
             var tam = stack.stack.length
@@ -656,6 +668,9 @@ VisitorInterprete.prototype.visitFunctionCallExpression_AST = function(ctx) {   
             this.local=false;
         }
         stack.stack.pop();
+        if(stack.stack.length<=0){
+            this.local=false;
+        }
         stack.imprimir();
         
     }
@@ -663,21 +678,20 @@ VisitorInterprete.prototype.visitFunctionCallExpression_AST = function(ctx) {   
     almacenGlobales.imprimir();
     console.log("IMPRIMIR LOCALES");
     almacenMetodos.imprimir();
-    if(resultado==null){
-
-    }
+    console.log("STACK");
+    stack.imprimir();
+    
     return resultado;
 };
 
-
 // Visit a parse tree produced by miniPythonParser#expressionList_AST.
 VisitorInterprete.prototype.visitExpressionList_AST = function(ctx) {
-    console.log("NECESTIO LLEGAR AQUÍ");
+    //console.log("NECESTIO LLEGAR AQUÍ");
     let exp = VisitorInterprete.prototype.visit(ctx.expression());
     let moreExpressions = VisitorInterprete.prototype.visit(ctx.moreExpressions());
-    console.log("MOOOOOREEEEE EXXXXPRESSION !!!!", moreExpressions);
+    //console.log("MOOOOOREEEEE EXXXXPRESSION !!!!", moreExpressions);
     moreExpressions.unshift(exp);
-    console.log("MOOOOOREEEEE EXXXXPRESSION", moreExpressions);
+    //console.log("MOOOOOREEEEE EXXXXPRESSION", moreExpressions);
     return moreExpressions;
 };
 
@@ -699,7 +713,7 @@ VisitorInterprete.prototype.visitMoreExpressions_Expression_AST = function(ctx) 
         expression = VisitorInterprete.prototype.visit(ctx.expression(i));
         moreExp.push(expression);
         i++;
-        console.log("I", i);
+        //console.log("I", i);
     }
 
     /*for(i = 0; i < ctx.expression().length; i++){
@@ -737,20 +751,24 @@ VisitorInterprete.prototype.visitPrimitiveExpression_ID_AST = function(ctx) {   
     var metAux = null;
     let id = ctx.ID().getText();
     let idValue;
-    if(llamada){
+    console.log("HOLAAAAAAAAAAAAAAAAAAAAAAAAAAA SOY RAQUEL", this.llamada);
+    if(this.llamada){
         if(stack.stack.length >= 2){   
             var tam = stack.stack.length;
             metAux = stack.stack[tam-2];  
             idValue= metAux.buscarValor(id);
+            console.log(idValue);
         }else{
             idValue = almacenGlobales.buscarValor(id);
         }
-        llamada=false;
+        //llamada=false;
         return idValue;   
     }
     if(stat){
         stat = false;
+        //console.log("bala perdida "+id);
         return id;
+        
     }
     else{
         let idValue;
@@ -817,9 +835,9 @@ VisitorInterprete.prototype.visitPrimitiveExpression_functionCallExpression_AST 
 VisitorInterprete.prototype.visitListExpression_AST = function(ctx) {
 
     let listExp = VisitorInterprete.prototype.visit(ctx.expressionList());
-    console.log("LISTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa a ver si entro", listExp);
+    //console.log("LISTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa a ver si entro", listExp);
     let listType = typeof listExp[0];
-    console.log("LISTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", listExp);
+    //console.log("LISTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", listExp);
     /*let flagType = false;
     for(let i =0; i < listExp.length; i++){
         console.log("HOLAAA");
