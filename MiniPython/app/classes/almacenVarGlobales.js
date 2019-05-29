@@ -44,10 +44,11 @@ almacenVarGlobales.prototype.buscarAsignar = function(nombre){
 };
 almacenVarGlobales.prototype.buscarValor = function(nombre){
     let temp = null;
-    for(i = this.tabla.length-1; i >=0;i--){
-        console.log(this.tabla[i]);
+    for(var i =0; i<this.tabla.length; i++){
+        //console.log(this.tabla[i]);
         if(this.tabla[i].token.text === nombre){
             temp = this.tabla[i].valor ;
+            console.log("QUE VALE ",temp);
         }
     }
     return temp;
