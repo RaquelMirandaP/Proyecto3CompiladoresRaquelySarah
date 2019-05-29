@@ -18,6 +18,7 @@ var stack = new pila();
 var local = false;
 var stat = false;
 var llamada = false;
+let printSt = false;
 //var localCallExpression = false;
 //var MethodExpressionCurrent = null;
 var metodoActual = null;
@@ -28,7 +29,10 @@ VisitorInterprete.prototype.visitProgram_AST = function(ctx) {
     almacenMetodos.clearList();
     almacenGlobales.clearList();
     this.metodoActual = null;
-
+    this.metodoActual = null;
+    local = false;
+    llamada = false;
+    stat = false;
     VisitorInterprete.prototype.visit(ctx.statement(0));
     for(var i = 1; i < ctx.statement().length; i++){
         VisitorInterprete.prototype.visit(ctx.statement(i));
@@ -48,8 +52,8 @@ VisitorInterprete.prototype.visitStatement_DefStatement_AST = function(ctx) {
 };
 
 VisitorInterprete.prototype.visitStatement_IfStatement_AST = function(ctx) {
-    VisitorInterprete.prototype.visit(ctx.ifStatement());
-    return null;
+    console.log("BABABABABABA");
+    return VisitorInterprete.prototype.visit(ctx.ifStatement());
 };
 VisitorInterprete.prototype.visitStatement_returnStatement_AST = function(ctx) {
     let returnSt = VisitorInterprete.prototype.visit(ctx.returnStatement());
@@ -152,7 +156,7 @@ VisitorInterprete.prototype.visitIfStatement_AST = function(ctx) {
             VisitorInterprete.prototype.visit(ctx.sequence(1));
         }
     }
-    return null;
+    return expression;
 };
 
 
@@ -160,19 +164,32 @@ VisitorInterprete.prototype.visitIfStatement_AST = function(ctx) {
 VisitorInterprete.prototype.visitWhileStatement_AST = function(ctx) {
     stat = true;
     let condition = VisitorInterprete.prototype.visit(ctx.expression());
+    console.log("No llegó", condition.length);
     let validate = VisitorInterprete.prototype.validateExp(condition[0],condition[1],condition[2]);
-    if(validate.length > 3){
+    if(condition.length > 3){
         //console.log("Expresión del while inválida")
     }
     //Esto es  un while
     let iter = 0;
-    while(validate){
-        if(iter === 1000){
-            break;
+    if(typeof condition !== 'object'){
+
+        while(true){
+            if(iter === 1000){
+                console.log("Stack overflow");
+                break;
+            }
+            VisitorInterprete.prototype.visit(ctx.sequence());
+            iter++;
         }
-        iter ++;
-        VisitorInterprete.prototype.visit(ctx.sequence());
-        validate = VisitorInterprete.prototype.validateExp(condition[0],condition[1],condition[2]);
+    }else{
+        while(validate){
+            if(iter === 1000){
+                break;
+            }
+            iter ++;
+            VisitorInterprete.prototype.visit(ctx.sequence());
+            validate = VisitorInterprete.prototype.validateExp(condition[0],condition[1],condition[2]);
+        }
     }
     return null;
 };
@@ -288,6 +305,7 @@ VisitorInterprete.prototype.visitReturnStatement_AST = function(ctx) {
 
 // Visit a parse tree produced by miniPythonParser#printStatement_AST.
 VisitorInterprete.prototype.visitPrintStatement_AST = function(ctx) {
+    printSt = true;
     let printExpression = VisitorInterprete.prototype.visit(ctx.expression());
     console.log("La expression en print",printExpression); //Hay que agregarlo a una lista para que imprima en msg
     return null;
@@ -395,7 +413,7 @@ VisitorInterprete.prototype.visitExpressionStatement_AST = function(ctx) {
 // Visit a parse tree produced by miniPythonParser#sequence_AST.
 VisitorInterprete.prototype.visitSequence_AST = function(ctx) {
     let seeIfReturn = VisitorInterprete.prototype.visit(ctx.moreStatements());
-    //console.log("ESTOY DESDE ALGÚN SEQUENCE, QUIZÁ RETORNE", seeIfReturn);
+    console.log("ESTOY DESDE ALGÚN SEQUENCE, QUIZÁ RETORNE", seeIfReturn);
     if(seeIfReturn != null){
         return seeIfReturn;
     }
@@ -534,6 +552,15 @@ VisitorInterprete.prototype.visitMultiplicationFactor_ElementExpression_AST = fu
     return listaMult;
 };
 VisitorInterprete.prototype.operarNumeros = function (par1, oper, par2){
+    if(printSt){
+        if(oper === '+'){
+            console.log("PAR 1",par1);
+            console.log("PAR 2",par2);
+            console.log("CONCATENATION",par1.concat(par2));
+            return par1.concat(par2);
+
+        }
+    }
     if(typeof par1 === 'number' && typeof par2 === 'number'){
         switch (oper){
             case "+":
@@ -575,6 +602,7 @@ VisitorInterprete.prototype.operarNumeros = function (par1, oper, par2){
             }
         }
 };
+
 
 
 // Visit a parse tree produced by miniPythonParser#multiplicationFactor_Epsylon_AST.
@@ -697,34 +725,38 @@ VisitorInterprete.prototype.visitPrimitiveExpression_String_AST = function(ctx) 
 // Visit a parse tree produced by miniPythonParser#primitiveExpression_ID_AST.
 VisitorInterprete.prototype.visitPrimitiveExpression_ID_AST = function(ctx) {                           //HERE IDDDDDD
     var metAux = null;
-    console.log("VALOR DE CALL ",llamada);
     let id = ctx.ID().getText();
     if(llamada){
-        console.log("CALL ESTA TRUE Y NECESITO QUE BUSQUE ");
-        if(stack.stack.length >= 2){   
+        if(stack.stack.length >= 2){
             var tam = stack.stack.length;
-            metAux = stack.stack[tam-2];  
-            console.log("PENULTIMA POSICION DE LA PILA");
-            console.log(metAux);
+            metAux = stack.stack[tam-2];
             idValue= metAux.buscarValor(id);
         }else{
             idValue = almacenGlobales.buscarValor(id);
         }
         llamada=false;
-        //console.log("ESTO ES CASI CASI LA GLORIA", idValue);
-        return idValue;   
+        return idValue;
     }
     if(stat){
         stat = false;
         return id;
     }
     else{
-        let idValue = this.metodoActual.buscarValor(id);
-        if(idValue == null){
+        let idValue;
+        if(this.metodoActual==null){
             idValue = almacenGlobales.buscarValor(id);
+            return idValue;
+        }else{
+            idValue = this.metodoActual.buscarValor(id);
+            if(idValue === null){
+                let value = almacenGlobales.buscarValor(id);
+                console.log("VAAAAAAAAAAAAAAAL", value);
+                return value;
+            }
+            //stat = false;
+            return idValue;
         }
-        stat = false;
-        return idValue;
+
     }
 };
 
