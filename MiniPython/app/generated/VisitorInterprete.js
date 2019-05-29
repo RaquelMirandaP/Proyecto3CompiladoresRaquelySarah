@@ -26,7 +26,9 @@ VisitorInterprete.prototype.visitProgram_AST = function(ctx) {
     almacenMetodos.clearList();
     almacenGlobales.clearList();
     this.metodoActual = null;
-
+    local = false;
+    llamada = false;
+    stat = false;
     VisitorInterprete.prototype.visit(ctx.statement(0));
     for(var i = 1; i < ctx.statement().length; i++){
         VisitorInterprete.prototype.visit(ctx.statement(i));
@@ -342,7 +344,8 @@ VisitorInterprete.prototype.visitFunctionCallStatement_AST = function(ctx) {    
     if(metodo!==null){
         this.local = true;
         this.metodoActual = metodo;
-        console.log(this.metodoActual.token.text)
+        console.log("QUE SOYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY");
+        console.log(this.metodoActual)
         stack.stack.push(this.metodoActual);
         VisitorInterprete.prototype.asignarValorAParametros(ctx);
         VisitorInterprete.prototype.visit(this.metodoActual.puntero);
@@ -675,12 +678,21 @@ VisitorInterprete.prototype.visitPrimitiveExpression_ID_AST = function(ctx) {   
         return id;
     }
     else{
-        let idValue = this.metodoActual.buscarValor(id);
-        if(idValue == null){
+        let idValue;
+        if(this.metodoActual==null){
             idValue = almacenGlobales.buscarValor(id);
+            return idValue;
+        }else{
+            idValue = this.metodoActual.buscarValor(id);
+            if(idValue === null){
+                let value = almacenGlobales.buscarValor(id);
+                console.log(value);
+                return value;
+            }
+            //stat = false;
+            return idValue;
         }
-        stat = false;
-        return idValue;
+        
     }
 };
 
