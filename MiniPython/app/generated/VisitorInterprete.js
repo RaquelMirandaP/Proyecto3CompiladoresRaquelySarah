@@ -591,6 +591,7 @@ VisitorInterprete.prototype.visitFunctionCallExpression_AST = function(ctx) {   
         var resultado = VisitorInterprete.prototype.visit(this.metodoActual.puntero);
         if(resultado==null){
             console.log("MANDAR ERROR QUE DETIENE LA CORRIDA PORQUE NO SE PUEDE OPERAR NULOS")
+            
         }
         stack.imprimir();
         if(stack.stack.length>0){
