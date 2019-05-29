@@ -622,13 +622,13 @@ VisitorInterprete.prototype.visitFunctionCallExpression_AST = function(ctx) {   
         var resultado = VisitorInterprete.prototype.visit(this.metodoActual.puntero);
         //ocupo que me retorne el valor que da el sequence para asignarlo en la variable o operarlo x= 4+funct()
         //yo retorno ese valor.
-        console.log("PRUEBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-        console.log(resultado);
+        //console.log("PRUEBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+        //console.log(resultado);
         stack.imprimir();
         if(stack.stack.length>0){
             var tam = stack.stack.length
             this.metodoActual = stack.stack[tam-2];
-            console.log("ESTA TODO BIEN EN CASA?????? exPRESSION", this.metodoActual);
+            ///console.log("ESTA TODO BIEN EN CASA?????? exPRESSION", this.metodoActual);
         }else{
             this.local=false;
         }
