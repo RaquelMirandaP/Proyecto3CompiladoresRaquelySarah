@@ -22,7 +22,7 @@ let printSt = false;
 //var localCallExpression = false;
 //var MethodExpressionCurrent = null;
 var metodoActual = null;
-
+var operadoEnPrint = false;
 
 VisitorInterprete.prototype.visitProgram_AST = function(ctx) {
     stack.clearList();
@@ -298,6 +298,8 @@ VisitorInterprete.prototype.visitPrintStatement_AST = function(ctx) {
     printSt = true;
     let printExpression = VisitorInterprete.prototype.visit(ctx.expression());
     console.log("La expression en print",printExpression); //Hay que agregarlo a una lista para que imprima en msg
+    printSt =false;
+    operadoEnPrint = false;
     return null;
 };
 
@@ -427,8 +429,8 @@ VisitorInterprete.prototype.visitExpression_AST = function(ctx) {
         secondExp.unshift(exp);
         return secondExp;
     }
+    console.log("I AM A EXPRESSION", exp);
     return exp;
-   
 };
 
 
@@ -458,15 +460,18 @@ VisitorInterprete.prototype.visitAdditionExpression_AST = function(ctx) {
     if(exp != null){
         //console.log("visitAdditionExpression_AST el número en la tercera llamada"+ exp.text);
     }
+
     let expressionList = VisitorInterprete.prototype.visit(ctx.additionFactor());
    
     while (expressionList.length !== 0){
         let i = 0;
         exp = VisitorInterprete.prototype.operarNumeros(exp,expressionList[i],expressionList[i+1]);
+        if(printSt){
+            operadoEnPrint = true;
+        }
         expressionList.splice(0,1);
         expressionList.splice(0,1);
     }
-    
     return exp;
 };
 
@@ -500,7 +505,7 @@ VisitorInterprete.prototype.visitMultiplicationExpression_AST = function(ctx) {
         //console.log("visitMultiplicationExpression_AST el número en la segunda llamada"+ exp.text);
     }
     let expressionList = VisitorInterprete.prototype.visit(ctx.multiplicationFactor());
-    
+    console.log("visitMultiplicationExpression_AST el número en la segunda llamada", expressionList);
     while (expressionList.length !== 0){
         let i = 0;
         exp = VisitorInterprete.prototype.operarNumeros(exp,expressionList[i],expressionList[i+1]);
@@ -527,11 +532,26 @@ VisitorInterprete.prototype.visitMultiplicationFactor_ElementExpression_AST = fu
 VisitorInterprete.prototype.operarNumeros = function (par1, oper, par2){
     if(printSt){
         if(oper === '+'){
-            console.log("PAR 1",par1);
-            console.log("PAR 2",par2);
-            console.log("CONCATENATION",par1.concat(par2));
-            return par1.concat(par2);
-
+            part1 = "";
+            part2 = "";
+            if(!operadoEnPrint){
+                if(typeof par1 === 'string'){
+                    part1 = par1.substring(1, par1.length - 1)
+                }
+            }
+            if(typeof par2 === 'string'){
+                part2 = par2.substring(1, par2.length - 1);
+            }
+            if(part1 === ""){
+                part1 = par1.toString();
+            }
+            if(part2 === ""){
+                part2 = par2.toString();
+            }
+            console.log("PAR 1",part1);
+            console.log("PAR 2",part2);
+            console.log("CONCATENATION",part1.concat(part2));
+            return part1.concat(part2);
         }
     }
     if(typeof par1 === 'number' && typeof par2 === 'number'){
@@ -644,9 +664,12 @@ VisitorInterprete.prototype.visitFunctionCallExpression_AST = function(ctx) {   
 
 // Visit a parse tree produced by miniPythonParser#expressionList_AST.
 VisitorInterprete.prototype.visitExpressionList_AST = function(ctx) {
+    console.log("NECESTIO LLEGAR AQUÍ");
     let exp = VisitorInterprete.prototype.visit(ctx.expression());
     let moreExpressions = VisitorInterprete.prototype.visit(ctx.moreExpressions());
+    console.log("MOOOOOREEEEE EXXXXPRESSION !!!!", moreExpressions);
     moreExpressions.unshift(exp);
+    console.log("MOOOOOREEEEE EXXXXPRESSION", moreExpressions);
     return moreExpressions;
 };
 
@@ -661,10 +684,25 @@ VisitorInterprete.prototype.visitExpressionList_Epsylon_AST = function(ctx) {
 VisitorInterprete.prototype.visitMoreExpressions_Expression_AST = function(ctx) {
     let moreExp = [];
     let expression;
-    for(i = 0; i < ctx.expression().length; i++){
+    let len = ctx.expression().length;
+
+    let i = 0;
+    while (i < ctx.expression().length){
         expression = VisitorInterprete.prototype.visit(ctx.expression(i));
         moreExp.push(expression);
+        i++;
+        console.log("I", i);
     }
+
+    /*for(i = 0; i < ctx.expression().length; i++){
+        console.log("LEN", ctx.expression().length);
+        expression = VisitorInterprete.prototype.visit(ctx.expression(i));
+        moreExp.push(expression);
+        console.log("HAILO",moreExp);
+        if(moreExp.length > 50){
+            break;
+        }
+    }*/
     return moreExp;
 };
 
@@ -690,6 +728,7 @@ VisitorInterprete.prototype.visitPrimitiveExpression_String_AST = function(ctx) 
 VisitorInterprete.prototype.visitPrimitiveExpression_ID_AST = function(ctx) {                           //HERE IDDDDDD
     var metAux = null;
     let id = ctx.ID().getText();
+    let idValue;
     if(llamada){
         if(stack.stack.length >= 2){   
             var tam = stack.stack.length;
@@ -714,10 +753,9 @@ VisitorInterprete.prototype.visitPrimitiveExpression_ID_AST = function(ctx) {   
             idValue = this.metodoActual.buscarValor(id);
             if(idValue === null){
                 let value = almacenGlobales.buscarValor(id);
-                console.log(value);
                 return value;
+
             }
-            //stat = false;
             return idValue;
         }
         
@@ -769,15 +807,20 @@ VisitorInterprete.prototype.visitPrimitiveExpression_functionCallExpression_AST 
 
 // Visit a parse tree produced by miniPythonParser#listExpression_AST.
 VisitorInterprete.prototype.visitListExpression_AST = function(ctx) {
+
     let listExp = VisitorInterprete.prototype.visit(ctx.expressionList());
+    console.log("LISTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa a ver si entro", listExp);
     let listType = typeof listExp[0];
-    let flagType = false;
+    console.log("LISTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", listExp);
+    /*let flagType = false;
     for(let i =0; i < listExp.length; i++){
+        console.log("HOLAAA");
         if(typeof listExp[i] !== listType){
             flagType = false;
             return null;
         }
-    }
+    }*/
+    //console.log("LISTA",listExp);
     return listExp;
 };
 

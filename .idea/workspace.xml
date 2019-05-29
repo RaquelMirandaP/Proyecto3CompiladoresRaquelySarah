@@ -2,7 +2,7 @@
 <project version="4">
   <component name="BookmarkManager">
     <bookmark url="file://$PROJECT_DIR$/MiniPython/miniPythonLexer.g4" line="106" />
-    <bookmark url="file://$PROJECT_DIR$/MiniPython/app/generated/VisitorInterprete.js" line="319" mnemonic="9" />
+    <bookmark url="file://$PROJECT_DIR$/MiniPython/app/generated/VisitorInterprete.js" line="306" mnemonic="9" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ed18400d-2e41-4124-b5be-cc3d1bd1854e" name="Default Changelist" comment="Default Changelist" />
@@ -21,8 +21,8 @@
       <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/MiniPython/app/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
-              <caret line="41" column="62" lean-forward="true" selection-start-line="41" selection-start-column="62" selection-end-line="41" selection-end-column="62" />
+            <state relative-caret-position="321">
+              <caret line="29" column="25" lean-forward="true" selection-start-line="29" selection-start-column="25" selection-end-line="29" selection-end-column="25" />
               <folding />
             </state>
           </provider>
@@ -31,8 +31,8 @@
       <file leaf-file-name="VisitorInterprete.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/MiniPython/app/generated/VisitorInterprete.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="387">
-              <caret line="755" column="27" lean-forward="true" selection-start-line="755" selection-start-column="27" selection-end-line="755" selection-end-column="27" />
+            <state relative-caret-position="126">
+              <caret line="533" column="9" lean-forward="true" selection-start-line="533" selection-start-column="9" selection-end-line="533" selection-end-column="9" />
               <folding />
             </state>
           </provider>
@@ -41,8 +41,8 @@
       <file leaf-file-name="almacenVarGlobales.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/MiniPython/app/classes/almacenVarGlobales.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1092">
-              <caret line="52" column="16" lean-forward="false" selection-start-line="52" selection-start-column="16" selection-end-line="52" selection-end-column="16" />
+            <state relative-caret-position="-792">
+              <caret line="19" column="27" lean-forward="true" selection-start-line="19" selection-start-column="27" selection-end-line="19" selection-end-column="27" />
               <folding />
             </state>
           </provider>
@@ -51,10 +51,10 @@
       <file leaf-file-name="miniPythonParser.g4" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/MiniPython/miniPythonParser.g4">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="63">
-              <caret line="9" column="17" lean-forward="false" selection-start-line="9" selection-start-column="17" selection-end-line="9" selection-end-column="17" />
+            <state relative-caret-position="407">
+              <caret line="58" column="30" lean-forward="true" selection-start-line="58" selection-start-column="30" selection-end-line="58" selection-end-column="30" />
               <folding>
-                <marker date="1558911199719" expanded="true" signature="3622:3820" ph=":...;" />
+                <marker date="1559106103880" expanded="true" signature="3622:3820" ph=":...;" />
               </folding>
             </state>
           </provider>
@@ -81,36 +81,36 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>consol</find>
-      <find>oper</find>
-      <find>ID</find>
-      <find>callSta</find>
-      <find>console</find>
-      <find>fors</find>
-      <find>metodoAc</find>
-      <find>functionCa</find>
-      <find>function</find>
-      <find>forSt</find>
-      <find>functionc</find>
-      <find>functionC</find>
-      <find>forSta</find>
-      <find>assign</find>
       <find>local</find>
       <find>forStat</find>
       <find>returnS</find>
       <find>functionCallS</find>
       <find>for</find>
       <find>forS</find>
-      <find>assignS</find>
       <find>validate</find>
       <find>ass</find>
       <find>while</find>
       <find>stat</find>
       <find>ifS</find>
       <find>whileS</find>
-      <find>printS</find>
       <find>ifSt</find>
       <find>moreS</find>
+      <find>assignS</find>
+      <find>mul</find>
+      <find>expressionLi</find>
+      <find>expres</find>
+      <find>expressionList_AST</find>
+      <find>#moreExpressions_Expression_AST</find>
+      <find>expressi</find>
+      <find>expressionL</find>
+      <find>expression_AST</find>
+      <find>expressionList_AS</find>
+      <find>Nece</find>
+      <find>Hailo</find>
+      <find>printSt</find>
+      <find>addition</find>
+      <find>print</find>
+      <find>printS</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -129,12 +129,12 @@
         <option value="$PROJECT_DIR$/MiniPython/app/classes/Metodo.js" />
         <option value="$PROJECT_DIR$/MiniPython/miniPythonLexer.g4" />
         <option value="$PROJECT_DIR$/MiniPython/app/generated/MiVisitor.js" />
-        <option value="$PROJECT_DIR$/MiniPython/miniPythonParser.g4" />
         <option value="$PROJECT_DIR$/MiniPython/app/classes/variable.js" />
         <option value="$PROJECT_DIR$/MiniPython/app/classes/MiTablaMetodos.js" />
         <option value="$PROJECT_DIR$/MiniPython/app/classes/almacenMetodo.js" />
         <option value="$PROJECT_DIR$/MiniPython/app/classes/almacenVarGlobales.js" />
         <option value="$PROJECT_DIR$/MiniPython/app/classes/metodoContainer.js" />
+        <option value="$PROJECT_DIR$/MiniPython/miniPythonParser.g4" />
         <option value="$PROJECT_DIR$/MiniPython/app/index.html" />
         <option value="$PROJECT_DIR$/MiniPython/app/generated/VisitorInterprete.js" />
       </list>
@@ -285,16 +285,15 @@
       <workItem from="1558975571288" duration="4755000" />
       <workItem from="1559003325831" duration="1042000" />
       <workItem from="1559062381313" duration="216000" />
-      <workItem from="1559082300999" duration="8098000" />
+      <workItem from="1559082300999" duration="22298000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="172848000" />
+    <option name="totallyTimeSpent" value="187048000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-9" y="-9" width="1938" height="1048" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Tool Output" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -704,34 +703,34 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/MiniPython/miniPythonParser.g4">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="63">
-          <caret line="9" column="17" lean-forward="false" selection-start-line="9" selection-start-column="17" selection-end-line="9" selection-end-column="17" />
+        <state relative-caret-position="407">
+          <caret line="58" column="30" lean-forward="true" selection-start-line="58" selection-start-column="30" selection-end-line="58" selection-end-column="30" />
           <folding>
-            <marker date="1558911199719" expanded="true" signature="3622:3820" ph=":...;" />
+            <marker date="1559106103880" expanded="true" signature="3622:3820" ph=":...;" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/MiniPython/app/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="41" column="62" lean-forward="true" selection-start-line="41" selection-start-column="62" selection-end-line="41" selection-end-column="62" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/MiniPython/app/classes/almacenVarGlobales.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1092">
-          <caret line="52" column="16" lean-forward="false" selection-start-line="52" selection-start-column="16" selection-end-line="52" selection-end-column="16" />
+        <state relative-caret-position="-792">
+          <caret line="19" column="27" lean-forward="true" selection-start-line="19" selection-start-column="27" selection-end-line="19" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/MiniPython/app/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="321">
+          <caret line="29" column="25" lean-forward="true" selection-start-line="29" selection-start-column="25" selection-end-line="29" selection-end-column="25" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/MiniPython/app/generated/VisitorInterprete.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="387">
-          <caret line="755" column="27" lean-forward="true" selection-start-line="755" selection-start-column="27" selection-end-line="755" selection-end-column="27" />
+        <state relative-caret-position="126">
+          <caret line="533" column="9" lean-forward="true" selection-start-line="533" selection-start-column="9" selection-end-line="533" selection-end-column="9" />
           <folding />
         </state>
       </provider>
