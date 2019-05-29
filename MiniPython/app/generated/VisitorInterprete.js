@@ -322,13 +322,21 @@ VisitorInterprete.prototype.visitAssignStatement_AST = function(ctx) {          
 VisitorInterprete.prototype.asignarValorAParametros = function(ctx){
     llamada = true;
     var lista = VisitorInterprete.prototype.visit(ctx.expressionList());
+    console.log("QUE TRAE LIST");
+    console.log(lista);
     if(this.metodoActual.variables.length>0 && lista !== null){
         for(var i = 0; i < this.metodoActual.variables.length; i++){
             let temp = this.metodoActual.buscarVar(this.metodoActual.variables[i].token.text);
-            console.log(this.metodoActual.variables[i]);
+            console.log(temp.valor);
+            console.log(this.metodoActual);
             for(var j = 0; j < lista.length; j++){
-                temp.type = typeof(lista[j]);
-                temp.valor =  lista[j];
+                console.log("QUE HACES WEEE");
+                console.log(lista[j]);
+                if(i==j){
+                    temp.type = typeof(lista[j]);
+                    temp.valor =  lista[j];
+                }
+                
             }
 
         }
