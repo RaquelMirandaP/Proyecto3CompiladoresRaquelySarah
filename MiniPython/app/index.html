@@ -126,16 +126,22 @@
                 document.getElementById("messages").value += (element + '\n');
             });
         }
-        /*else{
-            //visitorInterp.visit(tree);
-            if(visitorInterp.listaVisitor.length === 0){
+        else{
+            visitorInterp.visit(tree);
+            console.log("PrintL", visitorInterp.getListaPrint());
+            if(visitorInterp.getListaPrint().length > 0){
+                visitorInterp.getListaPrint().forEach(function(mensaje){
+                    document.getElementById("messages").value += (mensaje + '\n');
+                });
+            }
+            /*if(visitorInterp.listaVisitor.length === 0){
                 document.getElementById("messages").value += 'Sin errores de interpretación \n\n';
             }else{
                 visitorInterp.listaVisitor.forEach(function (error) {
                     document.getElementById("messages").value += (error + '\n');
                 });
-            }
-        }*/
+            }*/
+        }
         /*else {
             document.getElementById("messages").value = 'Sin errores de sintaxis\n\n';
             visitor.visit(tree);
@@ -153,7 +159,7 @@
             }
             //impresión del árbol
         }*/
-        visitorInterp.visit(tree);
+       // visitorInterp.visit(tree);
 
     });
 
