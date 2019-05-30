@@ -4,8 +4,9 @@ var metodo = require('../classes/metodoContainer');
 var almacen = require('../classes/almacenMetodo');
 var pila = require('../classes/stack');
 var ListaErrores = require('../classes/ListaErrores');
+var ListaPrint = require('../classes/ListaPrint');
 function VisitorInterprete (){
-    this.listaVisitor = [];
+    //this.listaVisitor = [];
 
     parserGeneratedVisitor.miniPythonParserVisitor.call(this);
     return this;
@@ -20,6 +21,8 @@ var local = false;
 var stat = false;
 var llamada = false;
 let printSt = false;
+let comeFromString = false;
+var listaPrint = new ListaPrint();
 //var localCallExpression = false;
 //var MethodExpressionCurrent = null;
 var metodoActual = null;
@@ -35,6 +38,7 @@ VisitorInterprete.prototype.visitProgram_AST = function(ctx) {
     llamada = false;
     stat = false;
     listaError.clearList();
+    listaPrint.clearList();
     VisitorInterprete.prototype.visit(ctx.statement(0));
     for(var i = 1; i < ctx.statement().length; i++){
         VisitorInterprete.prototype.visit(ctx.statement(i));
@@ -125,9 +129,7 @@ VisitorInterprete.prototype.visitArgList_AST = function(ctx) {
         this.metodoActual.insertarParametros(ctx.ID(i).getSymbol());
         
     }
-
     return null;
-
 };
 
 // Visit a parse tree produced by miniPythonParser#argList_Epsylon_AST.
@@ -170,17 +172,20 @@ VisitorInterprete.prototype.visitWhileStatement_AST = function(ctx) {
     if(typeof condition !== 'object'){
 
         while(true){
-            if(iter === 1000){
-                console.log("Stack overflow");
-                break;
+            if(iter === 5000){
+                var error = "stack overflow";
+                document.getElementById("messages").value += (error);
+                throw ( console.error(error));
             }
             VisitorInterprete.prototype.visit(ctx.sequence());
             iter++;
         }
     }else{
         while(validate){
-            if(iter === 1000){
-                break;
+            if(iter === 5000){
+                var error = "stack overflow";
+                document.getElementById("messages").value += (error);
+                throw ( console.error(error));
             }
             iter ++;
             VisitorInterprete.prototype.visit(ctx.sequence());
@@ -192,29 +197,49 @@ VisitorInterprete.prototype.visitWhileStatement_AST = function(ctx) {
 VisitorInterprete.prototype.validateExp = function (firstPart, oper, secondPart) {
     let auxFirstPart = firstPart;
     let auxSecondPart = secondPart;
+
     if(typeof firstPart === 'object' || typeof secondPart === 'object'){
         return null;
     }
     //console.log("validateExp", firstPart);
+    if(comeFromString && oper === '==' && typeof firstPart === 'string' && typeof secondPart === 'string'){
+        if(firstPart === secondPart){
+            comeFromString = false;
+            return true;
+        }
+        else{
+            comeFromString = false;
+            return false;
+        }
+    }
     if(typeof firstPart === 'string'){
-        firstPart = this.metodoActual.buscarValor(auxFirstPart);
-        //console.log("FIRST PART", firstPart);
-        if(firstPart == null){
+        if(this.metodoActual == null){
             firstPart = almacenGlobales.buscarValor(auxFirstPart);
+        }
+        else {
+            firstPart = this.metodoActual.buscarValor(auxFirstPart);
+            //console.log("FIRST PART", firstPart);
             if(firstPart == null){
-                //console.log("No existe esa variable");
-                return null;
+                firstPart = almacenGlobales.buscarValor(auxFirstPart);
+                if(firstPart == null){
+                    //console.log("No existe esa variable");
+                    return null;
+                }
             }
         }
         //console.log("first part value", firstPart);
     }
     if(typeof secondPart === 'string'){
-        secondPart = this.metodoActual.buscarValor(auxSecondPart);
-        if(secondPart == null){
+        if(this.metodoActual == null){
             secondPart = almacenGlobales.buscarValor(auxSecondPart);
+        }else{
+            secondPart = this.metodoActual.buscarValor(auxSecondPart);
             if(secondPart == null){
-                console.log("No existe esa variable");
-                return null
+                secondPart = almacenGlobales.buscarValor(auxSecondPart);
+                if(secondPart == null){
+                    console.log("No existe esa variable");
+                    return null
+                }
             }
         }
         //console.log("second part value", secondPart);
@@ -261,36 +286,56 @@ VisitorInterprete.prototype.validateExp = function (firstPart, oper, secondPart)
 // Visit a parse tree produced by miniPythonParser#forStatement_AST.
 VisitorInterprete.prototype.visitForStatement_AST = function(ctx) {
     //VisitorInterprete.prototype.visit(ctx.expression());
+    stat = true;
     let variable;
     let index = 0;
     let i = ctx.ID().getSymbol();
     let list = VisitorInterprete.prototype.visit(ctx.expressionList());
     let realList = list[0];
-    //console.log("Lista", realList);
+    console.log("Lista", realList);
+    let realListAux = realList;
+    if (typeof realList === 'number'){
+        var error = "No se puede recorrer un número con un for "+ i.line+":"+i.column;
+        document.getElementById("messages").value += (error);
+        throw ( console.error(error));
+    }
     if(typeof realList === 'string'){
             //console.log("Buscando local", list[0]);
-            realList = this.metodoActual.buscarValor(list[0]);
-            if(realList === null){
-                //console.log("Buscando global", list[0]);
+            if(this.metodoActual == null){
                 realList = almacenGlobales.buscarValor(list[0]);
-            }else {
-                console.log("No existe")
+                if(realList === null){
+                    realList = realListAux;
+                }
+            }
+            else{
+                realList = this.metodoActual.buscarValor(list[0]);
+                if(realList === null){
+                    //console.log("Buscando global", list[0]);
+                    realList = almacenGlobales.buscarValor(list[0]);
+                }
+                if(realList === null) {
+                    realList = realListAux;
+                }
             }
     }
+    console.log("REAL LIST", realList);
+
     while(index < realList.length){
+        console.log("REal List impression",realList[index]);
         if(!this.local){
             almacenGlobales.insertar(i,typeof realList[index],realList[index]);
         }
         else{
             this.metodoActual.insertarVar(i, typeof(realList[index]), realList[index]);
         }
+        stat = false;
         VisitorInterprete.prototype.visit(ctx.sequence());
         index++;
     }
    if(this.local){
         
    }
-    
+    stat = false;
     return null;
 };
 
@@ -303,6 +348,8 @@ VisitorInterprete.prototype.visitReturnStatement_AST = function(ctx) {
 VisitorInterprete.prototype.visitPrintStatement_AST = function(ctx) {
     printSt = true;
     let printExpression = VisitorInterprete.prototype.visit(ctx.expression());
+    console.log("PRINT EXPRESSION", printExpression);
+    listaPrint.agregarMensaje(printExpression);
     console.log("La expression en print",printExpression); //Hay que agregarlo a una lista para que imprima en msg
     printSt =false;
     //operadoEnPrint = false;
@@ -313,7 +360,7 @@ VisitorInterprete.prototype.visitPrintStatement_AST = function(ctx) {
 // Visit a parse tree produced by miniPythonParser#assignStatement_AST.
 VisitorInterprete.prototype.visitAssignStatement_AST = function(ctx) {                         //HERE
     var asignacion = VisitorInterprete.prototype.visit(ctx.expression());          
-    var symbol = ctx.ID().getSymbol(); 
+    var symbol = ctx.ID().getSymbol();
     if(asignacion !== null){
         if (!this.local){
 
@@ -442,8 +489,8 @@ VisitorInterprete.prototype.visitExpression_AST = function(ctx) {
     console.log("I AM A EXPRESSION", exp);
     if(/*exp === null ||*/ exp === undefined){
         listaError.agregarError('Nulos no permitidos');
-        this.listaVisitor = listaError.getListaErrores();
-        console.log("Lista error",this.listaVisitor);
+        //this.listaVisitor = listaError.getListaErrores();
+        //console.log("Lista error",this.listaVisitor);
         document.getElementById("messages").value += ("Nulos no permitidos");
         throw ( console.error('Nulos no permitidos'));
     }
@@ -640,9 +687,20 @@ VisitorInterprete.prototype.visitElementExpression_AST = function(ctx) {
     //console.log("I AM THE primitiveExpression IN ELEMENT EXPRESSION ", exp);
     let elementAccess = VisitorInterprete.prototype.visit(ctx.elementAccess());
     if(typeof exp !=='number' && elementAccess !== null){
-        if(elementAccess < exp.length){
-            exp = exp[elementAccess];
+        if(typeof elementAccess !== 'number'){
+            var error = "Solo puede acceder a un elemento por medio de un número";
+            document.getElementById("messages").value += (error);
+            throw ( console.error(error));
+        }else{
+            if(elementAccess < exp.length){
+                exp = exp[elementAccess];
+            }else{
+                var error = "Indice fuera de rango";
+                document.getElementById("messages").value += (error);
+                throw ( console.error(error));
+            }
         }
+
     }
     //console.log("I AM THE element access IN ELEMENT EXPRESSION ", elementAccess);
     return exp;
@@ -657,7 +715,7 @@ VisitorInterprete.prototype.visitElementAccess_Expression_AST = function(ctx) {
         exp = VisitorInterprete.prototype.visit(ctx.expression(i));
         lista.push(exp);
     }
-    //.log("SOY UNA LISTA DE ELEMENT EXPRESSION", lista);
+    //console.log("SOY UNA LISTA DE ELEMENT EXPRESSION", exp);
     return exp;
 };
 
@@ -757,6 +815,8 @@ VisitorInterprete.prototype.visitPrimitiveExpression_Integer_AST = function(ctx)
 VisitorInterprete.prototype.visitPrimitiveExpression_String_AST = function(ctx) {
     let str = ctx.STRING().getText();
     let text = str.substring(1, str.length - 1);
+    console.log("ENTRÉ A STRING");
+    comeFromString = true;
     return text;
 };
 
@@ -811,34 +871,60 @@ VisitorInterprete.prototype.visitPrimitiveExpression_listExpression_AST = functi
 };
 
 VisitorInterprete.prototype.visitPrimitiveExpression_len_Expression_AST = function(ctx) {
+    //stat = true;
     let dataForLen = VisitorInterprete.prototype.visit(ctx.expression());
     let len;
+    let dataValue = null;
+    console.log("VOY A BUSCAR A ",dataForLen);
+    console.log("type",typeof dataForLen, "comeFomString",comeFromString);
+    console.log("STAT",stat);
     if(typeof dataForLen === 'object'){
+        stat = false;
+        comeFromString = false;
         len = dataForLen.length;
         return len;
     }
+    if(comeFromString){
+        console.log("DATA AQUÍ", len);
+        len = dataForLen.length;
+        comeFromString = false;
+        stat = false;
+        return len;
+    }
+    if(this.metodoActual==null){
+        console.log("Estoy buscando global sin método definido");
+        dataValue = almacenGlobales.buscarValor(dataForLen);
+        if(typeof dataValue === 'number'){
+            var error = "Error, no puede hacer len de un número ";
+            document.getElementById("messages").value += (error);
+            throw ( console.error(error));
+        }
+        comeFromString = false;
+        stat = false;
+        return dataValue.length;
+    }
+    else {
+        console.log("Estoy buscando local con método definido");
+        console.log("IMPRIMIR LOCALES");
+        almacenMetodos.imprimir();
+        console.log("data", dataForLen);
+        console.log("Método", this.metodoActual);
 
-    if(typeof dataForLen === 'string'){
-        console.log("data 4 len ",dataForLen);
-        let dataValue = null;
-        if(this.metodoActual==null){
+        dataValue = this.metodoActual.buscarValor(dataForLen);
+        if (dataValue === null) {
+            console.log("No debía haber entrado aquí");
             dataValue = almacenGlobales.buscarValor(dataForLen);
-            return dataValue;
         }
-        else{
-            dataValue = this.metodoActual.buscarValor(dataForLen);
-            if(dataValue == null){
-                dataValue = almacenGlobales.buscarValor(dataForLen);
-            }
-            if(dataValue != null){
-                len = dataValue.length;
-                return len;
-            }
-            else{
-                len = dataForLen.length -2 ;
-                return len
-            }
+        if(typeof dataValue === 'number'){
+            var error = "Error, no puede hacer len de un número ";
+            document.getElementById("messages").value += (error);
+            throw ( console.error(error));
         }
+        len = dataValue.length;
+        comeFromString = false;
+        console.log("data value", dataValue);
+        stat = false;
+        return len;
     }
     //Por ahorita solo números
     var error = "Error, no puede hacer len de un número ";
@@ -859,7 +945,6 @@ VisitorInterprete.prototype.visitListExpression_AST = function(ctx) {
     let listType = typeof listExp[0];
     let flagType = false;
     for(let i =0; i < listExp.length; i++){
-        console.log("HOLAAA");
         if(typeof listExp[i] === 'object'){
             var error = "Error, no se permiten listas de listas";
             document.getElementById("messages").value += (error);
@@ -884,5 +969,7 @@ VisitorInterprete.prototype.visitLogicOperator = function(ctx) {
     
     return ctx.getText();
 };
-
+VisitorInterprete.prototype.getListaPrint = function () {
+    return listaPrint.getListaPrint();
+};
 module.exports = VisitorInterprete;
