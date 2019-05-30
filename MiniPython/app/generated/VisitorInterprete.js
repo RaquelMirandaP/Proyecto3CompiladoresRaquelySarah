@@ -109,6 +109,11 @@ VisitorInterprete.prototype.visitStatement_expressionStatement_AST = function(ct
 
 // Visit a parse tree produced by miniPythonParser#defStatement_AST.
 VisitorInterprete.prototype.visitDefStatement_AST = function(ctx) {
+    if(this.local==true){
+        var error = "No puede declarar una funcion dentro de otra ";
+        document.getElementById("messages").value += (error);
+        throw ( console.error(error));
+    }
     this.local = true;
     met = new metodo();
     met.token = ctx.ID().getSymbol();
