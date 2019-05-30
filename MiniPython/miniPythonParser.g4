@@ -30,16 +30,16 @@ fceEnding                : NEWLINE
                            |
                          ;
 expressionStatement : expressionList NEWLINE                                            #expressionStatement_AST;
-sequence : NEWLINE INDENT moreStatements DEDENT                                                   #sequence_AST;
+sequence : NEWLINE INDENT moreStatements DEDENT                                         #sequence_AST;
 moreStatements : statement(statement)*                                                  #moreStatements_AST;
 expression : additionExpression comparison                                              #expression_AST;
 comparison : ((logicOperator)additionExpression)*                                       #comparision_AST
               |                                                                         #comparison_Epsylon_AST;
 additionExpression : multiplicationExpression additionFactor                            #additionExpression_AST;
-additionFactor : ((additionOperator) multiplicationExpression)*                               #additionFactor_multExpression_AST
+additionFactor : ((additionOperator) multiplicationExpression)*                         #additionFactor_multExpression_AST
                   |                                                                     #additionFactor_Epsylon_AST;
 multiplicationExpression : elementExpression multiplicationFactor                       #multiplicationExpression_AST;
-multiplicationFactor : (multOperator elementExpression)*                                     #multiplicationFactor_ElementExpression_AST
+multiplicationFactor : (multOperator elementExpression)*                                #multiplicationFactor_ElementExpression_AST
                        |                                                                #multiplicationFactor_Epsylon_AST;
 elementExpression : primitiveExpression elementAccess                                   #elementExpression_AST;
 elementAccess : (PCABRIR expression PCCERRAR)*                                          #elementAccess_Expression_AST

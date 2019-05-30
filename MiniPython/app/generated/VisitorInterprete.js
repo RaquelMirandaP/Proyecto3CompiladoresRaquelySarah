@@ -3,6 +3,7 @@ var globales = require('../classes/almacenVarGlobales');
 var metodo = require('../classes/metodoContainer');
 var almacen = require('../classes/almacenMetodo');
 var pila = require('../classes/stack');
+var ListaErrores = require('../classes/ListaErrores');
 function VisitorInterprete (){
     this.listaVisitor = [];
 
@@ -22,7 +23,8 @@ let printSt = false;
 //var localCallExpression = false;
 //var MethodExpressionCurrent = null;
 var metodoActual = null;
-var operadoEnPrint = false;
+//var operadoEnPrint = false;
+var listaError = new ListaErrores();
 
 VisitorInterprete.prototype.visitProgram_AST = function(ctx) {
     stack.clearList();
@@ -32,11 +34,15 @@ VisitorInterprete.prototype.visitProgram_AST = function(ctx) {
     local = false;
     llamada = false;
     stat = false;
+    listaError.clearList();
     VisitorInterprete.prototype.visit(ctx.statement(0));
     for(var i = 1; i < ctx.statement().length; i++){
         VisitorInterprete.prototype.visit(ctx.statement(i));
     }
-
+    console.log("IMPRIMIR GLOBALES");
+    almacenGlobales.imprimir();
+    console.log("IMPRIMIR LOCALES");
+    almacenMetodos.imprimir();
    
     return null;
 };
@@ -137,8 +143,9 @@ VisitorInterprete.prototype.visitIfStatement_AST = function(ctx) {
     let expression = VisitorInterprete.prototype.visit(ctx.expression());
     let validate = VisitorInterprete.prototype.validateExp(expression[0],expression[1],expression[2]);
     if(expression.length > 3 || expression === null){
-        console.log("Expresion inválida ");
-        return null;
+        var error = "Condicional if inválido ";
+        document.getElementById("messages").value += (error);
+        throw ( console.error(error));
     }
     else{
         if(validate){
@@ -155,10 +162,11 @@ VisitorInterprete.prototype.visitIfStatement_AST = function(ctx) {
 VisitorInterprete.prototype.visitWhileStatement_AST = function(ctx) {
     stat = true;
     let condition = VisitorInterprete.prototype.visit(ctx.expression());
-    //console.log("No llegó", condition.length);
     let validate = VisitorInterprete.prototype.validateExp(condition[0],condition[1],condition[2]);
     if(condition.length > 3){
-        //console.log("Expresión del while inválida")
+        var error = "Condicional while inválido ";
+        document.getElementById("messages").value += (error);
+        throw ( console.error(error));
     }
     //Esto es  un while
     let iter = 0;
@@ -300,7 +308,7 @@ VisitorInterprete.prototype.visitPrintStatement_AST = function(ctx) {
     let printExpression = VisitorInterprete.prototype.visit(ctx.expression());
     console.log("La expression en print",printExpression); //Hay que agregarlo a una lista para que imprima en msg
     printSt =false;
-    operadoEnPrint = false;
+    //operadoEnPrint = false;
     return null;
 };
 
@@ -318,24 +326,29 @@ VisitorInterprete.prototype.visitAssignStatement_AST = function(ctx) {          
                 }
         }
         if(this.local){
-                console.log("ASIGNACION");
-                console.log(symbol.text);
-                console.log(this.metodoActual);
+                //console.log("ASIGNACION");
+                //console.log(symbol.text);
+                //console.log(this.metodoActual);
                  if(!this.metodoActual.buscarAsignar(symbol.text)) { 
                      if(!almacenGlobales.buscarAsignar(symbol.text)){
                          this.metodoActual.insertarVar(symbol, typeof(asignacion), asignacion);
-                         console.log("inserté la variable local ", symbol.text );
+                         //console.log("inserté la variable local ", symbol.text );
                      }else{
                          almacenGlobales.insertar(symbol, typeof(asignacion), asignacion);
-                         console.log("actualicé la variable global ", symbol.text );
+                         //console.log("actualicé la variable global ", symbol.text );
                      }
                  }else{
                      this.metodoActual.insertarVar(symbol, typeof(asignacion), asignacion)
-                     console.log("actualicé la variable local ", symbol.text );
+                     //console.log("actualicé la variable local ", symbol.text );
                  }
             }
             
         }
+        else{
+        var error = "Error en la asignación de la variable "+symbol.text+" en "+ symbol.line+":"+symbol.column;
+        document.getElementById("messages").value += (error);
+        throw ( console.error(error));
+    }
     almacenMetodos.imprimir();
     return null;
 };
@@ -447,11 +460,16 @@ VisitorInterprete.prototype.visitExpression_AST = function(ctx) {
         secondExp.unshift(exp);
         return secondExp;
     }
-    //console.log("I AM A EXPRESSION", exp);
+    console.log("I AM A EXPRESSION", exp);
+    if(/*exp === null ||*/ exp === undefined){
+        listaError.agregarError('Nulos no permitidos');
+        this.listaVisitor = listaError.getListaErrores();
+        console.log("Lista error",this.listaVisitor);
+        document.getElementById("messages").value += ("Nulos no permitidos");
+        throw ( console.error('Nulos no permitidos'));
+    }
     return exp;
 };
-
-
 // Visit a parse tree produced by miniPythonParser#comparision_AST.
 VisitorInterprete.prototype.visitComparision_AST = function(ctx) {
     let lista = [];
@@ -461,7 +479,6 @@ VisitorInterprete.prototype.visitComparision_AST = function(ctx) {
         var exp2 = VisitorInterprete.prototype.visit(ctx.additionExpression(i)); 
         lista.push(exp2);
     }
-    
     return lista;
 };
 
@@ -476,7 +493,7 @@ VisitorInterprete.prototype.visitComparison_Epsylon_AST = function(ctx) {
 VisitorInterprete.prototype.visitAdditionExpression_AST = function(ctx) {
     let exp = VisitorInterprete.prototype.visit(ctx.multiplicationExpression());
     if(exp != null){
-        //console.log("visitAdditionExpression_AST el número en la tercera llamada"+ exp.text);
+        //return null;
     }
 
     let expressionList = VisitorInterprete.prototype.visit(ctx.additionFactor());
@@ -484,8 +501,11 @@ VisitorInterprete.prototype.visitAdditionExpression_AST = function(ctx) {
     while (expressionList.length !== 0){
         let i = 0;
         exp = VisitorInterprete.prototype.operarNumeros(exp,expressionList[i],expressionList[i+1]);
-        if(printSt){
+        /*if(printSt){
             operadoEnPrint = true;
+        }*/
+        if(exp === null){
+            return null;
         }
         expressionList.splice(0,1);
         expressionList.splice(0,1);
@@ -521,12 +541,16 @@ VisitorInterprete.prototype.visitMultiplicationExpression_AST = function(ctx) {
     let exp =VisitorInterprete.prototype.visit(ctx.elementExpression());
     if(exp != null){
         //console.log("visitMultiplicationExpression_AST el número en la segunda llamada"+ exp.text);
+        //return null;
     }
     let expressionList = VisitorInterprete.prototype.visit(ctx.multiplicationFactor());
-    //console.log("visitMultiplicationExpression_AST el número en la segunda llamada", expressionList);
     while (expressionList.length !== 0){
         let i = 0;
         exp = VisitorInterprete.prototype.operarNumeros(exp,expressionList[i],expressionList[i+1]);
+        console.log("SOY LA EXPRESION", exp);
+        if(exp === null){
+            return null;
+        }
         expressionList.splice(0,1);
         expressionList.splice(0,1);
     }
@@ -548,29 +572,10 @@ VisitorInterprete.prototype.visitMultiplicationFactor_ElementExpression_AST = fu
     return listaMult;
 };
 VisitorInterprete.prototype.operarNumeros = function (par1, oper, par2){
-    if(printSt){
-        if(oper === '+'){
-            part1 = "";
-            part2 = "";
-            if(!operadoEnPrint){
-                if(typeof par1 === 'string'){
-                    part1 = par1.substring(1, par1.length - 1)
-                }
-            }
-            if(typeof par2 === 'string'){
-                part2 = par2.substring(1, par2.length - 1);
-            }
-            if(part1 === ""){
-                part1 = par1.toString();
-            }
-            if(part2 === ""){
-                part2 = par2.toString();
-            }
-            console.log("PAR 1",part1);
-            console.log("PAR 2",part2);
-            console.log("CONCATENATION",part1.concat(part2));
-            return part1.concat(part2);
-        }
+    console.log("PAR 1",par1, "PAR 2", par2);
+    if(par1 == null || par2 ==null){
+        //console.log("Llegué hasta aquí porque soy muy loser");
+        return null;
     }
     if(typeof par1 === 'number' && typeof par2 === 'number'){
         switch (oper){
@@ -588,9 +593,9 @@ VisitorInterprete.prototype.operarNumeros = function (par1, oper, par2){
     if(typeof par1 === 'string' && typeof par2 === 'string') {
         switch (oper) {
             case "+":
-                let res1 = par1.substring(0, par1.length - 1);
-                let res2 = par2.substring(1);
-                return res1.concat(res2);
+                //let res1 = par1.substring(0, par1.length - 1);
+                //let res2 = par2.substring(1);
+                return par1.concat(par2);
             case "-":
                 return null;
             case "*":
@@ -600,17 +605,42 @@ VisitorInterprete.prototype.operarNumeros = function (par1, oper, par2){
         }
     }
     if(typeof par1 === 'object' && typeof par2 === 'object') {
-            switch (oper) {
-                case "+":
-                    return par1.concat(par2);
-                case "-":
-                    return null;
-                case "*":
-                    return null;
-                case "/":
-                    return null;
-            }
+        switch (oper) {
+            case "+":
+                return par1.concat(par2);
+            case "-":
+                return null;
+            case "*":
+                return null;
+            case "/":
+                return null;
         }
+    }
+    if(printSt){
+        if(oper === '+'){
+                part1 = "";
+                part2 = "";
+                /*if(!operadoEnPrint){
+                    if(typeof par1 === 'string'){
+                        part1 = par1.substring(1, par1.length - 1)
+                    }
+                }*/
+                /*if(typeof par2 === 'string'){
+                    part2 = par2.substring(1, par2.length - 1);
+                }*/
+                if(part1 === ""){
+                    part1 = par1.toString();
+                }
+                if(part2 === ""){
+                    part2 = par2.toString();
+                }
+                console.log("PAR 1",part1);
+                console.log("PAR 2",part2);
+                console.log("CONCATENATION",part1.concat(part2));
+                return part1.concat(part2);
+        }
+    }
+    return null;
 };
 
 
@@ -628,19 +658,28 @@ VisitorInterprete.prototype.visitElementExpression_AST = function(ctx) {
     if(exp != null){
         //console.log("visitElementExpression_AST el número"+ exp.text);
     }
-    
-    VisitorInterprete.prototype.visit(ctx.elementAccess());
+    //console.log("I AM THE primitiveExpression IN ELEMENT EXPRESSION ", exp);
+    let elementAccess = VisitorInterprete.prototype.visit(ctx.elementAccess());
+    if(typeof exp !=='number' && elementAccess !== null){
+        if(elementAccess < exp.length){
+            exp = exp[elementAccess];
+        }
+    }
+    //console.log("I AM THE element access IN ELEMENT EXPRESSION ", elementAccess);
     return exp;
 };
 
 
 // Visit a parse tree produced by miniPythonParser#elementAccess_Expression_AST.
 VisitorInterprete.prototype.visitElementAccess_Expression_AST = function(ctx) {
+    let lista = [];
+    let exp = null;
     for(var i = 0; i < ctx.expression().length; i++){
-        VisitorInterprete.prototype.visit(ctx.expression(i));
+        exp = VisitorInterprete.prototype.visit(ctx.expression(i));
+        lista.push(exp);
     }
-    
-    return null;
+    //.log("SOY UNA LISTA DE ELEMENT EXPRESSION", lista);
+    return exp;
 };
 
 // Visit a parse tree produced by miniPythonParser#elementAccess_Epsylon_AST.
@@ -650,7 +689,7 @@ VisitorInterprete.prototype.visitElementAccess_Epsylon_AST = function(ctx) {
 
 // Visit a parse tree produced by miniPythonParser#functionCallExpression_AST.
 VisitorInterprete.prototype.visitFunctionCallExpression_AST = function(ctx) {                           //HERE
-    nombreMetodo = ctx.ID().getSymbol(); 
+    nombreMetodo = ctx.ID().getSymbol();
     var metodo = almacenMetodos.buscar(nombreMetodo.text);
     if(metodo!==null){
         this.local = true;
@@ -662,7 +701,7 @@ VisitorInterprete.prototype.visitFunctionCallExpression_AST = function(ctx) {   
         console.log("JOJOJjojojJOJOJOJOJO"+resultado);
         stack.imprimir();
         if(stack.stack.length>0){
-            var tam = stack.stack.length
+            var tam = stack.stack.length;
             this.metodoActual = stack.stack[tam-2];
         }else{
             this.local=false;
@@ -681,17 +720,19 @@ VisitorInterprete.prototype.visitFunctionCallExpression_AST = function(ctx) {   
     console.log("STACK");
     stack.imprimir();
     
+    if(resultado==null){
+        var error = "Error en la invocación de la función "+ nombreMetodo.line+":"+nombreMetodo.column;
+        document.getElementById("messages").value += (error);
+        throw ( console.error(error));
+    }
     return resultado;
 };
 
 // Visit a parse tree produced by miniPythonParser#expressionList_AST.
 VisitorInterprete.prototype.visitExpressionList_AST = function(ctx) {
-    //console.log("NECESTIO LLEGAR AQUÍ");
     let exp = VisitorInterprete.prototype.visit(ctx.expression());
     let moreExpressions = VisitorInterprete.prototype.visit(ctx.moreExpressions());
-    //console.log("MOOOOOREEEEE EXXXXPRESSION !!!!", moreExpressions);
     moreExpressions.unshift(exp);
-    //console.log("MOOOOOREEEEE EXXXXPRESSION", moreExpressions);
     return moreExpressions;
 };
 
@@ -713,7 +754,6 @@ VisitorInterprete.prototype.visitMoreExpressions_Expression_AST = function(ctx) 
         expression = VisitorInterprete.prototype.visit(ctx.expression(i));
         moreExp.push(expression);
         i++;
-        //console.log("I", i);
     }
 
     /*for(i = 0; i < ctx.expression().length; i++){
@@ -743,7 +783,9 @@ VisitorInterprete.prototype.visitPrimitiveExpression_Integer_AST = function(ctx)
 
 // Visit a parse tree produced by miniPythonParser#primitiveExpression_String_AST.
 VisitorInterprete.prototype.visitPrimitiveExpression_String_AST = function(ctx) {
-    return ctx.STRING().getText();
+    let str = ctx.STRING().getText();
+    let text = str.substring(1, str.length - 1);
+    return text;
 };
 
 // Visit a parse tree produced by miniPythonParser#primitiveExpression_ID_AST.
@@ -807,21 +849,33 @@ VisitorInterprete.prototype.visitPrimitiveExpression_len_Expression_AST = functi
         len = dataForLen.length;
         return len;
     }
+
     if(typeof dataForLen === 'string'){
-        let dataValue = this.metodoActual.buscarValor(dataForLen);
-        if(dataValue == null){
+        console.log("data 4 len ",dataForLen);
+        let dataValue = null;
+        if(this.metodoActual==null){
             dataValue = almacenGlobales.buscarValor(dataForLen);
-        }
-        if(dataValue != null){
-            len = dataValue.length;
-            return len;
+            return dataValue;
         }
         else{
-            len = dataForLen.length -2 ;
-            return len
+            dataValue = this.metodoActual.buscarValor(dataForLen);
+            if(dataValue == null){
+                dataValue = almacenGlobales.buscarValor(dataForLen);
+            }
+            if(dataValue != null){
+                len = dataValue.length;
+                return len;
+            }
+            else{
+                len = dataForLen.length -2 ;
+                return len
+            }
         }
     }
-    return null;
+    //Por ahorita solo números
+    var error = "Error, no puede hacer len de un número ";
+    document.getElementById("messages").value += (error);
+    throw ( console.error(error));
 };
 
 // Visit a parse tree produced by miniPythonParser#primitiveExpression_functionCallExpression_AST.
@@ -833,25 +887,21 @@ VisitorInterprete.prototype.visitPrimitiveExpression_functionCallExpression_AST 
 
 // Visit a parse tree produced by miniPythonParser#listExpression_AST.
 VisitorInterprete.prototype.visitListExpression_AST = function(ctx) {
-
     let listExp = VisitorInterprete.prototype.visit(ctx.expressionList());
-    //console.log("LISTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa a ver si entro", listExp);
     let listType = typeof listExp[0];
-    //console.log("LISTaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", listExp);
-    /*let flagType = false;
+    let flagType = false;
     for(let i =0; i < listExp.length; i++){
         console.log("HOLAAA");
-        if(typeof listExp[i] !== listType){
-            flagType = false;
-            return null;
+        if(typeof listExp[i] === 'object'){
+            var error = "Error, no se permiten listas de listas";
+            document.getElementById("messages").value += (error);
+            throw ( console.error(error));
         }
-    }*/
+    }
     //console.log("LISTA",listExp);
     return listExp;
 };
-
 VisitorInterprete.prototype.visitMultOperator = function(ctx) {
- 
     return ctx.getText();
 };
 
