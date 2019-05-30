@@ -126,8 +126,8 @@
                 document.getElementById("messages").value += (element + '\n');
             });
         }
-        else{
-            visitorInterp.visit(tree);
+        /*else{
+            //visitorInterp.visit(tree);
             if(visitorInterp.listaVisitor.length === 0){
                 document.getElementById("messages").value += 'Sin errores de interpretación \n\n';
             }else{
@@ -135,7 +135,7 @@
                     document.getElementById("messages").value += (error + '\n');
                 });
             }
-        }
+        }*/
         /*else {
             document.getElementById("messages").value = 'Sin errores de sintaxis\n\n';
             visitor.visit(tree);
@@ -153,6 +153,7 @@
             }
             //impresión del árbol
         }*/
+        visitorInterp.visit(tree);
 
     });
 
