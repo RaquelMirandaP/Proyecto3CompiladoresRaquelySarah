@@ -80,15 +80,11 @@ MiVisitor.prototype.visitStatement_functionCallStatemt_AST = function(ctx) {
     MiVisitor.prototype.visit(ctx.functionCallStatement());
     return null
 };
-
-
 // Visit a parse tree produced by miniPythonParser#statement_expressionStatement_AST.
 MiVisitor.prototype.visitStatement_expressionStatement_AST = function(ctx) {
     MiVisitor.prototype.visit(ctx.expressionStatement());
     return null
 };
-
-
 // Visit a parse tree produced by miniPythonParser#defStatement_AST.
 MiVisitor.prototype.visitDefStatement_AST = function(ctx) {
     tablaIndent.openScope();
@@ -105,7 +101,6 @@ MiVisitor.prototype.visitDefStatement_AST = function(ctx) {
     tablaIndent.closeScope();
     return null;
 };
-
 // Visit a parse tree produced by miniPythonParser#argList_AST.
 MiVisitor.prototype.visitArgList_AST = function(ctx) {
     //console.log("Estoy en el  argList y este es mi lenght",ctx.ID().length);
@@ -141,8 +136,6 @@ MiVisitor.prototype.visitIfStatement_AST = function(ctx) {
     tablaIndent.closeScope();
     return null;
 };
-
-
 // Visit a parse tree produced by miniPythonParser#whileStatement_AST.
 MiVisitor.prototype.visitWhileStatement_AST = function(ctx) {
     tablaIndent.openScope();
@@ -151,7 +144,6 @@ MiVisitor.prototype.visitWhileStatement_AST = function(ctx) {
     tablaIndent.closeScope();
     return null;
 };
-
 
 // Visit a parse tree produced by miniPythonParser#forStatement_AST.
 MiVisitor.prototype.visitForStatement_AST = function(ctx) {
