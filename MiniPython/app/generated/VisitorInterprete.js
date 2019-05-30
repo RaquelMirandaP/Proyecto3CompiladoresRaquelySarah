@@ -109,14 +109,14 @@ VisitorInterprete.prototype.visitStatement_expressionStatement_AST = function(ct
 
 // Visit a parse tree produced by miniPythonParser#defStatement_AST.
 VisitorInterprete.prototype.visitDefStatement_AST = function(ctx) {
+    met = new metodo();
+    met.token = ctx.ID().getSymbol();
     if(this.local==true){
-        var error = "No puede declarar una funcion dentro de otra ";
+        var error = "No puede declarar una funcion dentro de otra " +met.token.line +":"+met.token.column;
         document.getElementById("messages").value += (error);
         throw ( console.error(error));
     }
     this.local = true;
-    met = new metodo();
-    met.token = ctx.ID().getSymbol();
     this.metodoActual = met;
     VisitorInterprete.prototype.visit(ctx.argList());
     this.metodoActual.puntero = ctx.sequence();
